@@ -1,8 +1,7 @@
 package com.lbz.android.myappplay.data;
 
 
-import com.lbz.android.myappplay.bean.BaseHttpResultBean;
-import com.lbz.android.myappplay.bean.PageMiBean;
+import com.lbz.android.myappplay.bean.PageBean;
 import com.lbz.android.myappplay.data.http.ApiService;
 import com.lbz.android.myappplay.presenter.contract.CategoryContract;
 
@@ -21,7 +20,7 @@ public class CategoryModel implements CategoryContract.ICategoryModel {
     }
 
     @Override
-    public Observable<PageMiBean> getCategory() {
+    public Observable<PageBean> getCategory() {
         return mApiService.getCategory();
     }
 }

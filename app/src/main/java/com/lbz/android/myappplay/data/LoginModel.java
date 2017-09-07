@@ -1,11 +1,8 @@
 package com.lbz.android.myappplay.data;
 
 
-import com.lbz.android.myappplay.bean.AppInfo;
 import com.lbz.android.myappplay.bean.BaseHttpResultBean;
-import com.lbz.android.myappplay.bean.IndexBean;
 import com.lbz.android.myappplay.bean.LoginBean;
-import com.lbz.android.myappplay.bean.PageBean;
 import com.lbz.android.myappplay.bean.requestbean.LoginRequestBean;
 import com.lbz.android.myappplay.data.http.ApiService;
 import com.lbz.android.myappplay.presenter.contract.LoginContract;

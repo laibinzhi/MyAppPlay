@@ -1,6 +1,6 @@
 package com.lbz.android.myappplay.presenter;
 
-import com.lbz.android.myappplay.bean.PageMiBean;
+import com.lbz.android.myappplay.bean.PageBean;
 import com.lbz.android.myappplay.commom.rx.subscriber.ProgressSubcriber;
 import com.lbz.android.myappplay.presenter.contract.CategoryContract;
 
@@ -25,9 +25,9 @@ public class CategoryPresenter extends BasePresenter<CategoryContract.ICategoryM
         mModel.getCategory()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new ProgressSubcriber<PageMiBean>(mContext,mView) {
+                .subscribe(new ProgressSubcriber<PageBean>(mContext,mView) {
                     @Override
-                    public void onNext(PageMiBean categoryBean) {
+                    public void onNext(PageBean categoryBean) {
                         mView.showData(categoryBean.getCategories());
                     }
                 });

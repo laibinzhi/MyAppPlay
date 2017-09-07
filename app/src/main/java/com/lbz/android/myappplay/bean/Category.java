@@ -1,11 +1,13 @@
 package com.lbz.android.myappplay.bean;
 
 
+import java.io.Serializable;
+
 /**
  * Created by elitemc on 2017/9/6.
  */
 
-public class Category {
+public class Category implements Serializable {
 
     /**
      * addTime : 0
@@ -371,7 +373,7 @@ public class Category {
         this.updateTime = updateTime;
     }
 
-    public static class HdIconBean {
+    public static class HdIconBean implements Serializable{
     }
 
 }

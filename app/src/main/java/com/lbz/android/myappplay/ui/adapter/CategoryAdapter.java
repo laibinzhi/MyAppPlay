@@ -13,7 +13,7 @@ import com.lbz.android.myappplay.commom.imageloader.ImageLoader;
  * Created by elitemc on 2017/9/6.
  */
 
-public class CategoryAdapter extends BaseQuickAdapter<Category,BaseViewHolder>{
+public class CategoryAdapter extends BaseQuickAdapter<Category, BaseViewHolder> {
 
     public CategoryAdapter() {
         super(R.layout.template_category);
@@ -21,8 +21,8 @@ public class CategoryAdapter extends BaseQuickAdapter<Category,BaseViewHolder>{
 
     @Override
     protected void convert(BaseViewHolder helper, Category item) {
-        helper.setText(R.id.text_name,item.getName());
+        helper.setText(R.id.text_name, item.getName());
 
-        ImageLoader.load(Constant.BASE_IMG_URL+item.getIcon(), (ImageView) helper.getView(R.id.img_icon));
+        ImageLoader.load(Constant.BASE_IMG_URL + item.getIcon(), (ImageView) helper.getView(R.id.img_icon));
     }
 }

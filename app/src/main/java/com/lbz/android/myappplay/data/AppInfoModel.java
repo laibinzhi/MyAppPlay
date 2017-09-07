@@ -1,15 +1,10 @@
 package com.lbz.android.myappplay.data;
 
 
-import com.lbz.android.myappplay.bean.AppInfo;
-import com.lbz.android.myappplay.bean.BaseHttpResultBean;
-import com.lbz.android.myappplay.bean.IndexBean;
 import com.lbz.android.myappplay.bean.PageBean;
-import com.lbz.android.myappplay.bean.PageMiBean;
 import com.lbz.android.myappplay.data.http.ApiService;
 
 
-import retrofit2.Callback;
 import rx.Observable;
 
 /**
@@ -24,26 +19,32 @@ public class AppInfoModel {
         this.mApiService = apiService;
     }
 
-    public Observable<BaseHttpResultBean<IndexBean>> getIndex() {
+    public Observable<PageBean> getIndexAppData() {
 
-        return mApiService.index();
+        return mApiService.getIndexAppData(0);
 
     }
 
-    public Observable<BaseHttpResultBean<PageBean<AppInfo>>> getTopList(int page) {
+    public Observable<PageBean> getIndexTopTheme() {
+
+        return mApiService.getIndexTopTheme();
+
+    }
+
+    public Observable<PageBean> getTopList(int page) {
         return mApiService.topList(page);
     }
 
 
-    public Observable<PageMiBean> getFeaturedAppsByCategory(int category_id, int page) {
+    public Observable<PageBean> getFeaturedAppsByCategory(int category_id, int page) {
         return mApiService.getFeaturedAppsByCategory(category_id, page);
     }
 
-    public Observable<PageMiBean> getTopListAppsByCategory(int category_id, int page) {
+    public Observable<PageBean> getTopListAppsByCategory(int category_id, int page) {
         return mApiService.getTopListAppsByCategory(category_id, page);
     }
 
-    public Observable<PageMiBean> getNewListAppsByCategory(int category_id, int page) {
+    public Observable<PageBean> getNewListAppsByCategory(int category_id, int page) {
         return mApiService.getNewListAppsByCategory(category_id, page);
     }
 

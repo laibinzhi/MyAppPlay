@@ -3,6 +3,7 @@ package com.lbz.android.myappplay.di.component;
 import com.lbz.android.myappplay.data.http.ApiService;
 import com.lbz.android.myappplay.di.FragmentScope;
 import com.lbz.android.myappplay.di.module.AppInfoModule;
+import com.lbz.android.myappplay.ui.fragment.CategoryAppFragment;
 import com.lbz.android.myappplay.ui.fragment.TopListFragment;
 
 import dagger.Component;
@@ -16,6 +17,8 @@ import dagger.Component;
 public interface AppInfoComponent {
 
     void injectTopListFragment(TopListFragment fragment);
+
+    void injectCategoryAppFragment(CategoryAppFragment fragment);
 
 
 }

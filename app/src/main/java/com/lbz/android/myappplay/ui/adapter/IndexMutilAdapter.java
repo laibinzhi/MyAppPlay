@@ -13,8 +13,8 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.lbz.android.myappplay.R;
-import com.lbz.android.myappplay.bean.Banner;
-import com.lbz.android.myappplay.bean.IndexBean;
+import com.lbz.android.myappplay.bean.PageBean;
+import com.lbz.android.myappplay.bean.ThemeBean;
 import com.lbz.android.myappplay.commom.imageloader.ImageLoader;
 import com.lbz.android.myappplay.ui.widget.BannerLayout;
 import com.lbz.android.myappplay.ui.widget.DividerItemDecoration;
@@ -24,6 +24,8 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+import static com.lbz.android.myappplay.data.http.ApiService.ICON_BASE_URL;
 
 /**
  * Created by elitemc on 2017/7/25.
@@ -37,15 +39,15 @@ public class IndexMutilAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private LayoutInflater mLayoutInflater;
     private Context mContext;
-    private IndexBean mIndexBean;
+    private PageBean mPageBean;
 
     public IndexMutilAdapter(Context context) {
         this.mContext = context;
         this.mLayoutInflater = LayoutInflater.from(context);
     }
 
-    public void setData(IndexBean indexBeen) {
-        this.mIndexBean = indexBeen;
+    public void setData(PageBean pageBean) {
+        this.mPageBean = pageBean;
     }
 
     @Override
@@ -69,12 +71,12 @@ public class IndexMutilAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (position == 0) {
             BannerViewHolder bannerViewHolder = (BannerViewHolder) holder;
 
-            List<Banner> banners = mIndexBean.getBanners();
-            List<String> urls = new ArrayList<>(banners.size());
+            List<ThemeBean> themes = mPageBean.getTopTheme();
+            List<String> urls = new ArrayList<>(themes.size());
 
-            for (Banner banner : banners) {
+            for (ThemeBean theme : themes) {
 
-                urls.add(banner.getThumbnail());
+                urls.add(ICON_BASE_URL + theme.getMticon());
             }
 
             bannerViewHolder.mBanner.setViewUrls(urls);
@@ -95,15 +97,15 @@ public class IndexMutilAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         } else {
             AppViewHolder viewHolder = (AppViewHolder) holder;
-            AppInfoAdapter mAppInfoAdapter =  AppInfoAdapter.builder().showBrief(true).showCategoryName(false).showPosition(false).build();
+            AppInfoAdapter mAppInfoAdapter = AppInfoAdapter.builder().showBrief(true).showCategoryName(false).showPosition(false).build();
 
             if (viewHolder.type == TYPE_APPS) {
                 viewHolder.mText.setText("热门应用");
 
-                mAppInfoAdapter.addData(mIndexBean.getRecommendApps());
-            }else if (viewHolder.type == TYPE_GAMES){
+                mAppInfoAdapter.addData(mPageBean.getListExtrasApp());
+            } else if (viewHolder.type == TYPE_GAMES) {
                 viewHolder.mText.setText("热门游戏");
-                mAppInfoAdapter.addData(mIndexBean.getRecommendGames());
+                mAppInfoAdapter.addData(mPageBean.getListExtrasGameApp());
             }
 
             viewHolder.mRecyclerView.setAdapter(mAppInfoAdapter);

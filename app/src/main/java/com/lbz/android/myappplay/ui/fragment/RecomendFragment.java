@@ -4,7 +4,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.lbz.android.myappplay.R;
-import com.lbz.android.myappplay.bean.IndexBean;
+import com.lbz.android.myappplay.bean.PageBean;
 import com.lbz.android.myappplay.di.component.AppComponent;
 import com.lbz.android.myappplay.di.component.DaggerRecommendComponent;
 import com.lbz.android.myappplay.di.module.RecommendModule;
@@ -57,10 +57,10 @@ public class RecomendFragment extends ProgressFragment<RecomendPresenter> implem
     }
 
     @Override
-    public void showData(IndexBean indexBean) {
+    public void showData(PageBean pageBean) {
         mAdapter = new IndexMutilAdapter(getActivity());
 
-        mAdapter.setData(indexBean);
+        mAdapter.setData(pageBean);
 
         mRecyclerView.setAdapter(mAdapter);
     }

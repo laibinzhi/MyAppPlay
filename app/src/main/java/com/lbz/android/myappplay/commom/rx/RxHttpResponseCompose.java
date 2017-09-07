@@ -1,6 +1,7 @@
 package com.lbz.android.myappplay.commom.rx;
 
 import com.lbz.android.myappplay.bean.BaseHttpResultBean;
+import com.lbz.android.myappplay.bean.PageBean;
 import com.lbz.android.myappplay.commom.exception.ApiException;
 
 import rx.Observable;
@@ -39,6 +40,16 @@ public class RxHttpResponseCompose {
                         }
                     }
                 }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+            }
+        };
+    }
+
+    public static Observable.Transformer composeSchedulers() {
+        return new Observable.Transformer<PageBean, PageBean>() {
+            @Override
+            public Observable<PageBean> call(Observable<PageBean> pageMiBeanObservable) {
+                return pageMiBeanObservable.subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread());
             }
         };
     }

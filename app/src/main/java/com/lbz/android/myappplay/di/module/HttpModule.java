@@ -34,7 +34,6 @@ public class HttpModule {
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         return new OkHttpClient.Builder()
-//                .addInterceptor(new BaseUrlInterceptor())
                 .addInterceptor(new CommonParamsInterceptor(application, gson))
                 .addInterceptor(httpLoggingInterceptor)
                 .connectTimeout(10, TimeUnit.SECONDS)

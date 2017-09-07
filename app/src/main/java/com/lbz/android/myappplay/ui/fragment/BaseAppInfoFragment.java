@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lbz.android.myappplay.R;
-import com.lbz.android.myappplay.bean.AppInfo;
 import com.lbz.android.myappplay.bean.PageBean;
 import com.lbz.android.myappplay.presenter.AppInfoPresenter;
 import com.lbz.android.myappplay.presenter.contract.AppInfoContract;
@@ -39,7 +38,7 @@ public abstract class BaseAppInfoFragment extends ProgressFragment<AppInfoPresen
         mPresenter.requestData(type(), page);
     }
 
-    private void initRecyclerView() {
+    protected void initRecyclerView() {
         mAppInfoAdapter = buildAdapter();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST);
@@ -49,8 +48,8 @@ public abstract class BaseAppInfoFragment extends ProgressFragment<AppInfoPresen
     }
 
     @Override
-    public void showData(PageBean<AppInfo> pageBean) {
-        mAppInfoAdapter.addData(pageBean.getDatas());
+    public void showData(PageBean pageBean) {
+        mAppInfoAdapter.addData(pageBean.getListApp());
         if (pageBean.isHasMore()) {
             page++;
         }
