@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single" android:id="@+id/group1" >
+        <item
+            android:id="@+id/menu_app_update"
+            android:title="@string/apps_update"/>
+
+        <item
+            android:id="@+id/menu_download_manager"
+            android:title="@string/download_manager"/>
+
+        <item
+            android:id="@+id/menu_app_uninstall"
+            android:title="@string/app_uninstall"/>
+
+        <item
+            android:id="@+id/menu_setting"
+            android:title="@string/sys_setting"/>
+
+
+    </group>
+
+    <group android:checkableBehavior="single" android:id="@+id/group2">
+        <item
+            android:id="@+id/menu_logout"
+            android:title="@string/logout"/>
+
+
+    </group>
+</menu>

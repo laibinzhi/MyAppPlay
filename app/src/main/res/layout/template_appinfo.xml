@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:background="@android:color/white"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical">
+
+
+
+
+    <TextView
+        android:id="@+id/txt_position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_centerVertical="true"
+        android:textSize="18dp"
+        style="@style/Text_Title"
+        android:text="1."/>
+
+
+    <ImageView
+
+        android:id="@+id/img_app_icon"
+        android:layout_width="64dp"
+        android:layout_height="64dip"
+        android:layout_toRightOf="@+id/txt_position"
+
+        android:layout_centerVertical="true"
+        android:src="@mipmap/ic_launcher"/>
+
+
+
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/img_app_icon"
+
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/txt_app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:textSize="18dp"
+                style="@style/Text_Title"
+                android:text="微信"
+                />
+
+            <TextView android:id="@+id/btn_download"
+                      android:layout_height="wrap_content"
+                      android:layout_width="wrap_content"
+                      android:layout_centerVertical="true"
+                      android:layout_alignParentRight="true"
+                      android:textColor="@color/md_grey_400"
+                      android:text="{ion-ios-download}"
+                      android:textSize="40dp"
+
+
+                />
+
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/txt_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="社交"
+            style="@style/Text_Content"
+            />
+
+
+
+        <TextView
+            android:id="@+id/txt_brief"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="社交"
+            style="@style/Text_Content"
+            />
+
+
+
+
+    </LinearLayout>
+
+
+
+
+
+</RelativeLayout>

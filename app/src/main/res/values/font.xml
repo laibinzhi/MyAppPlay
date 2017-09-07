@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="icon_rectangle390">&#xe600;</string>
+    <string name="icon_icon">&#xe602;</string>
+    <string name="icon_zhuanzhang">&#xe603;</string>
+    <string name="icon_xinyongqiahuankuan">&#xe604;</string>
+    <string name="icon_dangmianfu">&#xe605;</string>
+    <string name="icon_shuidianmei">&#xe606;</string>
+    <string name="icon_shoujichongzhi">&#xe607;</string>
+    <string name="icon_qinmifu">&#xe608;</string>
+    <string name="icon_gupiao">&#xe609;</string>
+
+</resources>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="{gmd_videocam}videocam"
+        android:textSize="40dp" />
+
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:ico_color="@color/colorPrimary"
+        app:ico_icon="gmd_border_outer"
+        app:ico_size="48dp" />
+
+    <com.mikepenz.iconics.view.IconicsImageView
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        app:iiv_color="@android:color/holo_red_dark"
+        app:iiv_icon="gmd_border_outer" />
+</LinearLayout>
