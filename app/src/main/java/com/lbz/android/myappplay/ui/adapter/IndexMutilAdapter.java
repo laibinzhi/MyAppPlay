@@ -1,6 +1,7 @@
 package com.lbz.android.myappplay.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import com.lbz.android.myappplay.R;
 import com.lbz.android.myappplay.bean.PageBean;
 import com.lbz.android.myappplay.bean.ThemeBean;
 import com.lbz.android.myappplay.commom.imageloader.ImageLoader;
+import com.lbz.android.myappplay.ui.activity.HotAppActivity;
 import com.lbz.android.myappplay.ui.widget.BannerLayout;
 import com.lbz.android.myappplay.ui.widget.DividerItemDecoration;
 
@@ -100,11 +102,11 @@ public class IndexMutilAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             AppInfoAdapter mAppInfoAdapter = AppInfoAdapter.builder().showBrief(true).showCategoryName(false).showPosition(false).build();
 
             if (viewHolder.type == TYPE_APPS) {
-                viewHolder.mText.setText("热门应用");
+                viewHolder.mText.setText(R.string.hot_app);
 
                 mAppInfoAdapter.addData(mPageBean.getListExtrasApp());
             } else if (viewHolder.type == TYPE_GAMES) {
-                viewHolder.mText.setText("热门游戏");
+                viewHolder.mText.setText(R.string.hot_game);
                 mAppInfoAdapter.addData(mPageBean.getListExtrasGameApp());
             }
 
@@ -140,6 +142,11 @@ public class IndexMutilAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.layout_hot_app:
+                mContext.startActivity(new Intent(mContext, HotAppActivity.class));
+                break;
+        }
 
     }
 
@@ -211,7 +218,6 @@ public class IndexMutilAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     class ImgLoader implements BannerLayout.ImageLoader {
-
 
         @Override
         public void displayImage(Context context, String path, ImageView imageView) {

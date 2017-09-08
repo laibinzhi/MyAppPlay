@@ -31,6 +31,7 @@
             android:theme="@style/AppTheme.Notitle.FullScreen" />
         <activity android:name=".ui.activity.LoginActivity" />
         <activity android:name=".ui.activity.CategoryAppActivity"/>
+        <activity android:name=".ui.activity.HotAppActivity" />
     </application>
 
 </manifest>

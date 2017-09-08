@@ -8,7 +8,7 @@ import com.lbz.android.myappplay.data.http.ApiService;
 import rx.Observable;
 
 /**
- * Created by elitemc on 2017/7/12.
+ * Created by lbz on 2017/7/12.
  */
 public class AppInfoModel {
 
@@ -32,20 +32,34 @@ public class AppInfoModel {
     }
 
     public Observable<PageBean> getTopList(int page) {
+
         return mApiService.topList(page);
+
     }
 
 
     public Observable<PageBean> getFeaturedAppsByCategory(int category_id, int page) {
+
         return mApiService.getFeaturedAppsByCategory(category_id, page);
+
     }
 
     public Observable<PageBean> getTopListAppsByCategory(int category_id, int page) {
+
         return mApiService.getTopListAppsByCategory(category_id, page);
+
     }
 
     public Observable<PageBean> getNewListAppsByCategory(int category_id, int page) {
+
         return mApiService.getNewListAppsByCategory(category_id, page);
+
+    }
+
+    public Observable<PageBean> getHotAppList(int page) {
+
+        return mApiService.getHotAppList(page);
+
     }
 
 }

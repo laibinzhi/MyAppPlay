@@ -21,6 +21,7 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
     public static final int TOP_LIST = 1;
     public static final int GAME = 2;
     public static final int CATEGORY = 3;
+    public static final int HOT_APP_LIST = 4;
 
 
     public static final int FEATURED = 0;
@@ -35,6 +36,7 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
     public void request(int type, int page, int categoryId, int flagType) {
 
         Subscriber subscriber = null;
+
         if (page == 0) {
             subscriber = new ProgressSubcriber<PageBean>(mContext, mView) {
                 @Override
@@ -68,8 +70,8 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
         switch (type) {
 
             case TOP_LIST:
-                return mModel.getTopList(page);
 
+                return mModel.getTopList(page);
 
             case GAME:
 
@@ -82,13 +84,21 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
                 } else if (flagType == TOPLIST) {
 
                     return mModel.getTopListAppsByCategory(categoryId, page);
+
                 } else if (flagType == NEWLIST) {
 
                     return mModel.getNewListAppsByCategory(categoryId, page);
+
                 }
 
+            case HOT_APP_LIST:
+
+                return mModel.getHotAppList(page);
+
             default:
+
                 return Observable.empty();
+
         }
 
     }
@@ -104,6 +114,5 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
         request(type, page, 0, 0);
 
     }
-
 
 }

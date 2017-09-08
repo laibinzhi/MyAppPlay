@@ -18,7 +18,7 @@ import rx.Observable;
 public interface ApiService {
 
 
-    public static final String BASE_URL = "http://app.market.xiaomi.com/";
+     String BASE_URL = "http://app.market.xiaomi.com/";
 
     String ICON_BASE_URL = "http://file.market.xiaomi.com/mfc/thumbnail/png/w150q80/";
 
@@ -45,4 +45,8 @@ public interface ApiService {
 
     @GET("/apm/updatelist/category/{category_id}")
     Observable<PageBean> getNewListAppsByCategory(@Path("category_id") int category_id, @Query("page") int page);
+
+    @GET("/apm/hotfeatured/")
+    Observable<PageBean> getHotAppList(@Query("page") int page);
+
 }
