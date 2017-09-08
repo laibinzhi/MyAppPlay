@@ -15,9 +15,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.lbz.android.myappplay.R;
 import com.lbz.android.myappplay.bean.PageBean;
-import com.lbz.android.myappplay.bean.ThemeBean;
+import com.lbz.android.myappplay.bean.SubjectBean;
 import com.lbz.android.myappplay.commom.imageloader.ImageLoader;
 import com.lbz.android.myappplay.ui.activity.HotAppActivity;
+import com.lbz.android.myappplay.ui.activity.HotSubjectActivity;
 import com.lbz.android.myappplay.ui.widget.BannerLayout;
 import com.lbz.android.myappplay.ui.widget.DividerItemDecoration;
 
@@ -73,10 +74,10 @@ public class IndexMutilAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (position == 0) {
             BannerViewHolder bannerViewHolder = (BannerViewHolder) holder;
 
-            List<ThemeBean> themes = mPageBean.getTopTheme();
+            List<SubjectBean> themes = mPageBean.getTopTheme();
             List<String> urls = new ArrayList<>(themes.size());
 
-            for (ThemeBean theme : themes) {
+            for (SubjectBean theme : themes) {
 
                 urls.add(ICON_BASE_URL + theme.getMticon());
             }
@@ -145,6 +146,9 @@ public class IndexMutilAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         switch (v.getId()){
             case R.id.layout_hot_app:
                 mContext.startActivity(new Intent(mContext, HotAppActivity.class));
+                break;
+            case R.id.layout_hot_subject:
+                mContext.startActivity(new Intent(mContext, HotSubjectActivity.class));
                 break;
         }
 

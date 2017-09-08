@@ -17,9 +17,9 @@ public class PageBean implements Serializable {
     private List<AppInfo> listExtrasApp;
     private List<AppInfo> listExtrasGameApp;
     private List<Category> categories;
-    private List<ThemeBean> topfeaturedList;
-    private List<ThemeBean> topTheme;
-    private List<ThemeBean> bottomTheme;
+    private List<SubjectBean> topfeaturedList;
+    private List<SubjectBean> topTheme;
+    private List<SubjectBean> bottomTheme;
 
     public boolean isHasMore() {
         return hasMore;
@@ -85,27 +85,27 @@ public class PageBean implements Serializable {
         this.listExtrasGameApp = listExtrasGameApp;
     }
 
-    public List<ThemeBean> getTopfeaturedList() {
+    public List<SubjectBean> getTopfeaturedList() {
         return topfeaturedList;
     }
 
-    public void setTopfeaturedList(List<ThemeBean> topfeaturedList) {
+    public void setTopfeaturedList(List<SubjectBean> topfeaturedList) {
         this.topfeaturedList = topfeaturedList;
     }
 
-    public List<ThemeBean> getTopTheme() {
+    public List<SubjectBean> getTopTheme() {
         return topTheme;
     }
 
-    public void setTopTheme(List<ThemeBean> topTheme) {
+    public void setTopTheme(List<SubjectBean> topTheme) {
         this.topTheme = topTheme;
     }
 
-    public List<ThemeBean> getBottomTheme() {
+    public List<SubjectBean> getBottomTheme() {
         return bottomTheme;
     }
 
-    public void setBottomTheme(List<ThemeBean> bottomTheme) {
+    public void setBottomTheme(List<SubjectBean> bottomTheme) {
         this.bottomTheme = bottomTheme;
     }
 }

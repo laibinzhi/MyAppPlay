@@ -70,4 +70,13 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <style name="GridView">
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/recommend_grid_padding</item>
+        <item name="android:horizontalSpacing">@dimen/recommend_grid_gap</item>
+        <item name="android:verticalSpacing">@dimen/recommend_grid_gap</item>
+        <item name="android:stretchMode">columnWidth</item>
+        <item name="android:numColumns">2</item>
+    </style>
+
 </resources>

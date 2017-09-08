@@ -292,4 +292,7 @@
     <color name="gray_btn_bg">#EAEAEA</color>
     <color name="background">#F1F1F1</color>
 
+    <color name="text_color_highlight">#ffff7e00</color>
+    <color name="text_color_shadow">#80ffffff</color>
+    <color name="text_color_link">#ff307ab3</color>
 </resources>

@@ -49,4 +49,7 @@ public interface ApiService {
     @GET("/apm/hotfeatured/")
     Observable<PageBean> getHotAppList(@Query("page") int page);
 
+    @GET("/apm/hotsubject/")
+    Observable<PageBean> getSubjectList(@Query("page") int page);
+
 }

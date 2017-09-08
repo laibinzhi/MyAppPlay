@@ -7,7 +7,7 @@ import java.util.List;
  * Created by elitemc on 2017/9/7.
  */
 
-public class ThemeBean  implements Serializable {
+public class SubjectBean implements Serializable {
 
     /**
      * adType : 0
@@ -56,6 +56,7 @@ public class ThemeBean  implements Serializable {
     private int webViewPicHeight;
     private int webViewPicWidth;
     private List<?> listApp;
+    private String h5BigIcon;
 
     public int getAdType() {
         return adType;
@@ -231,5 +232,13 @@ public class ThemeBean  implements Serializable {
 
     public void setListApp(List<?> listApp) {
         this.listApp = listApp;
+    }
+
+    public String getH5BigIcon() {
+        return h5BigIcon;
+    }
+
+    public void setH5BigIcon(String h5BigIcon) {
+        this.h5BigIcon = h5BigIcon;
     }
 }
