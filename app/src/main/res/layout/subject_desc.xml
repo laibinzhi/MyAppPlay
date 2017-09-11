@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="20dp"
+    android:background="@color/white"
+    android:id="@+id/subject_desc"
+    android:layout_width="match_parent"
+    android:lineSpacingMultiplier="1.3"
+    android:layout_height="wrap_content"
+    tools:text="这是描述，好看的描述" />

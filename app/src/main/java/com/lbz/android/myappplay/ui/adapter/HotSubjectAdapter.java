@@ -23,7 +23,7 @@ import java.util.List;
 public class HotSubjectAdapter extends BaseAdapter {
 
     private Context mContext;
-    private List<SubjectBean> mData;
+    public List<SubjectBean> mData;
 
     public HotSubjectAdapter(Context context) {
         this.mContext = context;

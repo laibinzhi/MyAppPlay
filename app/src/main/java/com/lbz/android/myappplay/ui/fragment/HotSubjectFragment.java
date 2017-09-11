@@ -1,14 +1,19 @@
 package com.lbz.android.myappplay.ui.fragment;
 
+import android.content.Intent;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 
 import com.lbz.android.myappplay.R;
 import com.lbz.android.myappplay.bean.SubjectBean;
+import com.lbz.android.myappplay.commom.Constant;
 import com.lbz.android.myappplay.di.component.AppComponent;
 import com.lbz.android.myappplay.di.component.DaggerSubjectComponent;
 import com.lbz.android.myappplay.di.module.SubjectModule;
 import com.lbz.android.myappplay.presenter.SubjectPresenter;
 import com.lbz.android.myappplay.presenter.contract.SubjectContract;
+import com.lbz.android.myappplay.ui.activity.SubjectAppActivity;
 import com.lbz.android.myappplay.ui.adapter.HotSubjectAdapter;
 import com.lbz.android.myappplay.ui.widget.PaddingGridView;
 
@@ -21,8 +26,6 @@ import butterknife.Bind;
  */
 
 public class HotSubjectFragment extends ProgressFragment<SubjectPresenter> implements SubjectContract.SubjectView {
-
-    private static final String TAG = "HotSubjectFragment";
 
     @Bind(R.id.subject_gridview)
     PaddingGridView mGridView;
@@ -51,11 +54,21 @@ public class HotSubjectFragment extends ProgressFragment<SubjectPresenter> imple
         mGridView.setNumColumns(2);
         mAdapter = new HotSubjectAdapter(getActivity());
         mGridView.setAdapter(mAdapter);
+        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent intent = new Intent(getActivity(), SubjectAppActivity.class);
+
+                intent.putExtra(Constant.SUBJECT, mAdapter.mData.get(position));
+
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
     public void showData(List<SubjectBean> subjectList) {
-        Log.e(TAG, "showData: subjectList="+subjectList.size());
         mAdapter.setData(subjectList);
     }
 

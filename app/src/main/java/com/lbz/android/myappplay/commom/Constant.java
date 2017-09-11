@@ -26,5 +26,6 @@ public class Constant {
     public static final String MARKET_VERSION = "marketVersion";
     public static final String STAMP = "stamp";
     public static final String CATEGORY = "category";
+    public static final String SUBJECT = "subject";
 
 }

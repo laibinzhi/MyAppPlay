@@ -4,6 +4,7 @@ import com.lbz.android.myappplay.di.FragmentScope;
 import com.lbz.android.myappplay.di.module.AppInfoModule;
 import com.lbz.android.myappplay.ui.fragment.CategoryAppFragment;
 import com.lbz.android.myappplay.ui.fragment.HotAppFragment;
+import com.lbz.android.myappplay.ui.fragment.SubjectAppFragment;
 import com.lbz.android.myappplay.ui.fragment.TopListFragment;
 
 import dagger.Component;
@@ -21,5 +22,7 @@ public interface AppInfoComponent {
     void injectCategoryAppFragment(CategoryAppFragment fragment);
 
     void injectHotAppFragment(HotAppFragment fragment);
+
+    void injectSubjectAppFragment(SubjectAppFragment fragment);
 
 }

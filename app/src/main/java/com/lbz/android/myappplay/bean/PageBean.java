@@ -20,6 +20,8 @@ public class PageBean implements Serializable {
     private List<SubjectBean> topfeaturedList;
     private List<SubjectBean> topTheme;
     private List<SubjectBean> bottomTheme;
+    private String description;
+    private boolean gameMustHaveHidden;
 
     public boolean isHasMore() {
         return hasMore;
@@ -107,5 +109,21 @@ public class PageBean implements Serializable {
 
     public void setBottomTheme(List<SubjectBean> bottomTheme) {
         this.bottomTheme = bottomTheme;
+    }
+
+    public String getDescripttion() {
+        return description;
+    }
+
+    public void setDescripttion(String descripttion) {
+        this.description = descripttion;
+    }
+
+    public boolean isGameMustHaveHidden() {
+        return gameMustHaveHidden;
+    }
+
+    public void setGameMustHaveHidden(boolean gameMustHaveHidden) {
+        this.gameMustHaveHidden = gameMustHaveHidden;
     }
 }

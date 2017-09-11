@@ -19,9 +19,9 @@ public class HotAppActivity extends BaseFragmentActivity {
     }
 
     @Override
-    public int getTitleId() {
+    public CharSequence getTitleString() {
 
-        return R.string.hot_app;
+        return getString(R.string.hot_app);
 
     }
 }

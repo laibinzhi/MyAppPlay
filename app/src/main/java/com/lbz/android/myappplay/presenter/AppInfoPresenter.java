@@ -22,6 +22,7 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
     public static final int GAME = 2;
     public static final int CATEGORY = 3;
     public static final int HOT_APP_LIST = 4;
+    public static final int SUBJECT_APP = 5;
 
 
     public static final int FEATURED = 0;
@@ -33,7 +34,7 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
         super(mModel, mView);
     }
 
-    public void request(int type, int page, int categoryId, int flagType) {
+    public void request(int type, int page, int categoryId, int flagType, int subject_id) {
 
         Subscriber subscriber = null;
 
@@ -58,14 +59,14 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
             };
         }
 
-        Observable observable = getObservable(type, page, categoryId, flagType);
+        Observable observable = getObservable(type, page, categoryId, flagType, subject_id);
 
 
         observable.compose(RxHttpResponseCompose.composeSchedulers())
                 .subscribe(subscriber);
     }
 
-    private Observable<PageBean> getObservable(int type, int page, int categoryId, int flagType) {
+    private Observable<PageBean> getObservable(int type, int page, int categoryId, int flagType, int subject_id) {
 
         switch (type) {
 
@@ -95,6 +96,10 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
 
                 return mModel.getHotAppList(page);
 
+            case SUBJECT_APP:
+
+                return mModel.getAppListBySubject(subject_id, page);
+
             default:
 
                 return Observable.empty();
@@ -105,13 +110,19 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
 
     public void requestCategoryApps(int categoryId, int page, int flagType) {
 
-        request(CATEGORY, page, categoryId, flagType);
+        request(CATEGORY, page, categoryId, flagType, 0);
+
+    }
+
+    public void requestSubjectApps(int subject_id, int page) {
+
+        request(SUBJECT_APP, page, 0, 0, subject_id);
 
     }
 
     public void requestData(int type, int page) {
 
-        request(type, page, 0, 0);
+        request(type, page, 0, 0, 0);
 
     }
 

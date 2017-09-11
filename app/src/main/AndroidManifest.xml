@@ -32,6 +32,7 @@
         <activity android:name=".ui.activity.CategoryAppActivity" />
         <activity android:name=".ui.activity.HotAppActivity" />
         <activity android:name=".ui.activity.HotSubjectActivity"></activity>
+        <activity android:name=".ui.activity.SubjectAppActivity" />
     </application>
 
 </manifest>

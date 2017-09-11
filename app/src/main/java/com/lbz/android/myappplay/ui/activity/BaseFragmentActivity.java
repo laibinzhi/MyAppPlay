@@ -65,7 +65,7 @@ public abstract class BaseFragmentActivity extends BaseActivity {
                         .color(getResources().getColor(R.color.md_white_1000)
                         )
         );
-        mToolBar.setTitle(getTitleId());
+        mToolBar.setTitle(getTitleString());
         mToolBar.setTitleTextColor(getColor(R.color.color_w));
         mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +90,7 @@ public abstract class BaseFragmentActivity extends BaseActivity {
 
     public abstract Fragment getFirstFragment();
 
-    public abstract int getTitleId();
+    public abstract CharSequence getTitleString();
+
 
 }

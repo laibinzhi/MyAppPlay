@@ -62,4 +62,10 @@ public class AppInfoModel {
 
     }
 
+    public Observable<PageBean> getAppListBySubject(int subject_id, int page) {
+
+        return mApiService.getAppListBySubject(subject_id,page);
+
+    }
+
 }

@@ -14,8 +14,8 @@ public class HotSubjectActivity extends BaseFragmentActivity {
     }
 
     @Override
-    public int getTitleId() {
-        return R.string.hot_top;
+    public CharSequence getTitleString() {
+        return getString(R.string.hot_top);
     }
 
 }
