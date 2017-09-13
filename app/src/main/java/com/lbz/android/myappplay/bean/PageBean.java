@@ -22,6 +22,7 @@ public class PageBean implements Serializable {
     private List<SubjectBean> bottomTheme;
     private String description;
     private boolean gameMustHaveHidden;
+    private AppDetailBean app;
 
     public boolean isHasMore() {
         return hasMore;
@@ -125,5 +126,21 @@ public class PageBean implements Serializable {
 
     public void setGameMustHaveHidden(boolean gameMustHaveHidden) {
         this.gameMustHaveHidden = gameMustHaveHidden;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public AppDetailBean getApp() {
+        return app;
+    }
+
+    public void setApp(AppDetailBean app) {
+        this.app = app;
     }
 }

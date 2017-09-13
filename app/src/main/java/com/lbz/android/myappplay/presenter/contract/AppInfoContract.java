@@ -1,7 +1,10 @@
 package com.lbz.android.myappplay.presenter.contract;
 
+import com.lbz.android.myappplay.bean.AppDetailBean;
 import com.lbz.android.myappplay.bean.PageBean;
 import com.lbz.android.myappplay.ui.BaseView;
+
+import java.util.List;
 
 
 /**
@@ -21,6 +24,11 @@ public interface AppInfoContract {
 
         void onLoadMoreComplete();
 
+    }
+
+    interface AppDetailView extends BaseView {
+
+        void showResult(AppDetailBean detailBean);
 
     }
 

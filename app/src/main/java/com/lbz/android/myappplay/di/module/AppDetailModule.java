@@ -1,25 +1,25 @@
 package com.lbz.android.myappplay.di.module;
 
-
 import com.lbz.android.myappplay.presenter.contract.AppInfoContract;
 
 import dagger.Module;
 import dagger.Provides;
 
 /**
- * Created by elitemc on 2017/7/13.
+ * Created by lbz on 2017/9/12.
  */
+
 @Module(includes = AppInfoModelModule.class)
-public class AppInfoModule {
+public class AppDetailModule {
 
-    private AppInfoContract.AppInfoView mView;
+    private AppInfoContract.AppDetailView mView;
 
-    public AppInfoModule(AppInfoContract.AppInfoView view) {
+    public AppDetailModule(AppInfoContract.AppDetailView view) {
         this.mView = view;
     }
 
     @Provides
-    AppInfoContract.AppInfoView provideView() {
+    AppInfoContract.AppDetailView provideView() {
         return mView;
     }
 

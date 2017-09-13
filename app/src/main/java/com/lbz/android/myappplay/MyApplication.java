@@ -2,6 +2,7 @@ package com.lbz.android.myappplay;
 
 import android.app.Application;
 import android.content.Context;
+import android.view.View;
 
 import com.lbz.android.myappplay.di.component.AppComponent;
 import com.lbz.android.myappplay.di.component.DaggerAppComponent;
@@ -14,6 +15,8 @@ import com.mikepenz.iconics.Iconics;
  * Created by elitemc on 2017/7/11.
  */
 public class MyApplication extends Application {
+
+    private View view;
 
     private AppComponent mAppComponent;
 
@@ -40,5 +43,13 @@ public class MyApplication extends Application {
                 .httpModule(new HttpModule())
                 .build();
 
+    }
+
+    public View getView() {
+        return view;
+    }
+
+    public void setView(View view) {
+        this.view = view;
     }
 }

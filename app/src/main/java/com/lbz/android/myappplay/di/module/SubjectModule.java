@@ -16,10 +16,9 @@ public class SubjectModule {
 
     public SubjectModule(SubjectContract.SubjectView  view) {
 
-
         this.mView = view;
-    }
 
+    }
 
     @Provides
     public SubjectContract.SubjectView provideView() {
@@ -33,7 +32,5 @@ public class SubjectModule {
 
         return new SubjectModel(apiService);
     }
-
-
 
 }

@@ -31,8 +31,9 @@
         <activity android:name=".ui.activity.LoginActivity" />
         <activity android:name=".ui.activity.CategoryAppActivity" />
         <activity android:name=".ui.activity.HotAppActivity" />
-        <activity android:name=".ui.activity.HotSubjectActivity"></activity>
+        <activity android:name=".ui.activity.HotSubjectActivity" />
         <activity android:name=".ui.activity.SubjectAppActivity" />
+        <activity android:name=".ui.activity.AppDetailActivity" android:theme="@style/AppTheme.Transparent"/>
     </application>
 
 </manifest>

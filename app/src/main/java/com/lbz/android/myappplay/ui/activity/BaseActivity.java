@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity {
 
-    private MyApplication mMyApplication;
+    protected MyApplication mMyApplication;
 
     @Inject
     T presenter;

@@ -17,16 +17,13 @@ import dagger.Provides;
 @Module
 public class LoginModule {
 
-
-
     private LoginContract.LoginView mView;
 
     public LoginModule(LoginContract.LoginView view){
 
-
         this.mView = view;
-    }
 
+    }
 
     @Provides
     public LoginContract.LoginView provideView(){
@@ -34,23 +31,10 @@ public class LoginModule {
         return mView;
     }
 
-
-
     @Provides
     public LoginContract.ILoginModel privodeModel(ApiService apiService){
 
         return  new LoginModel(apiService);
     }
-
-
-
-
-
-
-
-
-
-
-
 
 }

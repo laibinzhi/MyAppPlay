@@ -55,4 +55,7 @@ public interface ApiService {
     @GET("/apm/subject/{subject_id}")
     Observable<PageBean> getAppListBySubject(@Path("subject_id") int subject_id, @Query("page") int page);
 
+    @GET("/apm/app/id/{app_id}")
+    Observable<PageBean> getAppDetailById(@Path("app_id") int app_id);
+
 }

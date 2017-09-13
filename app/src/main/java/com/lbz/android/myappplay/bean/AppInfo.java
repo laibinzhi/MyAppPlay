@@ -291,7 +291,7 @@ public class AppInfo implements Serializable{
         this.videoId = videoId;
     }
 
-    public static class HdIconBean {
+    public static class HdIconBean implements Serializable {
         /**
          * main : AppStore/0c8f856f68426a9119f946d3f8367061c3143ad96
          */

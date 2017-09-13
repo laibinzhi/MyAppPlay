@@ -79,4 +79,32 @@
         <item name="android:numColumns">2</item>
     </style>
 
+    <style name="AppTheme.Transparent" parent="AppTheme">
+        　　<item name="android:windowBackground">@android:color/transparent</item>
+        　　<item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="Text_Title_Large" parent="Text_Title">
+        <item name="android:textSize">20dp</item>
+    </style>
+
+    <style name="Text_Content_grey_800">
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">@color/md_grey_800</item>
+    </style>
+
+    <style name="btn" parent="Base.TextAppearance.AppCompat.Widget.Button">
+        <item name="android:background">@drawable/bg_btn</item>
+        <item name="android:textColor">@color/color_btn</item>
+    </style>
+
+    <style name="btn_small" parent="btn">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
 </resources>

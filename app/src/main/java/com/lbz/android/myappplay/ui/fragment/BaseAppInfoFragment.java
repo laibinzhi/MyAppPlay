@@ -1,13 +1,18 @@
 package com.lbz.android.myappplay.ui.fragment;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.lbz.android.myappplay.R;
+import com.lbz.android.myappplay.bean.AppInfo;
 import com.lbz.android.myappplay.bean.PageBean;
 import com.lbz.android.myappplay.presenter.AppInfoPresenter;
 import com.lbz.android.myappplay.presenter.contract.AppInfoContract;
+import com.lbz.android.myappplay.ui.activity.AppDetailActivity;
 import com.lbz.android.myappplay.ui.adapter.AppInfoAdapter;
 import com.lbz.android.myappplay.ui.widget.DividerItemDecoration;
 
@@ -45,6 +50,16 @@ public abstract class BaseAppInfoFragment extends ProgressFragment<AppInfoPresen
         mRecyclerView.addItemDecoration(itemDecoration);
         mAppInfoAdapter.setOnLoadMoreListener(this);
         mRecyclerView.setAdapter(mAppInfoAdapter);
+        mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                mMyApplication.setView(view);
+                Intent intent =new Intent(getActivity(), AppDetailActivity.class);
+                AppInfo appInfo = mAppInfoAdapter.getItem(position);
+                intent.putExtra("appinfo",appInfo);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
