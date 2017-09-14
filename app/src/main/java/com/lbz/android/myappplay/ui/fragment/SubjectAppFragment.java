@@ -65,7 +65,7 @@ public class SubjectAppFragment extends ProgressFragment<AppInfoPresenter> imple
     @Override
     public void showData(PageBean pageBean) {
 
-        mAdapter = new SubjectAppAdapter(getActivity(),this.icon_url);
+        mAdapter = new SubjectAppAdapter(getActivity(),this.icon_url,mMyApplication);
 
         mAdapter.setData(pageBean);
 

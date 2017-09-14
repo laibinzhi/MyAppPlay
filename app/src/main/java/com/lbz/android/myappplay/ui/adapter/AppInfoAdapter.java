@@ -2,6 +2,7 @@ package com.lbz.android.myappplay.ui.adapter;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -61,6 +62,11 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfo, BaseViewHolder> {
 
         if(textViewSize !=null){
             textViewSize.setText((item.getApkSize() / 1014 / 1024) +"Mb");
+        }
+
+        RatingBar ratingBar= helper.getView(R.id.ratingbar);
+        if (ratingBar!=null){
+            ratingBar.setRating((float) item.getRatingScore());
         }
 
     }

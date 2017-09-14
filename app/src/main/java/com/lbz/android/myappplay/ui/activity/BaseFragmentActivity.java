@@ -23,7 +23,7 @@ public abstract class BaseFragmentActivity extends BaseActivity {
 
 
     @Bind(R.id.tool_bar)
-    Toolbar mToolBar;
+    protected Toolbar mToolBar;
 
     public static final String FIRST_FRAG_TAG = "first_frag";
 

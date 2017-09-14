@@ -58,7 +58,7 @@ public class RecomendFragment extends ProgressFragment<RecomendPresenter> implem
 
     @Override
     public void showData(PageBean pageBean) {
-        mAdapter = new IndexMutilAdapter(getActivity());
+        mAdapter = new IndexMutilAdapter(getActivity(),mMyApplication);
 
         mAdapter.setData(pageBean);
 

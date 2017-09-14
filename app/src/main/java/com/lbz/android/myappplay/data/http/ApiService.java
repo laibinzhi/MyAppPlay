@@ -58,4 +58,7 @@ public interface ApiService {
     @GET("/apm/app/id/{app_id}")
     Observable<PageBean> getAppDetailById(@Path("app_id") int app_id);
 
+    @GET("/apm/samedev/")
+    Observable<PageBean> getSameDevAppList(@Query("appId") int appid,@Query("page") int page);
+
 }

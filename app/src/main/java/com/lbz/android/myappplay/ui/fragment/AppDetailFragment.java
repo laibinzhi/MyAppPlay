@@ -1,15 +1,20 @@
 package com.lbz.android.myappplay.ui.fragment;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.lbz.android.myappplay.R;
 import com.lbz.android.myappplay.bean.AppDetailBean;
+import com.lbz.android.myappplay.bean.AppInfo;
 import com.lbz.android.myappplay.commom.Constant;
 import com.lbz.android.myappplay.commom.imageloader.ImageLoader;
 import com.lbz.android.myappplay.commom.util.DateUtils;
@@ -18,6 +23,8 @@ import com.lbz.android.myappplay.di.component.DaggerAppDetailComponent;
 import com.lbz.android.myappplay.di.module.AppDetailModule;
 import com.lbz.android.myappplay.presenter.AppDetailPresenter;
 import com.lbz.android.myappplay.presenter.contract.AppInfoContract;
+import com.lbz.android.myappplay.ui.activity.AppDetailActivity;
+import com.lbz.android.myappplay.ui.activity.SameDevAppActivity;
 import com.lbz.android.myappplay.ui.adapter.AppInfoAdapter;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 
@@ -86,7 +93,11 @@ public class AppDetailFragment extends ProgressFragment<AppDetailPresenter> impl
     }
 
     @Override
-    public void showResult(AppDetailBean detailBean) {
+    public void showResult(final AppDetailBean detailBean) {
+
+        if (((AppDetailActivity)getActivity()).isFromBanner){
+            ImageLoader.load(Constant.BASE_IMG_URL+detailBean.getIcon(),((AppDetailActivity)getActivity()).mImgIcon);
+        }
 
         showScreenshot(detailBean.getScreenshot());
 
@@ -99,6 +110,14 @@ public class AppDetailFragment extends ProgressFragment<AppDetailPresenter> impl
         mTxtPublisher2.setText(detailBean.getPublisherName());
 
         mSameDevLayout.setVisibility(detailBean.getSameDevAppInfoList().size()==0?View.GONE:View.VISIBLE);
+        mSameDevLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(getActivity(), SameDevAppActivity.class);
+                intent.putExtra("appDetail",detailBean);
+                startActivity(intent);
+            }
+        });
 
         mAdapter = AppInfoAdapter.builder().layout(R.layout.template_appinfo2)
                 .build();
@@ -109,6 +128,17 @@ public class AppDetailFragment extends ProgressFragment<AppDetailPresenter> impl
 
         mAdapter.addData(detailBean.getSameDevAppInfoList());
         mRecyclerViewSameDev.setAdapter(mAdapter);
+        mRecyclerViewSameDev.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                mMyApplication.setView(view);
+                Intent intent =new Intent(getActivity(), AppDetailActivity.class);
+                AppInfo appInfo = detailBean.getSameDevAppInfoList().get(position);
+                intent.putExtra("appinfo",appInfo);
+                intent.putExtra("closeAnimation",true);
+                startActivity(intent);
+            }
+        });
 
         /////////////////////////////////////////////
 
@@ -118,6 +148,17 @@ public class AppDetailFragment extends ProgressFragment<AppDetailPresenter> impl
         mRecyclerViewRelate.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         mAdapter.addData(detailBean.getRelateAppInfoList());
         mRecyclerViewRelate.setAdapter(mAdapter);
+        mRecyclerViewRelate.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                mMyApplication.setView(view);
+                Intent intent =new Intent(getActivity(), AppDetailActivity.class);
+                AppInfo appInfo = detailBean.getRelateAppInfoList().get(position);
+                intent.putExtra("appinfo",appInfo);
+                intent.putExtra("closeAnimation",true);
+                startActivity(intent);
+            }
+        });
     }
 
     private void showScreenshot(String screentShot) {

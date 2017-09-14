@@ -13,12 +13,17 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.lbz.android.myappplay.MyApplication;
 import com.lbz.android.myappplay.R;
+import com.lbz.android.myappplay.bean.AppInfo;
 import com.lbz.android.myappplay.bean.PageBean;
 import com.lbz.android.myappplay.bean.SubjectBean;
+import com.lbz.android.myappplay.commom.Constant;
 import com.lbz.android.myappplay.commom.imageloader.ImageLoader;
+import com.lbz.android.myappplay.ui.activity.AppDetailActivity;
 import com.lbz.android.myappplay.ui.activity.HotAppActivity;
 import com.lbz.android.myappplay.ui.activity.HotSubjectActivity;
+import com.lbz.android.myappplay.ui.activity.SubjectAppActivity;
 import com.lbz.android.myappplay.ui.widget.BannerLayout;
 import com.lbz.android.myappplay.ui.widget.DividerItemDecoration;
 
@@ -43,9 +48,11 @@ public class IndexMutilAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private LayoutInflater mLayoutInflater;
     private Context mContext;
     private PageBean mPageBean;
+    private MyApplication mMyApplication;
 
-    public IndexMutilAdapter(Context context) {
+    public IndexMutilAdapter(Context context,MyApplication mMyApplication) {
         this.mContext = context;
+        this.mMyApplication = mMyApplication;
         this.mLayoutInflater = LayoutInflater.from(context);
     }
 
@@ -74,7 +81,7 @@ public class IndexMutilAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (position == 0) {
             BannerViewHolder bannerViewHolder = (BannerViewHolder) holder;
 
-            List<SubjectBean> themes = mPageBean.getTopTheme();
+            final List<SubjectBean> themes = mPageBean.getTopTheme();
             List<String> urls = new ArrayList<>(themes.size());
 
             for (SubjectBean theme : themes) {
@@ -88,6 +95,24 @@ public class IndexMutilAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 @Override
                 public void onItemClick(int position) {
 //                    banners.get(position)
+
+                    SubjectBean subjectBean =themes.get(position);
+                    //滚播的是app
+                    if (subjectBean.getFeaturedType()==1){
+                        AppInfo appInfo =new AppInfo();
+                        appInfo.setId(subjectBean.getRelatedId());
+                        appInfo.setDisplayName(subjectBean.getTitle());
+                        goToAppDetail(appInfo,true,true);
+                    }
+                    //滚播的是主题
+                    else if (subjectBean.getFeaturedType()==2){
+
+                        Intent intent = new Intent(mContext, SubjectAppActivity.class);
+
+                        intent.putExtra(Constant.SUBJECT, subjectBean);
+
+                        mContext.startActivity(intent);
+                    }
                 }
             });
         } else if (position == 1) {
@@ -100,7 +125,7 @@ public class IndexMutilAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         } else {
             AppViewHolder viewHolder = (AppViewHolder) holder;
-            AppInfoAdapter mAppInfoAdapter = AppInfoAdapter.builder().showBrief(true).showCategoryName(false).showPosition(false).build();
+            final AppInfoAdapter mAppInfoAdapter = AppInfoAdapter.builder().showBrief(true).showCategoryName(false).showPosition(false).build();
 
             if (viewHolder.type == TYPE_APPS) {
                 viewHolder.mText.setText(R.string.hot_app);
@@ -115,7 +140,8 @@ public class IndexMutilAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             viewHolder.mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
                 @Override
                 public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+                    mMyApplication.setView(view);
+                    goToAppDetail(mAppInfoAdapter.getItem(position),false,false);
                 }
             });
         }
@@ -227,5 +253,13 @@ public class IndexMutilAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         public void displayImage(Context context, String path, ImageView imageView) {
             ImageLoader.load(path, imageView);
         }
+    }
+
+    public void goToAppDetail(AppInfo appInfo,boolean closeAnimation,boolean isFromBanner){
+        Intent intent =new Intent(mContext, AppDetailActivity.class);
+        intent.putExtra("appinfo",appInfo);
+        intent.putExtra("closeAnimation",closeAnimation);
+        intent.putExtra("isFromBanner",isFromBanner);
+        mContext.startActivity(intent);
     }
 }

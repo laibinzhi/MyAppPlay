@@ -42,7 +42,7 @@ public class AppDetailActivity extends BaseActivity<AppDetailPresenter> {
     CoordinatorLayout mCoordinatorLayout;
 
     @Bind(R.id.img_icon)
-    ImageView mImgIcon;
+    public ImageView mImgIcon;
 
     @Bind(R.id.txt_name)
     TextView mTxtName;
@@ -51,7 +51,8 @@ public class AppDetailActivity extends BaseActivity<AppDetailPresenter> {
     Toolbar mToolBar;
 
     private AppInfo mAppInfo;
-
+    private boolean closeAnimation;
+    public boolean isFromBanner;
 
     @Override
     protected int setLayout() {
@@ -67,6 +68,8 @@ public class AppDetailActivity extends BaseActivity<AppDetailPresenter> {
     protected void init() {
 
         mAppInfo = (AppInfo) getIntent().getSerializableExtra("appinfo");
+        closeAnimation = getIntent().getBooleanExtra("closeAnimation",false);
+        isFromBanner = getIntent().getBooleanExtra("isFromBanner",false);
 
         ImageLoader.load(Constant.BASE_IMG_URL+mAppInfo.getIcon(),mImgIcon);
         mTxtName.setText(mAppInfo.getDisplayName());
@@ -86,6 +89,12 @@ public class AppDetailActivity extends BaseActivity<AppDetailPresenter> {
             }
         });
 
+        if (closeAnimation){
+            mViewTemp.setVisibility(View.GONE);
+            mCoordinatorLayout.setVisibility(View.VISIBLE);
+            initFragment();
+            return;
+        }
         View view = mMyApplication.getView();
         Bitmap bitmap = getViewImageCache(view);
 

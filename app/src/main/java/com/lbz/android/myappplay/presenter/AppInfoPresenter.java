@@ -23,6 +23,7 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
     public static final int CATEGORY = 3;
     public static final int HOT_APP_LIST = 4;
     public static final int SUBJECT_APP = 5;
+    public static final int SAME_DEV_APP_LIST = 6;
 
 
     public static final int FEATURED = 0;
@@ -34,7 +35,7 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
         super(mModel, mView);
     }
 
-    public void request(int type, int page, int categoryId, int flagType, int subject_id) {
+    public void request(int type, int page, int categoryId, int flagType, int subject_id,int appId) {
 
         Subscriber subscriber = null;
 
@@ -59,14 +60,14 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
             };
         }
 
-        Observable observable = getObservable(type, page, categoryId, flagType, subject_id);
+        Observable observable = getObservable(type, page, categoryId, flagType, subject_id,appId);
 
 
         observable.compose(RxHttpResponseCompose.composeSchedulers())
                 .subscribe(subscriber);
     }
 
-    private Observable<PageBean> getObservable(int type, int page, int categoryId, int flagType, int subject_id) {
+    private Observable<PageBean> getObservable(int type, int page, int categoryId, int flagType, int subject_id,int appId) {
 
         switch (type) {
 
@@ -100,6 +101,10 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
 
                 return mModel.getAppListBySubject(subject_id, page);
 
+            case SAME_DEV_APP_LIST:
+
+                return mModel.getSameDevAppList(appId,page);
+
             default:
 
                 return Observable.empty();
@@ -110,19 +115,25 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
 
     public void requestCategoryApps(int categoryId, int page, int flagType) {
 
-        request(CATEGORY, page, categoryId, flagType, 0);
+        request(CATEGORY, page, categoryId, flagType, 0,0);
 
     }
 
     public void requestSubjectApps(int subject_id, int page) {
 
-        request(SUBJECT_APP, page, 0, 0, subject_id);
+        request(SUBJECT_APP, page, 0, 0, subject_id,0);
+
+    }
+
+    public void requestSameDevApps(int appId, int page) {
+
+        request(SAME_DEV_APP_LIST, page, 0, 0,0, appId);
 
     }
 
     public void requestData(int type, int page) {
 
-        request(type, page, 0, 0, 0);
+        request(type, page, 0, 0, 0,0);
 
     }
 

@@ -6,4 +6,5 @@
     <dimen name="main_padding">14dip</dimen>
     <dimen name="recommend_grid_padding">8.0dip</dimen>
     <dimen name="recommend_grid_gap">6.0dip</dimen>
+    <dimen name="ratingbar_readonly_size">12.0dip</dimen>
 </resources>

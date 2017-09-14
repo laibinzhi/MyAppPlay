@@ -74,4 +74,10 @@ public class AppInfoModel {
 
     }
 
+    public Observable<PageBean> getSameDevAppList(int appId,int page) {
+
+        return mApiService.getSameDevAppList(appId,page);
+
+    }
+
 }

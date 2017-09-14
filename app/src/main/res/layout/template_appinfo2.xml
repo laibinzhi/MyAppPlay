@@ -29,12 +29,13 @@
         android:text="微信"
         android:textSize="18dp" />
 
-    <TextView
-        android:id="@+id/txt_apk_size"
-        style="@style/Text_Content"
+    <RatingBar
+        android:gravity="center_vertical"
+        android:id="@+id/ratingbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="20Mb" />
+        style="@style/RatingBar.ReadOnly"
+        />
 
 
     <Button

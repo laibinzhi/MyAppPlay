@@ -1,6 +1,7 @@
 package com.lbz.android.myappplay.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,9 +12,12 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.lbz.android.myappplay.MyApplication;
 import com.lbz.android.myappplay.R;
+import com.lbz.android.myappplay.bean.AppInfo;
 import com.lbz.android.myappplay.bean.PageBean;
 import com.lbz.android.myappplay.commom.imageloader.ImageLoader;
+import com.lbz.android.myappplay.ui.activity.AppDetailActivity;
 import com.lbz.android.myappplay.ui.widget.DividerItemDecoration;
 
 
@@ -35,15 +39,21 @@ public class SubjectAppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private Context mContext;
     private PageBean mPageBean;
     private String icon_url;
+    private MyApplication mMyApplication;
 
-    public SubjectAppAdapter(Context context, String icon_url) {
+    public SubjectAppAdapter(Context context, String icon_url, MyApplication application) {
         this.mContext = context;
         this.mLayoutInflater = LayoutInflater.from(context);
         this.icon_url = icon_url;
+        this.mMyApplication =application;
     }
 
     public void setData(PageBean pageBean) {
         this.mPageBean = pageBean;
+    }
+
+    public PageBean getData() {
+        return this.mPageBean;
     }
 
     @Override
@@ -74,7 +84,7 @@ public class SubjectAppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         } else {
             AppViewHolder viewHolder = (AppViewHolder) holder;
-            AppInfoAdapter mAppInfoAdapter = AppInfoAdapter.builder().showBrief(true).showCategoryName(false).showPosition(false).build();
+            final AppInfoAdapter mAppInfoAdapter = AppInfoAdapter.builder().showBrief(true).showCategoryName(false).showPosition(false).build();
 
             mAppInfoAdapter.addData(mPageBean.getListApp());
 
@@ -82,7 +92,11 @@ public class SubjectAppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             viewHolder.mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
                 @Override
                 public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+                    mMyApplication.setView(view);
+                    Intent intent =new Intent(mContext, AppDetailActivity.class);
+                    AppInfo appInfo =mAppInfoAdapter.getItem(position);
+                    intent.putExtra("appinfo",appInfo);
+                    mContext.startActivity(intent);
                 }
             });
         }
