@@ -35,6 +35,7 @@
         <activity android:name=".ui.activity.SubjectAppActivity" />
         <activity android:name=".ui.activity.AppDetailActivity" android:theme="@style/AppTheme.Transparent"/>
         <activity android:name=".ui.activity.SameDevAppActivity" />
+        <activity android:name=".ui.activity.SearchAppActivity" />
     </application>
 
 </manifest>

@@ -295,4 +295,10 @@
     <color name="text_color_highlight">#ffff7e00</color>
     <color name="text_color_shadow">#80ffffff</color>
     <color name="text_color_link">#ff307ab3</color>
+
+    <color name="page_bg_color">#F5F7Fa</color>
+    <color name="zhonghui1">#CCD1D9</color>
+    <color name="shenhui1">#656D78</color>
+    <color name="zhonghui2">#AAB2BD</color>
+
 </resources>

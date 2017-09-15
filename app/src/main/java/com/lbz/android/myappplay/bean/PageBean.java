@@ -24,6 +24,7 @@ public class PageBean implements Serializable {
     private boolean gameMustHaveHidden;
     private AppDetailBean app;
     private String vdnm;
+    private String keyWord;
 
     public boolean isHasMore() {
         return hasMore;
@@ -152,4 +153,13 @@ public class PageBean implements Serializable {
     public void setVdnm(String vdnm) {
         this.vdnm = vdnm;
     }
+
+    public String getKeyWord() {
+        return keyWord;
+    }
+
+    public void setKeyWord(String keyWord) {
+        this.keyWord = keyWord;
+    }
+
 }

@@ -134,7 +134,7 @@ public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClic
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search:
-                Toast.makeText(MainActivity.this, "搜索", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this,SearchAppActivity.class));
                 break;
             case R.id.action_download:
                 Toast.makeText(MainActivity.this, "下载", Toast.LENGTH_SHORT).show();

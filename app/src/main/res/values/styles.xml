@@ -116,4 +116,9 @@
         <item name="android:numStars">5</item>
     </style>
 
+    <style name="SearchEditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="colorControlActivated">@android:color/white</item>
+    </style>
+
 </resources>

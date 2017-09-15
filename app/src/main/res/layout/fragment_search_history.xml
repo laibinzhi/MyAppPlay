@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/page_bg_color"
+    android:padding="16dp"
+    android:orientation="vertical">
+
+   <RelativeLayout
+       android:layout_marginTop="16dp"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+      <TextView
+          android:textSize="16dp"
+          android:text="历史纪录"
+          android:textColor="@color/zhonghui2"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content" />
+
+      <ImageView
+          android:id="@+id/delete_history_btn"
+          android:layout_alignParentRight="true"
+          android:src="@drawable/ic_delete_24dp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content" />
+
+   </RelativeLayout>
+
+   <com.lbz.android.myappplay.ui.widget.SourcePanelGridView
+       android:layout_marginTop="16dp"
+       android:id="@+id/search_grid_view"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:stretchMode="columnWidth"
+       android:horizontalSpacing="16dp"
+       android:verticalSpacing="16dp"
+       tools:listitem="@layout/history_gridview_item"
+       android:numColumns="3" />
+</LinearLayout>
