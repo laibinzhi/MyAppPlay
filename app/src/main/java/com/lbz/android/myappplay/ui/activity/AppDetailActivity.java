@@ -145,18 +145,25 @@ public class AppDetailActivity extends BaseActivity<AppDetailPresenter> {
             @Override
             public void onAnimationStart(Animator animation) {
 
-                mViewTemp.setBackgroundColor(getResources().getColor(R.color.white));
+                if (!isFinishing()){
+
+                    mViewTemp.setBackgroundColor(getResources().getColor(R.color.white));
+
+                }
 
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
 
-                mViewTemp.setVisibility(View.GONE);
-                mCoordinatorLayout.setVisibility(View.VISIBLE);
+                if (!isFinishing()) {
 
-                initFragment();
+                    mViewTemp.setVisibility(View.GONE);
 
+                    mCoordinatorLayout.setVisibility(View.VISIBLE);
+
+                    initFragment();
+                }
             }
         });
 
