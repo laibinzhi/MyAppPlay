@@ -22,6 +22,10 @@ public interface SearchAppContract {
 
         Observable<List<String>> getHistoryWordList();
 
+        void insertHistoryData(String histoty);
+
+        void deleteAllHistoryData();
+
     }
 
     interface SearchAppView extends BaseView{

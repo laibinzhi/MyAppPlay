@@ -151,4 +151,16 @@ public class SearchAppPresenter extends BasePresenter<SearchAppContract.ISearchA
                 });
     }
 
+    public void insertHistory(String history){
+
+        mModel.insertHistoryData(history);
+
+    }
+
+    public void deleteAllHistory(){
+
+        mModel.deleteAllHistoryData();
+
+    }
+
 }

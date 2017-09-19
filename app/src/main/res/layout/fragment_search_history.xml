@@ -34,8 +34,8 @@
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:stretchMode="columnWidth"
-       android:horizontalSpacing="16dp"
-       android:verticalSpacing="16dp"
+       android:horizontalSpacing="10dp"
+       android:verticalSpacing="10dp"
        tools:listitem="@layout/history_gridview_item"
        android:numColumns="3" />
 </LinearLayout>

@@ -1,5 +1,8 @@
 package com.lbz.android.myappplay.ui.fragment;
 
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.lbz.android.myappplay.R;
@@ -9,18 +12,20 @@ import com.lbz.android.myappplay.di.component.DaggerSearchAppComponent;
 import com.lbz.android.myappplay.di.module.SearchAppModule;
 import com.lbz.android.myappplay.presenter.SearchAppPresenter;
 import com.lbz.android.myappplay.presenter.contract.SearchAppContract;
+import com.lbz.android.myappplay.ui.activity.SearchAppActivity;
 import com.lbz.android.myappplay.ui.adapter.ShowAppHistoryAdapter;
 import com.lbz.android.myappplay.ui.widget.SourcePanelGridView;
 
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Created by elitemc on 2017/9/14.
  */
 
-public class SearchHistoryFragment extends BaseFragment<SearchAppPresenter> implements SearchAppContract.SearchAppView {
+public class SearchHistoryFragment extends BaseFragment<SearchAppPresenter> implements SearchAppContract.SearchAppView,AdapterView.OnItemClickListener {
 
     ShowAppHistoryAdapter mAdapter;
 
@@ -31,9 +36,18 @@ public class SearchHistoryFragment extends BaseFragment<SearchAppPresenter> impl
 
     @Override
     protected void init() {
-        mPresenter.getHistoryWordList();
-        mAdapter =new ShowAppHistoryAdapter(getActivity());
+        mAdapter = new ShowAppHistoryAdapter(getActivity());
         mSearchGridView.setAdapter(mAdapter);
+        mSearchGridView.setOnItemClickListener(this);
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            mPresenter.getHistoryWordList();
+        }
+
     }
 
     @Override
@@ -98,5 +112,23 @@ public class SearchHistoryFragment extends BaseFragment<SearchAppPresenter> impl
     @Override
     public void hideLoading() {
 
+    }
+
+    @OnClick(R.id.delete_history_btn)
+    public void onViewClicked() {
+
+        mPresenter.deleteAllHistory();
+
+        mPresenter.getHistoryWordList();
+
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        SearchAppActivity.notRuestAssociational = true;
+        ((SearchAppActivity) getActivity()).mSearchTextView.setText( mAdapter.getItem(position).toString());
+        ((EditText)(((SearchAppActivity) getActivity()).mSearchTextView)).setSelection(((SearchAppActivity) getActivity()).mSearchTextView.getText().length());
+        String searchWord = mAdapter.getItem(position).toString();
+        ((SearchAppActivity) getActivity()).initKeyWordAppListFragment(searchWord);
     }
 }

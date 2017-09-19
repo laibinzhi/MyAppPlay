@@ -105,6 +105,7 @@ public class SearchAppActivity extends BaseActivity<SearchAppPresenter> implemen
         hideFragment(transaction);
         transaction.show(mKeyWordAppListFragment);
         transaction.commit();
+        presenter.insertHistory(keyWord);
     }
 
     private void hideFragment(FragmentTransaction transaction) {

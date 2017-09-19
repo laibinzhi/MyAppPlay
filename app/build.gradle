@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'//添加apt命令
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 25
@@ -71,5 +72,13 @@ dependencies {
     compile 'com.ms-square:expandableTextView:0.1.4'
     compile 'com.android.support:design:25.3.1-alpha1'
     compile 'com.zoonref:simple-view-behavior:1.0'
+    compile'org.greenrobot:greendao:3.0.1'
+    compile'org.greenrobot:greendao-generator:3.0.0'
 
+}
+
+greendao {
+    schemaVersion 1
+    daoPackage 'com.lbz.android.myappplay.bean.SearchHistory'
+    targetGenDir 'src/main/java'
 }
