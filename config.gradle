@@ -16,7 +16,7 @@ ext{
             rxpermissionsVersion    : "0.9.4@aar",
             rxbusVersion            : "1.0.5",
 
-            retrofitVersion         : "2.3.0",
+            retrofitVersion         : "2.2.0",
 
             okhttpVersion           : "3.8.1",
 
@@ -38,7 +38,7 @@ ext{
 
 
             "retrofit"                           : "com.squareup.retrofit2:retrofit:${android["retrofitVersion"]}",
-            "retrofit-adapter-rxjava"            : "com.squareup.retrofit2:adapter-rxjava2:${android["retrofitVersion"]}",
+            "retrofit-adapter-rxjava"            : "com.squareup.retrofit2:adapter-rxjava:${android["retrofitVersion"]}",
             "retrofit-converter-gson"            : "com.squareup.retrofit2:converter-gson:${android["retrofitVersion"]}",
 
             "okhttp"                             : "com.squareup.okhttp3:okhttp:${android["okhttpVersion"]}",
