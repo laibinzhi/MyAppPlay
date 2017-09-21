@@ -40,7 +40,7 @@ dependencies {
         exclude group: 'io.reactivex', module: 'rxjava'
         exclude group: 'io.reactivex', module: 'rxandroid'
     }
-//    compile rootProject.ext.dependencies["rxdownload"]
+    compile rootProject.ext.dependencies["rxdownload"]
 
     //Retrofit
     compile rootProject.ext.dependencies["retrofit"]

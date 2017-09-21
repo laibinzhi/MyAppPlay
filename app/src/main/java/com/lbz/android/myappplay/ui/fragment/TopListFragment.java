@@ -20,7 +20,7 @@ public class TopListFragment extends BaseAppInfoFragment{
 
     @Override
     AppInfoAdapter buildAdapter() {
-        return AppInfoAdapter.builder().showPosition(true).showBrief(false).showCategoryName(true).build();
+        return AppInfoAdapter.builder().showPosition(true).showBrief(false).showCategoryName(true).application(mMyApplication).build();
     }
 
     @Override

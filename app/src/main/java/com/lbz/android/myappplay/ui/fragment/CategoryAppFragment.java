@@ -40,7 +40,7 @@ public class CategoryAppFragment extends BaseAppInfoFragment {
 
     @Override
     AppInfoAdapter buildAdapter() {
-        return AppInfoAdapter.builder().showPosition(false).showBrief(true).showCategoryName(false).build();
+        return AppInfoAdapter.builder().showPosition(false).showBrief(true).showCategoryName(false).application(mMyApplication).build();
     }
 
     @Override

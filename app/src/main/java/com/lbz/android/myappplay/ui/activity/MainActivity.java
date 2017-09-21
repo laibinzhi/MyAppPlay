@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.lbz.android.myappplay.R;
+import com.lbz.android.myappplay.bean.FragmentInfo;
 import com.lbz.android.myappplay.bean.User;
 import com.lbz.android.myappplay.commom.Constant;
 import com.lbz.android.myappplay.commom.imageloader.GlideCircleTransform;
@@ -28,9 +29,16 @@ import com.lbz.android.myappplay.commom.util.ACache;
 import com.lbz.android.myappplay.commom.util.PermissionUtil;
 import com.lbz.android.myappplay.di.component.AppComponent;
 import com.lbz.android.myappplay.ui.adapter.ViewPagerAdapter;
+import com.lbz.android.myappplay.ui.fragment.CategoryFragment;
+import com.lbz.android.myappplay.ui.fragment.GamesFragment;
+import com.lbz.android.myappplay.ui.fragment.RecomendFragment;
+import com.lbz.android.myappplay.ui.fragment.TopListFragment;
 import com.lbz.android.myappplay.ui.typeface.LbzFont;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import io.reactivex.functions.Consumer;
@@ -96,11 +104,23 @@ public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClic
     }
 
     private void initTabLayout() {
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), this);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), initFragment());
         mViewPager.setOffscreenPageLimit(viewPagerAdapter.getCount());
 
         mViewPager.setAdapter(viewPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
+    }
+
+    private  List<FragmentInfo> initFragment() {
+        List<FragmentInfo> mFragments = new ArrayList<>(4);
+
+        mFragments.add(new FragmentInfo(getString(R.string.recomend), RecomendFragment.class));
+        mFragments.add(new FragmentInfo(getString(R.string.ranking), TopListFragment.class));
+        mFragments.add(new FragmentInfo(getString(R.string.games), GamesFragment.class));
+        mFragments.add(new FragmentInfo(getString(R.string.category), CategoryFragment.class));
+
+        return mFragments;
+
     }
 
     private void initDrawerLayout() {

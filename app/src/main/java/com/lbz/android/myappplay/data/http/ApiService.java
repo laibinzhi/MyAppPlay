@@ -1,5 +1,6 @@
 package com.lbz.android.myappplay.data.http;
 
+import com.lbz.android.myappplay.bean.AppDownloadInfo;
 import com.lbz.android.myappplay.bean.Associational;
 import com.lbz.android.myappplay.bean.BaseHttpResultBean;
 import com.lbz.android.myappplay.bean.LoginBean;
@@ -67,5 +68,8 @@ public interface ApiService {
 
     @GET("/apm/search/")
     Observable<PageBean> getAppListByKeyword(@Query("keyword") String keyword,@Query("page") int page);
+
+    @GET("/apm/download/{id}")
+    Observable<AppDownloadInfo> getAppDownloadInfo(@Path("id") int id);
 
 }

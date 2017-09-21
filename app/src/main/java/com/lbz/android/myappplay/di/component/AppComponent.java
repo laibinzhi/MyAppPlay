@@ -5,17 +5,19 @@ import com.lbz.android.myappplay.commom.rx.RxErrorHandle;
 import com.lbz.android.myappplay.data.http.ApiService;
 import com.lbz.android.myappplay.di.module.AppModule;
 import com.lbz.android.myappplay.di.module.DBModule;
+import com.lbz.android.myappplay.di.module.DownloadModule;
 import com.lbz.android.myappplay.di.module.HttpModule;
 
 import javax.inject.Singleton;
 
 import dagger.Component;
 import okhttp3.OkHttpClient;
+import zlc.season.rxdownload2.RxDownload;
 
 /**
  * Created by elitemc on 2017/7/13.
  */
-@Component(modules = {AppModule.class, HttpModule.class, DBModule.class})
+@Component(modules = {AppModule.class, HttpModule.class, DBModule.class,DownloadModule.class})
 @Singleton
 public interface AppComponent {
 
@@ -26,5 +28,7 @@ public interface AppComponent {
     RxErrorHandle getRxErrorHandle();
 
     SearchHistoryDao getSearchHistoryDao();
+
+    RxDownload getRxDownload();
 
 }

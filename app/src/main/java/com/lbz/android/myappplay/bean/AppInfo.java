@@ -66,6 +66,8 @@ public class AppInfo implements Serializable{
     private int versionCode;
     private String versionName;
     private int videoId;
+    private AppDownloadInfo mAppDownloadInfo;
+
 
     public int getAdType() {
         return adType;
@@ -289,6 +291,14 @@ public class AppInfo implements Serializable{
 
     public void setVideoId(int videoId) {
         this.videoId = videoId;
+    }
+
+    public AppDownloadInfo getAppDownloadInfo() {
+        return mAppDownloadInfo;
+    }
+
+    public void setAppDownloadInfo(AppDownloadInfo appDownloadInfo) {
+        mAppDownloadInfo = appDownloadInfo;
     }
 
     public static class HdIconBean implements Serializable {

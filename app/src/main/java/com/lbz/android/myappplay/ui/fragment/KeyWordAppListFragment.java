@@ -63,7 +63,7 @@ public class KeyWordAppListFragment extends ProgressFragment<SearchAppPresenter>
     }
 
     private void initRecyclerView() {
-        mAppInfoAdapter = AppInfoAdapter.builder().showPosition(false).showBrief(true).showCategoryName(false).build();
+        mAppInfoAdapter = AppInfoAdapter.builder().showPosition(false).showBrief(true).showCategoryName(false).application(mMyApplication).build();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST);
         mRecyclerView.addItemDecoration(itemDecoration);
