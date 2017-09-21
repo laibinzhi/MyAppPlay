@@ -1,5 +1,7 @@
 package com.lbz.android.myappplay.di.component;
 
+import android.app.Application;
+
 import com.lbz.android.myappplay.bean.SearchHistory.SearchHistoryDao;
 import com.lbz.android.myappplay.commom.rx.RxErrorHandle;
 import com.lbz.android.myappplay.data.http.ApiService;
@@ -30,5 +32,7 @@ public interface AppComponent {
     SearchHistoryDao getSearchHistoryDao();
 
     RxDownload getRxDownload();
+
+    Application getApplication();
 
 }

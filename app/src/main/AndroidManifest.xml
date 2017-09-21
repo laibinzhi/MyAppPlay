@@ -38,6 +38,7 @@
         <activity android:name=".ui.activity.AppDetailActivity" android:theme="@style/AppTheme.Transparent"/>
         <activity android:name=".ui.activity.SameDevAppActivity" />
         <activity android:name=".ui.activity.SearchAppActivity" />
+        <activity android:name=".ui.activity.AppManagerActivity" />
     </application>
 
 </manifest>

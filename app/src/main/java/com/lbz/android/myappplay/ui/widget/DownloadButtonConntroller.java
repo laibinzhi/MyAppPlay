@@ -29,8 +29,10 @@ import io.reactivex.functions.Function;
 import zlc.season.rxdownload2.RxDownload;
 import zlc.season.rxdownload2.entity.DownloadBean;
 import zlc.season.rxdownload2.entity.DownloadEvent;
+import zlc.season.rxdownload2.entity.DownloadRecord;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static com.lbz.android.myappplay.commom.Constant.BASE_DOWNLOAD_URL;
 
 /**
  * Created by elitemc on 2017/9/21.
@@ -56,9 +58,24 @@ public class DownloadButtonConntroller {
 
     }
 
+    /**
+     * downloadlist初始化下载按钮
+     * @param btn
+     * @param record
+     */
+    public  void  handClick(final DownloadProgressButton btn, DownloadRecord record){
+
+//        Log.e("1111","在下载列表 handClick="+record.getUrl());
+
+        AppInfo info =downloadRecord2AppInfo(record);
+
+        receiveDownloadStatus(record.getUrl()).subscribe(new DownloadConsumer(btn,info));
+
+    }
+
 
     /**
-     * 初始化下载按钮
+     * applist初始化下载按钮
      * @param btn
      * @param appInfo
      */
@@ -126,8 +143,8 @@ public class DownloadButtonConntroller {
             public void accept(Object o) throws Exception {
 
                 int flag = (int) btn.getTag(R.id.tag_apk_flag);
-                Log.e("testdown","flag="+flag);
-
+                Log.e("1111","flag="+flag);
+                Log.e("1111", "getAppDownloadInfo =" + ((appInfo.getAppDownloadInfo() != null) ? "not null"+appInfo.getAppDownloadInfo().getDownloadUrl(): "null"));
                 switch (flag){
 
                     case DownloadFlag.INSTALLED:
@@ -229,6 +246,7 @@ public class DownloadButtonConntroller {
      * @param url
      */
     private void pausedDownload(String  url) {
+        Log.e("1111", "pausedDownload =" + url);
 
         mRxDownload.pauseServiceDownload(url).subscribe();
 
@@ -267,6 +285,30 @@ public class DownloadButtonConntroller {
         downloadBean.setExtra5(info.getReleaseKeyHash());
 
         return  downloadBean;
+    }
+
+    /**
+     * downloadRecord转DownloadBean
+     * @param bean
+     * @return
+     */
+    public AppInfo downloadRecord2AppInfo(DownloadRecord bean){
+Log.e("1111","downloadRecord2AppInfo="+bean.getUrl());
+        AppInfo info = new AppInfo();
+
+        info.setId(Integer.parseInt(bean.getExtra1()));
+        info.setIcon(bean.getExtra2());
+        info.setDisplayName(bean.getExtra3());
+        info.setPackageName(bean.getExtra4());
+        info.setReleaseKeyHash(bean.getExtra5());
+
+        AppDownloadInfo downloadInfo = new AppDownloadInfo();
+        downloadInfo.setApk(bean.getUrl().replace(BASE_DOWNLOAD_URL,""));
+
+        info.setAppDownloadInfo(downloadInfo);
+
+        return info;
+
     }
 
     /**

@@ -6,6 +6,7 @@ package com.lbz.android.myappplay.commom;
 public class Constant {
 
     public static  final String BASE_IMG_URL="http://file.market.xiaomi.com/mfc/thumbnail/png/w150q80/";
+    public static  final String BASE_DOWNLOAD_URL="http://f7.market.xiaomi.com/download/";
 
 
     public static final String IS_SHOW_GUIDE="is_show_guide";

@@ -164,7 +164,7 @@ public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClic
                 startActivity(new Intent(this,SearchAppActivity.class));
                 break;
             case R.id.action_download:
-                Toast.makeText(MainActivity.this, "下载", Toast.LENGTH_SHORT).show();
+                appManager();
                 break;
         }
         return false;
@@ -176,6 +176,11 @@ public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClic
             case R.id.menu_logout:
 
                 logout();
+
+                break;
+            case R.id.menu_download_manager:
+
+                appManager();
 
                 break;
         }
@@ -229,5 +234,9 @@ public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClic
         });
 
         Toast.makeText(MainActivity.this,"您已退出登录",Toast.LENGTH_LONG).show();
+    }
+
+    public void appManager(){
+        startActivity(new Intent(MainActivity.this,AppManagerActivity.class));
     }
 }
