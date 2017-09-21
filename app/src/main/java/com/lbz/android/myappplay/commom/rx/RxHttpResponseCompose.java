@@ -4,32 +4,37 @@ import com.lbz.android.myappplay.bean.BaseHttpResultBean;
 import com.lbz.android.myappplay.bean.PageBean;
 import com.lbz.android.myappplay.commom.exception.ApiException;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
+import io.reactivex.ObservableTransformer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
+
 
 /**
  * Created by elitemc on 2017/7/14.
  */
 public class RxHttpResponseCompose {
 
-    public static <T> Observable.Transformer<BaseHttpResultBean<T>, T> composeResult() {
-        return new Observable.Transformer<BaseHttpResultBean<T>, T>() {
+    public static <T> ObservableTransformer<BaseHttpResultBean<T>, T> composeResult() {
+        return new ObservableTransformer<BaseHttpResultBean<T>, T>() {
             @Override
-            public Observable<T> call(Observable<BaseHttpResultBean<T>> baseHttpResultBeanObservable) {
+            public Observable<T> apply(Observable<BaseHttpResultBean<T>> baseHttpResultBeanObservable) {
 
-                return baseHttpResultBeanObservable.flatMap(new Func1<BaseHttpResultBean<T>, Observable<T>>() {
+                return baseHttpResultBeanObservable.flatMap(new Function<BaseHttpResultBean<T>, ObservableSource<T>>() {
                     @Override
-                    public Observable<T> call(final BaseHttpResultBean<T> tBaseHttpResultBean) {
+                    public ObservableSource<T> apply(final BaseHttpResultBean<T> tBaseHttpResultBean) {
                         if (tBaseHttpResultBean.success()) {
-                            return Observable.create(new Observable.OnSubscribe<T>() {
+                            return Observable.create(new ObservableOnSubscribe<T>() {
                                 @Override
-                                public void call(Subscriber<? super T> subscriber) {
+                                public void subscribe(ObservableEmitter<T> subscriber) {
                                     try {
                                         subscriber.onNext(tBaseHttpResultBean.getData());
-                                        subscriber.onCompleted();
+                                        subscriber.onComplete();
                                     } catch (Exception e) {
                                         subscriber.onError(e);
                                     }
@@ -44,10 +49,12 @@ public class RxHttpResponseCompose {
         };
     }
 
-    public static Observable.Transformer composeSchedulers() {
-        return new Observable.Transformer<PageBean, PageBean>() {
+
+
+    public static ObservableTransformer composeSchedulers() {
+        return new ObservableTransformer<PageBean, PageBean>() {
             @Override
-            public Observable<PageBean> call(Observable<PageBean> pageMiBeanObservable) {
+            public Observable<PageBean> apply(Observable<PageBean> pageMiBeanObservable) {
                 return pageMiBeanObservable.subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread());
             }

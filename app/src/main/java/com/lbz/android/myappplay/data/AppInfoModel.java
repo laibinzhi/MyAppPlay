@@ -4,8 +4,8 @@ package com.lbz.android.myappplay.data;
 import com.lbz.android.myappplay.bean.PageBean;
 import com.lbz.android.myappplay.data.http.ApiService;
 
+import io.reactivex.Observable;
 
-import rx.Observable;
 
 /**
  * Created by lbz on 2017/7/12.

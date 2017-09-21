@@ -9,8 +9,8 @@ import com.lbz.android.myappplay.presenter.contract.AppInfoContract;
 
 import javax.inject.Inject;
 
-import rx.Observable;
-import rx.Subscriber;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
 
 /**
  * Created by elitemc on 2017/9/4.
@@ -37,7 +37,7 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
 
     public void request(int type, int page, int categoryId, int flagType, int subject_id,int appId) {
 
-        Subscriber subscriber = null;
+        Observer subscriber = null;
 
         if (page == 0) {
             subscriber = new ProgressSubcriber<PageBean>(mContext, mView) {
@@ -49,7 +49,7 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
         } else {
             subscriber = new ErrorHandleSubscriber<PageBean>(mContext) {
                 @Override
-                public void onCompleted() {
+                public void onComplete() {
                     mView.onLoadMoreComplete();
                 }
 

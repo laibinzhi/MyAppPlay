@@ -40,6 +40,9 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+        if (presenter!=null){
+            presenter.detachView();
+        }
     }
 
     protected abstract int setLayout();

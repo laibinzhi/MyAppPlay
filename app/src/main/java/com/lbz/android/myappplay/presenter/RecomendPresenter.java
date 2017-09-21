@@ -8,8 +8,9 @@ import com.lbz.android.myappplay.presenter.contract.AppInfoContract;
 
 import javax.inject.Inject;
 
-import rx.Observable;
-import rx.functions.Func2;
+import io.reactivex.Observable;
+import io.reactivex.functions.BiFunction;
+
 
 /**
  * Created by elitemc on 2017/7/12.
@@ -27,9 +28,9 @@ public class RecomendPresenter extends BasePresenter<AppInfoModel, AppInfoContra
         Observable<PageBean> app = mModel.getIndexAppData();
         Observable<PageBean> topTheme = mModel.getIndexTopTheme();
 
-        Observable.zip(app, topTheme, new Func2<PageBean, PageBean, PageBean>() {
+        Observable.zip(app, topTheme, new BiFunction<PageBean, PageBean, PageBean>() {
             @Override
-            public PageBean call(PageBean app, PageBean topTheme) {
+            public PageBean apply(PageBean app, PageBean topTheme) {
                 PageBean newZipBean = new PageBean();
                 newZipBean.setListExtrasApp(app.getListExtrasApp());
                 newZipBean.setListExtrasGameApp(app.getListExtrasGameApp());

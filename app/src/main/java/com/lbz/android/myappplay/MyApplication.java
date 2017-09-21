@@ -1,7 +1,7 @@
 package com.lbz.android.myappplay;
 
-import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDexApplication;
 import android.view.View;
 
 import com.lbz.android.myappplay.di.component.AppComponent;
@@ -14,7 +14,7 @@ import com.mikepenz.iconics.Iconics;
 /**
  * Created by elitemc on 2017/7/11.
  */
-public class MyApplication extends Application {
+public class MyApplication extends MultiDexApplication {
 
     private View view;
 

@@ -7,6 +7,9 @@ import com.lbz.android.myappplay.commom.exception.BaseException;
 import com.lbz.android.myappplay.commom.rx.RxErrorHandle;
 import com.lbz.android.myappplay.ui.activity.LoginActivity;
 
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+
 
 /**
  * Created by elitemc on 2017/7/14.
@@ -40,4 +43,8 @@ public abstract class ErrorHandleSubscriber<T> extends DefaultSubscriber<T> {
         mContext.startActivity(intent);
     }
 
+    @Override
+    public void onSubscribe(@NonNull Disposable d) {
+
+    }
 }

@@ -9,6 +9,9 @@ import com.lbz.android.myappplay.ui.BaseView;
 
 import javax.inject.Inject;
 
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+
 /**
  * Created by elitemc on 2017/7/12.
  */
@@ -20,10 +23,13 @@ public class BasePresenter<M, V extends BaseView> {
 
     protected Context mContext;
 
+    protected CompositeDisposable compositeDisposable;
+
     public BasePresenter(M mModel, V mView) {
         this.mModel = mModel;
         this.mView = mView;
         initContext();
+        compositeDisposable = new CompositeDisposable();
     }
 
     private void initContext() {
@@ -38,5 +44,19 @@ public class BasePresenter<M, V extends BaseView> {
 
         }
 
+    }
+
+    public void detachView() {
+        cleanDisposable();
+    }
+
+    protected void cleanDisposable() {
+        if (compositeDisposable != null) {
+            compositeDisposable.clear();
+        }
+    }
+
+    protected void addDisposable(Disposable disposable) {
+        compositeDisposable.add(disposable);
     }
 }

@@ -6,12 +6,12 @@ import com.lbz.android.myappplay.bean.LoginBean;
 import com.lbz.android.myappplay.bean.PageBean;
 import com.lbz.android.myappplay.bean.requestbean.LoginRequestBean;
 
+import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import rx.Observable;
 
 /**
  * Created by elitemc on 2017/7/12.

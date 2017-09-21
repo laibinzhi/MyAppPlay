@@ -48,6 +48,9 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment{
     public void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+        if (mPresenter!=null){
+            mPresenter.detachView();
+        }
     }
 
     protected abstract int setLayout();

@@ -8,6 +8,8 @@ import com.lbz.android.myappplay.presenter.contract.AppInfoContract;
 
 import javax.inject.Inject;
 
+import io.reactivex.disposables.Disposable;
+
 /**
  * Created by elitemc on 2017/9/12.
  */
@@ -23,6 +25,11 @@ public class AppDetailPresenter extends BasePresenter<AppInfoModel, AppInfoContr
         mModel.getAppDetailById(app_id)
                 .compose(RxHttpResponseCompose.composeSchedulers())
                 .subscribe(new ProgressSubcriber<PageBean>(mContext, mView) {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        super.onSubscribe(d);
+                        addDisposable(d);
+                    }
 
                     @Override
                     public void onNext(PageBean pageBean) {

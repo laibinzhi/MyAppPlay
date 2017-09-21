@@ -27,5 +27,6 @@ public class Constant {
     public static final String STAMP = "stamp";
     public static final String CATEGORY = "category";
     public static final String SUBJECT = "subject";
+    public static final String APK_DOWNLOAD_DIR = "apk_dl_dir";
 
 }

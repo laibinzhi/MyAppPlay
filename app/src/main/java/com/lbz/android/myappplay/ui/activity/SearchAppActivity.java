@@ -1,17 +1,13 @@
 package com.lbz.android.myappplay.ui.activity;
 
 import android.graphics.Color;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.jakewharton.rxbinding.widget.RxTextView;
 import com.lbz.android.myappplay.R;
 import com.lbz.android.myappplay.bean.PageBean;
 import com.lbz.android.myappplay.di.component.AppComponent;

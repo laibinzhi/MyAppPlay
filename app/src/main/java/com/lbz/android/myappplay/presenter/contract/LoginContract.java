@@ -4,7 +4,8 @@ import com.lbz.android.myappplay.bean.BaseHttpResultBean;
 import com.lbz.android.myappplay.bean.LoginBean;
 import com.lbz.android.myappplay.ui.BaseView;
 
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 /**
  * Created by elitemc on 2017/9/5.

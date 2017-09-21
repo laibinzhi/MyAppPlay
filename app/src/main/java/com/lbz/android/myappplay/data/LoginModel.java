@@ -7,7 +7,8 @@ import com.lbz.android.myappplay.bean.requestbean.LoginRequestBean;
 import com.lbz.android.myappplay.data.http.ApiService;
 import com.lbz.android.myappplay.presenter.contract.LoginContract;
 
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 /**
  * Created by elitemc on 2017/7/12.

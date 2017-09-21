@@ -9,8 +9,11 @@ import com.lbz.android.myappplay.commom.util.ACache;
 import com.lbz.android.myappplay.commom.util.VerificationUtils;
 import com.lbz.android.myappplay.presenter.contract.LoginContract;
 
+
 import javax.inject.Inject;
-import javax.inject.Named;
+
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
 
 
 /**
@@ -35,27 +38,26 @@ public class LoginPresenter extends BasePresenter<LoginContract.ILoginModel, Log
                 .compose(RxHttpResponseCompose.<LoginBean>composeResult())
                 .subscribe(new ErrorHandleSubscriber<LoginBean>(mContext) {
                     @Override
-                    public void onStart() {
-                        super.onStart();
-                        mView.showLoading();
-                    }
-
-                    @Override
-                    public void onCompleted() {
-                        mView.hideLoading();
-                    }
-
-                    @Override
                     public void onError(Throwable e) {
                         super.onError(e);
                         mView.hideLoading();
                     }
 
                     @Override
-                    public void onNext(LoginBean loginBean) {
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@NonNull LoginBean loginBean) {
                         mView.loginSuccess(loginBean);
                         saveUser(loginBean);
                         RxBus.get().post(loginBean.getUser());
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        mView.hideLoading();
                     }
                 });
     }

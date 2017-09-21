@@ -8,6 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.lbz.android.myappplay"
+        multiDexEnabled true
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
         versionCode rootProject.ext.android["versionCode"]
@@ -35,11 +36,17 @@ dependencies {
     compile rootProject.ext.dependencies["rxandroid"]
     compile rootProject.ext.dependencies["rxbinding"]
     compile rootProject.ext.dependencies["rxpermissions"]
-    compile rootProject.ext.dependencies["rxbus"]
+    compile(rootProject.ext.dependencies["rxbus"]){
+        exclude group: 'io.reactivex', module: 'rxjava'
+        exclude group: 'io.reactivex', module: 'rxandroid'
+    }
+//    compile rootProject.ext.dependencies["rxdownload"]
 
     //Retrofit
     compile rootProject.ext.dependencies["retrofit"]
-    compile rootProject.ext.dependencies["retrofit-adapter-rxjava"]
+    compile(rootProject.ext.dependencies["retrofit-adapter-rxjava"]){
+        exclude group: 'io.reactivex', module: 'rxjava'
+    }
     compile rootProject.ext.dependencies["retrofit-converter-gson"]
 
     //OkHttp
@@ -84,6 +91,7 @@ dependencies {
 
     compile 'cn.pedant.sweetalert:library:1.3'
     provided 'org.glassfish:javax.annotation:10.0-b28'
+    compile 'com.android.support:multidex:1.0.0'
 
 }
 

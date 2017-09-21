@@ -4,7 +4,8 @@ import com.lbz.android.myappplay.bean.PageBean;
 import com.lbz.android.myappplay.data.http.ApiService;
 import com.lbz.android.myappplay.presenter.contract.SubjectContract;
 
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 /**
  * Created by elitemc on 2017/9/8.

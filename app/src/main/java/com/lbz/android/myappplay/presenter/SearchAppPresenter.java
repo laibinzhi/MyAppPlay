@@ -1,9 +1,8 @@
 package com.lbz.android.myappplay.presenter;
 
-import android.util.Log;
 import android.widget.TextView;
 
-import com.jakewharton.rxbinding.widget.RxTextView;
+import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.lbz.android.myappplay.bean.Associational;
 import com.lbz.android.myappplay.bean.PageBean;
 import com.lbz.android.myappplay.commom.rx.RxHttpResponseCompose;
@@ -13,15 +12,20 @@ import com.lbz.android.myappplay.presenter.contract.SearchAppContract;
 import com.lbz.android.myappplay.ui.activity.SearchAppActivity;
 
 
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
+import io.reactivex.ObservableSource;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
 
 
 /**
@@ -40,16 +44,16 @@ public class SearchAppPresenter extends BasePresenter<SearchAppContract.ISearchA
         RxTextView.textChanges(textView)
                 .skip(1)
                 .debounce(200, TimeUnit.MILLISECONDS)
-                .map(new Func1<CharSequence, String>() {
+                .map(new Function<CharSequence, String>() {
                     @Override
-                    public String call(CharSequence charSequence) {
+                    public String apply(CharSequence charSequence) {
                         return charSequence.toString();
                     }
                 })
                 .subscribeOn(AndroidSchedulers.mainThread())
-                .filter(new Func1<String, Boolean>() {
+                .filter(new Predicate<String>() {
                     @Override
-                    public Boolean call(String s) {
+                    public boolean test(@NonNull String s) throws Exception {
                         if (!SearchAppActivity.notRuestAssociational){
                             return true;
                         }else {
@@ -58,9 +62,9 @@ public class SearchAppPresenter extends BasePresenter<SearchAppContract.ISearchA
                         }
                     }
                 })
-                .filter(new Func1<String, Boolean>() {
+                .filter(new Predicate<String>() {
                     @Override
-                    public Boolean call(String s) {
+                    public boolean test(@NonNull String s) throws Exception {
                         if (s.length() >0) {
                             mView.showAssociationalFragment();
                             return true;
@@ -70,9 +74,9 @@ public class SearchAppPresenter extends BasePresenter<SearchAppContract.ISearchA
                         }
                     }
                 })
-                .switchMap(new Func1<String, Observable<Associational>>() {
+                .switchMap(new Function<String, ObservableSource<Associational>>() {
                     @Override
-                    public Observable<Associational> call(String s) {
+                    public ObservableSource<Associational> apply(@NonNull String s) throws Exception {
                         return mModel.getAssociational(s);
                     }
                 })
@@ -81,7 +85,7 @@ public class SearchAppPresenter extends BasePresenter<SearchAppContract.ISearchA
 
 
                     @Override
-                    public void onCompleted() {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
@@ -90,13 +94,18 @@ public class SearchAppPresenter extends BasePresenter<SearchAppContract.ISearchA
                         mView.showAssociationalList(associational.getSuggestion());
                     }
 
+                    @Override
+                    public void onComplete() {
+
+                    }
+
                 });
 
     }
 
     public void AppListByKeyword(String keyword, final int page) {
 
-         Subscriber subscriber = null;
+        Observer subscriber = null;
 
         if (page == 0) {
             subscriber = new ProgressSubcriber<PageBean>(mContext, mView) {
@@ -111,14 +120,15 @@ public class SearchAppPresenter extends BasePresenter<SearchAppContract.ISearchA
             };
         } else {
             subscriber = new ErrorHandleSubscriber<PageBean>(mContext) {
-                @Override
-                public void onCompleted() {
-                    mView.onLoadMoreComplete();
-                }
 
                 @Override
                 public void onNext(PageBean pageBean) {
                     mView.showAppList(pageBean);
+                }
+
+                @Override
+                public void onComplete() {
+                    mView.onLoadMoreComplete();
                 }
             };
         }
@@ -132,22 +142,11 @@ public class SearchAppPresenter extends BasePresenter<SearchAppContract.ISearchA
     public void getHistoryWordList() {
         mModel.getHistoryWordList()
                 .compose(RxHttpResponseCompose.composeSchedulers())
-                .subscribe(new Subscriber<List<String>>() {
+                .subscribe(new Consumer<List<String>>() {
                     @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(List<String> history) {
+                    public void accept(List<String> history) throws Exception {
                         mView.showHistoryList(history);
                     }
-
                 });
     }
 

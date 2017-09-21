@@ -18,12 +18,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.lbz.android.myappplay.R;
 import com.lbz.android.myappplay.bean.User;
 import com.lbz.android.myappplay.commom.Constant;
 import com.lbz.android.myappplay.commom.imageloader.GlideCircleTransform;
+import com.lbz.android.myappplay.commom.rx.RxBus;
 import com.lbz.android.myappplay.commom.util.ACache;
 import com.lbz.android.myappplay.commom.util.PermissionUtil;
 import com.lbz.android.myappplay.di.component.AppComponent;
@@ -33,7 +33,7 @@ import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 
 import butterknife.Bind;
-import rx.functions.Action1;
+import io.reactivex.functions.Consumer;
 
 
 public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClickListener, NavigationView.OnNavigationItemSelectedListener {
@@ -56,13 +56,30 @@ public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClic
     private TextView mTextUserName;
 
     @Override
+    protected int setLayout() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void setActivityComponent(AppComponent appComponent) {
+
+    }
+
+    @Override
     protected void init() {
-        RxBus.get().register(this);
+
+        RxBus.getDefault().toObservable(User.class).subscribe(new Consumer<User>() {
+            @Override
+            public void accept(@io.reactivex.annotations.NonNull User user) throws Exception {
+
+                initUserHeadView(user);
+            }
+        });
 
         PermissionUtil.requestPermisson(this, Manifest.permission.READ_PHONE_STATE)
-                .subscribe(new Action1<Boolean>() {
+                .subscribe(new Consumer<Boolean>() {
                     @Override
-                    public void call(Boolean aBoolean) {
+                    public void accept(Boolean aBoolean) {
 
                         if(aBoolean){
                             initDrawerLayout();
@@ -75,16 +92,6 @@ public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClic
                         }
                     }
                 });
-
-    }
-
-    @Override
-    protected int setLayout() {
-        return R.layout.activity_main;
-    }
-
-    @Override
-    protected void setActivityComponent(AppComponent appComponent) {
 
     }
 
@@ -155,25 +162,6 @@ public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClic
         return false;
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        RxBus.get().unregister(this);
-    }
-
-    @Subscribe
-    public void setUser(User user){
-
-        initUserHeadView(user);
-        headerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-    }
-
     private void initUser(){
 
         Object objUser= ACache.get(this).getAsObject(Constant.USER);
@@ -192,15 +180,7 @@ public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClic
 
             User user = (User) objUser;
             initUserHeadView(user);
-            headerView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
         }
-
-
     }
 
 
