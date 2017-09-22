@@ -92,6 +92,14 @@ public class DownloadButtonConntroller {
 
     }
 
+    public Observable<?> deleteServiceDownload( DownloadRecord record){
+        if (mRxDownload!=null){
+            return mRxDownload.deleteServiceDownload(record.getUrl(),true);
+        }else {
+            return null;
+        }
+    }
+
 
     /**
      * applist初始化下载按钮
