@@ -45,7 +45,7 @@ public class MyApplication extends MultiDexApplication {
                 .httpModule(new HttpModule())
                 .build();
 
-        Utils.setDebug(true);
+        Utils.setDebug(false);
 
     }
 

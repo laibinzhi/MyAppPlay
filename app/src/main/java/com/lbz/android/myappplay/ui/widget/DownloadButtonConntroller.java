@@ -12,7 +12,9 @@ import com.lbz.android.myappplay.R;
 import com.lbz.android.myappplay.bean.AppDownloadInfo;
 import com.lbz.android.myappplay.bean.AppInfo;
 import com.lbz.android.myappplay.bean.DownloadFlag;
+import com.lbz.android.myappplay.bean.event.DownloadFinishEvent;
 import com.lbz.android.myappplay.commom.Constant;
+import com.lbz.android.myappplay.commom.rx.RxBus;
 import com.lbz.android.myappplay.commom.rx.RxHttpResponseCompose;
 import com.lbz.android.myappplay.commom.util.ACache;
 import com.lbz.android.myappplay.commom.util.AppUtils;
@@ -512,6 +514,7 @@ public class DownloadButtonConntroller {
                 case DownloadFlag.COMPLETED: //已完成
                     btn.setText("安装");
                     mStatus.setText("下载已完成");
+                    RxBus.getDefault().post(new DownloadFinishEvent(helper,mAppInfo));
                     //installApp(btn.getContext(),mAppInfo);
                     break;
                 case DownloadFlag.WAITING: //等待中

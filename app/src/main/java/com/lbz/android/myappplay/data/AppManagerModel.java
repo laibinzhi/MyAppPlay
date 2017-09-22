@@ -86,7 +86,12 @@ public class AppManagerModel implements AppManagerContract.IAppManagerModel {
 
             AndroidApk androidApk = AndroidApk.read(mContext,apk.getPath());
 
-            androidApks.add(androidApk);
+            if (androidApk!=null){
+
+                androidApks.add(androidApk);
+
+            }
+
         }
 
         return androidApks;
