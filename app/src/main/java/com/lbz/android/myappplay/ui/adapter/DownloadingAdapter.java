@@ -23,7 +23,7 @@ public class DownloadingAdapter extends BaseQuickAdapter<DownloadRecord, BaseVie
 
     public DownloadingAdapter(MyApplication application) {
 
-        super(R.layout.download_manager_item);
+        super(R.layout.downloading_app_item);
 
         mDownloadButtonConntroller = new DownloadButtonConntroller(application);
 
