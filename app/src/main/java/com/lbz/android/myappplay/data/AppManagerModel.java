@@ -1,6 +1,9 @@
 package com.lbz.android.myappplay.data;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 
 import com.lbz.android.myappplay.commom.Constant;
 import com.lbz.android.myappplay.commom.apkparset.AndroidApk;
@@ -24,13 +27,13 @@ import zlc.season.rxdownload2.entity.DownloadRecord;
 
 public class AppManagerModel implements AppManagerContract.IAppManagerModel {
 
-    private  RxDownload mRxDownload;
+    private RxDownload mRxDownload;
 
     private Context mContext;
 
-    public AppManagerModel(Context context,RxDownload rxDownload){
+    public AppManagerModel(Context context, RxDownload rxDownload) {
 
-        this.mContext =context;
+        this.mContext = context;
 
         mRxDownload = rxDownload;
 
@@ -58,35 +61,71 @@ public class AppManagerModel implements AppManagerContract.IAppManagerModel {
         });
     }
 
-    private List<AndroidApk> scanApks(String dir){
+    @Override
+    public Observable<List<AndroidApk>> getInstallApps() {
+        return Observable.create(new ObservableOnSubscribe<List<AndroidApk>>() {
+            @Override
+            public void subscribe(ObservableEmitter<List<AndroidApk>> e) throws Exception {
+
+                e.onNext(getInstallAppsList());
+                e.onComplete();
+            }
+        });
+    }
+
+    private List<AndroidApk> getInstallAppsList() {
+        List<AndroidApk> appList = new ArrayList<>();
+
+        PackageManager pm = mContext.getPackageManager();
+        List<PackageInfo> packages = pm.getInstalledPackages(0);
+
+        for (PackageInfo packageInfo : packages) {
+            // 判断系统/非系统应用
+            if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) // 非系统应用
+            {
+                AndroidApk info = new AndroidApk();
+                info.setAppName(packageInfo.applicationInfo.loadLabel(pm).toString());
+                info.setPackageName(packageInfo.packageName);
+                info.setDrawable(packageInfo.applicationInfo.loadIcon(pm));
+                appList.add(info);
+            } else {
+                // 系统应用　　　　　　　　
+            }
+
+        }
+
+        return appList;
+    }
+
+    private List<AndroidApk> scanApks(String dir) {
 
         File file = new File(dir);
 
-        if(!file.isDirectory()){
+        if (!file.isDirectory()) {
 
-            throw  new RuntimeException("is not Dir");
+            throw new RuntimeException("is not Dir");
         }
 
-        File[] apks =  file.listFiles(new FileFilter(){
+        File[] apks = file.listFiles(new FileFilter() {
 
             @Override
             public boolean accept(File f) {
 
-                if(f.isDirectory()){
-                    return  false;
+                if (f.isDirectory()) {
+                    return false;
                 }
 
                 return f.getName().endsWith(".apk");
             }
         });
 
-        List<AndroidApk>  androidApks = new ArrayList<>();
+        List<AndroidApk> androidApks = new ArrayList<>();
 
-        for (File apk : apks){
+        for (File apk : apks) {
 
-            AndroidApk androidApk = AndroidApk.read(mContext,apk.getPath());
+            AndroidApk androidApk = AndroidApk.read(mContext, apk.getPath());
 
-            if (androidApk!=null){
+            if (androidApk != null) {
 
                 androidApks.add(androidApk);
 

@@ -50,6 +50,17 @@ public class AppMangerPresenter extends BasePresenter<AppManagerContract.IAppMan
                 });
     }
 
+    public void getInstallApps(){
+
+        mModel.getInstallApps().compose(RxHttpResponseCompose.composeSchedulers())
+                .subscribe(new ProgressSubcriber<List<AndroidApk>>(mContext,mView) {
+                    @Override
+                    public void onNext(List<AndroidApk> androidApks) {
+                        mView.showApps(androidApks);
+                    }
+                });
+    }
+
     private List<DownloadRecord> downloadRecordFilter(List<DownloadRecord> downloadRecords){
 
         List<DownloadRecord> newList = new ArrayList<>();

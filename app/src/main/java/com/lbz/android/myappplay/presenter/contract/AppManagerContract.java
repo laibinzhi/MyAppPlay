@@ -22,6 +22,8 @@ public interface AppManagerContract {
 
         Observable<List<AndroidApk>> getLocalApks();
 
+        Observable<List<AndroidApk>> getInstallApps();
+
     }
 
     interface AppManagerView extends BaseView {
