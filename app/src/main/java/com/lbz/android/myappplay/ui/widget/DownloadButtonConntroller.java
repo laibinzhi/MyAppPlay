@@ -1,6 +1,7 @@
 package com.lbz.android.myappplay.ui.widget;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import com.lbz.android.myappplay.R;
 import com.lbz.android.myappplay.bean.AppDownloadInfo;
 import com.lbz.android.myappplay.bean.AppInfo;
 import com.lbz.android.myappplay.bean.DownloadFlag;
+import com.lbz.android.myappplay.bean.event.AppInstallEvent;
 import com.lbz.android.myappplay.bean.event.DownloadFinishEvent;
 import com.lbz.android.myappplay.commom.Constant;
 import com.lbz.android.myappplay.commom.rx.RxBus;
@@ -31,6 +33,7 @@ import io.reactivex.ObservableSource;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
 import zlc.season.rxdownload2.RxDownload;
 import zlc.season.rxdownload2.entity.DownloadBean;
 import zlc.season.rxdownload2.entity.DownloadEvent;
@@ -61,7 +64,6 @@ public class DownloadButtonConntroller {
         }
 
 //        Log.e("1111", "myApplication getAppComponent=" + ((myApplication.getAppComponent() != null) ? "not null" : "null"));
-
     }
 
     /**
@@ -94,10 +96,10 @@ public class DownloadButtonConntroller {
 
     }
 
-    public Observable<?> deleteServiceDownload( DownloadRecord record){
-        if (mRxDownload!=null){
-            return mRxDownload.deleteServiceDownload(record.getUrl(),true);
-        }else {
+    public Observable<?> deleteServiceDownload(DownloadRecord record) {
+        if (mRxDownload != null) {
+            return mRxDownload.deleteServiceDownload(record.getUrl(), true);
+        } else {
             return null;
         }
     }
@@ -125,6 +127,11 @@ public class DownloadButtonConntroller {
                         if (DownloadFlag.UN_INSTALL == event.getFlag()) {
 
                             return isApkFileExsit(btn.getContext(), appInfo);
+
+                        }
+                        if (DownloadFlag.INSTALLED == event.getFlag()) {
+
+                            return isShouldUpdate(btn.getContext(), appInfo);
 
                         }
 
@@ -159,6 +166,29 @@ public class DownloadButtonConntroller {
 
                 .subscribe(new DownloadConsumer(btn, appInfo));
 
+        RxBus.getDefault().toObservable(AppInstallEvent.class)
+                .filter(new Predicate<AppInstallEvent>() {
+                    @Override
+                    public boolean test(@NonNull AppInstallEvent appInstallEvent) throws Exception {
+                        return appInstallEvent.getPgName().equals(appInfo.getPackageName());
+                    }
+                })
+                .flatMap(new Function<AppInstallEvent, ObservableSource<DownloadEvent>>() {
+                    @Override
+                    public ObservableSource<DownloadEvent> apply(@NonNull AppInstallEvent appInstallEvent) throws Exception {
+                        DownloadEvent event = new DownloadEvent();
+                        String flag = appInstallEvent.getFLAG();
+
+                        if (flag.equals(Intent.ACTION_PACKAGE_ADDED) || flag.equals(Intent.ACTION_PACKAGE_REPLACED)) {
+
+                            event.setFlag(DownloadFlag.INSTALLED);
+
+                        }
+                        return Observable.just(event);
+                    }
+                }).subscribe(new DownloadConsumer(btn, appInfo));
+
+
     }
 
     /**
@@ -192,6 +222,7 @@ public class DownloadButtonConntroller {
 
                     case DownloadFlag.NORMAL:
                     case DownloadFlag.PAUSED:
+                    case DownloadFlag.SHOULD_UPDATE:
 
                         startDownload(btn, appInfo);
 
@@ -247,6 +278,19 @@ public class DownloadButtonConntroller {
     }
 
     /**
+     * 判断app是否需要更新
+     *
+     * @param context
+     * @param appInfo
+     * @return
+     */
+    private ObservableSource<DownloadEvent> isShouldUpdate(Context context, AppInfo appInfo) {
+        DownloadEvent event = new DownloadEvent();
+        event.setFlag(AppUtils.isShouldUpdate(context, appInfo) ? DownloadFlag.SHOULD_UPDATE : DownloadFlag.INSTALLED);
+        return Observable.just(event);
+    }
+
+    /**
      * 根据id获取应用下载信息
      *
      * @param appInfo
@@ -298,6 +342,7 @@ public class DownloadButtonConntroller {
 
         String path = ACache.get(context).getAsString(Constant.APK_DOWNLOAD_DIR) + "/" + appInfo.getReleaseKeyHash() + ".apk";
 
+        Log.e("ttttt", " installApp path=" + path);
         AppUtils.installApk(context, path);
 
     }
@@ -450,6 +495,9 @@ public class DownloadButtonConntroller {
                 case DownloadFlag.DELETED: //已删除
 
                     break;
+                case DownloadFlag.SHOULD_UPDATE://可升级
+                    btn.setText("升级");
+                    break;
 
             }
 
@@ -514,7 +562,7 @@ public class DownloadButtonConntroller {
                 case DownloadFlag.COMPLETED: //已完成
                     btn.setText("安装");
                     mStatus.setText("下载已完成");
-                    RxBus.getDefault().post(new DownloadFinishEvent(helper,mAppInfo));
+                    RxBus.getDefault().post(new DownloadFinishEvent(helper, mAppInfo));
                     //installApp(btn.getContext(),mAppInfo);
                     break;
                 case DownloadFlag.WAITING: //等待中

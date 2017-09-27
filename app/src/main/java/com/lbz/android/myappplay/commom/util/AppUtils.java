@@ -28,6 +28,8 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.lbz.android.myappplay.bean.AppInfo;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -208,6 +210,35 @@ public class AppUtils {
             }
         }
         return installed;
+    }
+
+    public static boolean isShouldUpdate(Context context, AppInfo appInfo) {
+        boolean isShouldUpdate = false;
+        if (TextUtils.isEmpty(appInfo.getPackageName())) {
+            return false;
+        }
+        PackageManager pm = context.getPackageManager();
+        List<PackageInfo> packages = pm.getInstalledPackages(0);
+        for (PackageInfo packageInfo : packages) {
+
+            if (packageInfo.packageName.equals(appInfo.getPackageName())) {
+                int serviceAppVersionCode = appInfo.getVersionCode();
+                String serviceAppVersionName = appInfo.getVersionName();
+
+                int localAppVersionCode = packageInfo.versionCode;
+                String localAppVersionName = packageInfo.versionName;
+
+                if (serviceAppVersionCode > localAppVersionCode && !serviceAppVersionName.equals(localAppVersionName)) {
+                    isShouldUpdate = true;
+                } else {
+                    isShouldUpdate = false;
+                }
+
+
+            }
+
+        }
+        return isShouldUpdate;
     }
 
     public static boolean installApk(Context context, String filePath) {
