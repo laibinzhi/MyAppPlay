@@ -1,5 +1,6 @@
 package com.lbz.android.myappplay.presenter;
 
+import com.lbz.android.myappplay.bean.PageBean;
 import com.lbz.android.myappplay.commom.apkparset.AndroidApk;
 import com.lbz.android.myappplay.commom.rx.RxHttpResponseCompose;
 import com.lbz.android.myappplay.commom.rx.subscriber.ProgressSubcriber;
@@ -10,6 +11,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.annotations.NonNull;
 import zlc.season.rxdownload2.entity.DownloadFlag;
 import zlc.season.rxdownload2.entity.DownloadRecord;
 
@@ -59,6 +61,18 @@ public class AppMangerPresenter extends BasePresenter<AppManagerContract.IAppMan
                         mView.showApps(androidApks);
                     }
                 });
+    }
+
+    public void getUpdateApps(){
+
+        mModel.getCanUpdateApps()
+                .subscribe(new ProgressSubcriber<PageBean>(mContext, mView) {
+                    @Override
+                    public void onNext(@NonNull PageBean pageBean) {
+                        mView.showUpdateApps(pageBean.getListApp());
+                    }
+                });
+
     }
 
     private List<DownloadRecord> downloadRecordFilter(List<DownloadRecord> downloadRecords){

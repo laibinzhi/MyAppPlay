@@ -42,21 +42,17 @@ public class AndroidApkParser {
 
     public static AndroidApk getUninstallAPK(Context context, String path) {
 
-        AndroidApk apk = null;
+        AndroidApk apk = new AndroidApk();
 
 
         PackageManager pm = context.getPackageManager();
 
        PackageInfo info =  pm.getPackageArchiveInfo(path, PackageManager.GET_ACTIVITIES);
 
-
-        if (info!=null){
-            apk = new AndroidApk();
-
-            apk.setPackageName(info.packageName);
-            apk.setApkPath(path);
-            apk.setAppVersionCode(info.versionCode+"");
-            apk.setAppVersionName(info.versionName);
+        apk.setPackageName(info.packageName);
+        apk.setApkPath(path);
+        apk.setAppVersionCode(info.versionCode+"");
+        apk.setAppVersionName(info.versionName);
 
             Resources res =null;
 
@@ -73,7 +69,6 @@ public class AndroidApkParser {
                 e.printStackTrace();
             }
 
-        }
 
         return  apk;
     }

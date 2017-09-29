@@ -1,6 +1,8 @@
 package com.lbz.android.myappplay.presenter.contract;
 
 
+import com.lbz.android.myappplay.bean.AppInfo;
+import com.lbz.android.myappplay.bean.PageBean;
 import com.lbz.android.myappplay.commom.apkparset.AndroidApk;
 import com.lbz.android.myappplay.ui.BaseView;
 
@@ -24,6 +26,8 @@ public interface AppManagerContract {
 
         Observable<List<AndroidApk>> getInstallApps();
 
+        Observable<PageBean> getCanUpdateApps();
+
     }
 
     interface AppManagerView extends BaseView {
@@ -31,6 +35,9 @@ public interface AppManagerContract {
         void showDownloading(List<DownloadRecord> downloadRecords);
 
         void showApps(List<AndroidApk> apps);
+
+        void showUpdateApps(List<AppInfo> apps);
+
 
     }
 

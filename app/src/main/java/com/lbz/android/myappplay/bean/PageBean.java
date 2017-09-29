@@ -25,6 +25,7 @@ public class PageBean implements Serializable {
     private AppDetailBean app;
     private String vdnm;
     private String keyWord;
+    private List<String> invalidPackage;
 
     public boolean isHasMore() {
         return hasMore;
@@ -162,4 +163,11 @@ public class PageBean implements Serializable {
         this.keyWord = keyWord;
     }
 
+    public List<String> getInvalidPackage() {
+        return invalidPackage;
+    }
+
+    public void setInvalidPackage(List<String> invalidPackage) {
+        this.invalidPackage = invalidPackage;
+    }
 }

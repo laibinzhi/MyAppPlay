@@ -13,6 +13,7 @@ import com.lbz.android.myappplay.ui.adapter.ViewPagerAdapter;
 import com.lbz.android.myappplay.ui.fragment.DownloadedFragment;
 import com.lbz.android.myappplay.ui.fragment.DownloadingFragment;
 import com.lbz.android.myappplay.ui.fragment.InstalledAppFragment;
+import com.lbz.android.myappplay.ui.fragment.UpdateAppFragment;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 
@@ -89,8 +90,8 @@ public class AppManagerActivity extends BaseActivity {
 
         mFragments.add(new FragmentInfo("下载",DownloadingFragment.class));
         mFragments.add(new FragmentInfo("已完成",DownloadedFragment.class));
+        mFragments.add(new FragmentInfo("可升级",UpdateAppFragment.class));
         mFragments.add(new FragmentInfo("已安装",InstalledAppFragment.class));
-
 
         return  mFragments;
 

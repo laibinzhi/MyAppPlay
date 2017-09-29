@@ -29,6 +29,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.lbz.android.myappplay.bean.AppInfo;
+import com.lbz.android.myappplay.commom.apkparset.AndroidApk;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -408,5 +409,21 @@ public class AppUtils {
     public static void cleanSharedPreference(Context context) {
         String filepath = String.format(String.format(context.getFilesDir().getParent() + File.separator + "%s", "shared_prefs"));
         FileUtils.deleteFileByDirectory(new File(filepath));
+    }
+
+    public static AppInfo getNewAppInfoWithLoaclVersionName(Context context,AppInfo appInfo){
+
+        PackageManager pm = context.getPackageManager();
+        List<PackageInfo> packages = pm.getInstalledPackages(0);
+
+        for (PackageInfo packageInfo : packages) {
+
+            if (appInfo.getPackageName().equals(packageInfo.packageName)){
+                appInfo.setLocalVersionName(packageInfo.versionName);
+            }
+
+        }
+        return appInfo;
+
     }
 }

@@ -7,7 +7,7 @@ import com.lbz.android.myappplay.commom.apkparset.AndroidApk;
 import com.lbz.android.myappplay.di.component.AppComponent;
 import com.lbz.android.myappplay.di.component.DaggerAppManagerComponent;
 import com.lbz.android.myappplay.di.module.AppManagerModule;
-import com.lbz.android.myappplay.ui.adapter.InstallAppAdapter;
+import com.lbz.android.myappplay.ui.adapter.UpdateAppAdapter;
 
 import java.util.List;
 
@@ -15,39 +15,39 @@ import java.util.List;
  * Created by elitemc on 2017/9/25.
  */
 
-public class InstalledAppFragment extends  AppManangerFragment {
+public class UpdateAppFragment extends  AppManangerFragment {
 
-    InstallAppAdapter mAdapter;
+    UpdateAppAdapter mAdapter;
 
     @Override
     public void init() {
         super.init();
-        mPresenter.getInstallApps();
+        mPresenter.getUpdateApps();
     }
 
     @Override
     protected void setFragmentComponent(AppComponent appComponent) {
         DaggerAppManagerComponent.builder().appComponent(appComponent)
                 .appManagerModule(new AppManagerModule(this))
-                .build().injectInstalledAppFragment(this);
+                .build().injectUpdateAppFragment(this);
     }
 
     @Override
     protected RecyclerView.Adapter setupAdapter() {
-        mAdapter = new InstallAppAdapter();
+        mAdapter = new UpdateAppAdapter();
         return mAdapter;
     }
 
     @Override
     public void showApps(List<AndroidApk> apps) {
 
-        mAdapter.setNewData(apps);
+
 
     }
 
     @Override
     public void showUpdateApps(List<AppInfo> apps) {
-
+        mAdapter.setNewData(apps);
     }
 
 }

@@ -3,6 +3,7 @@ package com.lbz.android.myappplay.ui.fragment;
 import android.support.v7.widget.RecyclerView;
 
 
+import com.lbz.android.myappplay.bean.AppInfo;
 import com.lbz.android.myappplay.bean.event.DownloadFinishEvent;
 import com.lbz.android.myappplay.commom.apkparset.AndroidApk;
 import com.lbz.android.myappplay.commom.rx.RxBus;
@@ -54,6 +55,11 @@ public class DownloadedFragment extends AppManangerFragment{
     public void showApps(List<AndroidApk> apps) {
 
         mAdapter.setNewData(apps);
+
+    }
+
+    @Override
+    public void showUpdateApps(List<AppInfo> apps) {
 
     }
 

@@ -5,6 +5,7 @@ import android.app.Application;
 
 import com.lbz.android.myappplay.MyApplication;
 import com.lbz.android.myappplay.data.AppManagerModel;
+import com.lbz.android.myappplay.data.http.ApiService;
 import com.lbz.android.myappplay.presenter.contract.AppManagerContract;
 
 import dagger.Module;
@@ -32,9 +33,9 @@ public class AppManagerModule {
 
 
     @Provides
-    public AppManagerContract.IAppManagerModel privodeModel(Application application , RxDownload rxDownload) {
+    public AppManagerContract.IAppManagerModel privodeModel(Application application , RxDownload rxDownload, ApiService apiService) {
 
-        return new AppManagerModel(application,rxDownload);
+        return new AppManagerModel(application,rxDownload,apiService);
 
     }
 

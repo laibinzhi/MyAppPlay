@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.lbz.android.myappplay.R;
+import com.lbz.android.myappplay.bean.AppInfo;
 import com.lbz.android.myappplay.bean.event.DownloadFinishEvent;
 import com.lbz.android.myappplay.commom.rx.RxBus;
 import com.lbz.android.myappplay.di.component.AppComponent;
@@ -75,6 +76,11 @@ public class DownloadingFragment extends AppManangerFragment{
             showRecyclerView();
         }
         mAdapter.addData(downloadRecords);
+
+    }
+
+    @Override
+    public void showUpdateApps(List<AppInfo> apps) {
 
     }
 

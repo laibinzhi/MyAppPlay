@@ -5,6 +5,7 @@ import com.lbz.android.myappplay.di.module.AppManagerModule;
 import com.lbz.android.myappplay.ui.fragment.DownloadedFragment;
 import com.lbz.android.myappplay.ui.fragment.DownloadingFragment;
 import com.lbz.android.myappplay.ui.fragment.InstalledAppFragment;
+import com.lbz.android.myappplay.ui.fragment.UpdateAppFragment;
 
 import dagger.Component;
 
@@ -19,5 +20,7 @@ public interface AppManagerComponent {
     void injectDownloadingFragment(DownloadingFragment fragment);
     void injectDownloadedFragment(DownloadedFragment fragment);
     void injectInstalledAppFragment(InstalledAppFragment fragment);
+    void injectUpdateAppFragment(UpdateAppFragment fragment);
+
 
 }

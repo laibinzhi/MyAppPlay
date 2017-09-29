@@ -7,8 +7,12 @@ import com.lbz.android.myappplay.bean.LoginBean;
 import com.lbz.android.myappplay.bean.PageBean;
 import com.lbz.android.myappplay.bean.requestbean.LoginRequestBean;
 
+import java.util.Map;
+
 import io.reactivex.Observable;
 import retrofit2.http.Body;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -71,5 +75,9 @@ public interface ApiService {
 
     @GET("/apm/download/{id}")
     Observable<AppDownloadInfo> getAppDownloadInfo(@Path("id") int id);
+
+    @POST("/apm/updateinfo/v2/")
+    @FormUrlEncoded
+    Observable<PageBean> getCanUpdateAppList(@FieldMap Map<String, String> fields);
 
 }
