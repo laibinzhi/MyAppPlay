@@ -32,7 +32,6 @@ public class DownloadedFragment extends AppManangerFragment{
     public void init() {
         super.init();
 
-        mPresenter.getLocalApks();
         RxBus.getDefault().toObservable(DownloadFinishEvent.class)
                 .subscribe(new Consumer<DownloadFinishEvent>() {
                     @Override
@@ -49,6 +48,10 @@ public class DownloadedFragment extends AppManangerFragment{
         return mAdapter;
     }
 
+    @Override
+    protected void loadData() {
+        mPresenter.getLocalApks();
+    }
 
 
     @Override

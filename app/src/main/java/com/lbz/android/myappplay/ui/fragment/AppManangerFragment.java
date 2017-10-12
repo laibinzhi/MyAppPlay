@@ -24,13 +24,38 @@ public abstract class AppManangerFragment extends ProgressFragment<AppMangerPres
     @Bind(R.id.recycler_view)
     RecyclerView mRecyclerView;
 
+    private boolean isPrepared;
 
+    protected boolean isVisible;
 
     @Override
     public void init() {
 
         setupRecyclerView();
 
+        isPrepared = true;
+
+        lazyLoad();
+
+    }
+
+    private void lazyLoad() {
+        if (!isPrepared || !isVisible) {
+            return;
+        }
+        loadData();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()) {
+            isVisible = true;
+            lazyLoad();
+        } else {
+            isVisible = false;
+            isPrepared = false;
+        }
     }
 
     @Override
@@ -62,5 +87,7 @@ public abstract class AppManangerFragment extends ProgressFragment<AppMangerPres
     }
 
     protected abstract RecyclerView.Adapter setupAdapter();
+
+    protected abstract void loadData();
 
 }

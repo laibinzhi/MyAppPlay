@@ -60,6 +60,11 @@ public class DownloadingFragment extends AppManangerFragment{
     }
 
     @Override
+    protected void loadData() {
+
+    }
+
+    @Override
     protected void setFragmentComponent(AppComponent appComponent) {
 
         DaggerAppManagerComponent.builder().appComponent(appComponent)

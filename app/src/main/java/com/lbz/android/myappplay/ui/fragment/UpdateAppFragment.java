@@ -20,12 +20,6 @@ public class UpdateAppFragment extends  AppManangerFragment {
     UpdateAppAdapter mAdapter;
 
     @Override
-    public void init() {
-        super.init();
-        mPresenter.getUpdateApps();
-    }
-
-    @Override
     protected void setFragmentComponent(AppComponent appComponent) {
         DaggerAppManagerComponent.builder().appComponent(appComponent)
                 .appManagerModule(new AppManagerModule(this))
@@ -34,8 +28,13 @@ public class UpdateAppFragment extends  AppManangerFragment {
 
     @Override
     protected RecyclerView.Adapter setupAdapter() {
-        mAdapter = new UpdateAppAdapter();
+        mAdapter = new UpdateAppAdapter(mMyApplication);
         return mAdapter;
+    }
+
+    @Override
+    protected void loadData() {
+        mPresenter.getUpdateApps();
     }
 
     @Override
