@@ -202,7 +202,7 @@ public class AppDetailActivity extends BaseActivity<AppDetailPresenter> {
 
         transaction.commitAllowingStateLoss();
 
-        downloadButtonConntroller.handClick2(download_btn,mAppInfo);
+        downloadButtonConntroller.handClick2(download_btn,mAppInfo,getIntent().getIntExtra("position",0));
 
     }
 

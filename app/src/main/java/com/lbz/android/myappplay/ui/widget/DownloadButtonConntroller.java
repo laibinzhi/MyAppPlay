@@ -2,7 +2,6 @@ package com.lbz.android.myappplay.ui.widget;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -13,6 +12,7 @@ import com.lbz.android.myappplay.R;
 import com.lbz.android.myappplay.bean.AppDownloadInfo;
 import com.lbz.android.myappplay.bean.AppInfo;
 import com.lbz.android.myappplay.bean.DownloadFlag;
+import com.lbz.android.myappplay.bean.event.AppDetailPageDownLoadBtnClickEvent;
 import com.lbz.android.myappplay.bean.event.AppInstallEvent;
 import com.lbz.android.myappplay.bean.event.DownloadFinishEvent;
 import com.lbz.android.myappplay.commom.Constant;
@@ -192,7 +192,7 @@ public class DownloadButtonConntroller {
     }
 
 
-    public void handClick2(final DownloadButton btn, final AppInfo appInfo) {
+    public void handClick2(final DownloadButton btn, final AppInfo appInfo,int position) {
 //        Log.e("1111", "mRxDownload =" + ((mRxDownload != null) ? "not null" + mRxDownload : "null")+"----"+appInfo.getDisplayName());
 //        Log.e("1111", "mApiService =" + ((mApiService != null) ? "not null" + mApiService : "null")+"----"+appInfo.getDisplayName());
 
@@ -245,7 +245,7 @@ public class DownloadButtonConntroller {
                 })
                 .compose(RxHttpResponseCompose.composeSchedulers())
 
-                .subscribe(new AppDetailDownloadConsumer(btn, appInfo));
+                .subscribe(new AppDetailDownloadConsumer(btn, appInfo,position));
 
         RxBus.getDefault().toObservable(AppInstallEvent.class)
                 .filter(new Predicate<AppInstallEvent>() {
@@ -267,7 +267,7 @@ public class DownloadButtonConntroller {
                         }
                         return Observable.just(event);
                     }
-                }).subscribe(new AppDetailDownloadConsumer(btn, appInfo));
+                }).subscribe(new AppDetailDownloadConsumer(btn, appInfo,position));
 
 
     }
@@ -285,8 +285,6 @@ public class DownloadButtonConntroller {
             public void accept(Object o) throws Exception {
 
                 int flag = (int) btn.getTag(R.id.tag_apk_flag);
-                Log.e("1111", "flag=" + flag);
-                Log.e("1111", "getAppDownloadInfo =" + ((appInfo.getAppDownloadInfo() != null) ? "not null" + appInfo.getAppDownloadInfo().getDownloadUrl() : "null"));
                 switch (flag) {
 
                     case DownloadFlag.INSTALLED:
@@ -320,7 +318,7 @@ public class DownloadButtonConntroller {
 
     }
 
-    private void bindClick2(final DownloadButton btn, final AppInfo appInfo) {
+    private void bindClick2(final DownloadButton btn, final AppInfo appInfo , final int position) {
 
         RxView.clicks(btn).subscribe(new Consumer<Object>() {
             @Override
@@ -334,11 +332,15 @@ public class DownloadButtonConntroller {
 
                         runApp(btn.getContext(), appInfo.getPackageName());
 
+                        RxBus.getDefault().post(new AppDetailPageDownLoadBtnClickEvent(appInfo,position));
+
                         break;
 
                     case DownloadFlag.STARTED:
 
                         pausedDownload(appInfo.getAppDownloadInfo().getDownloadUrl());
+
+                        RxBus.getDefault().post(new AppDetailPageDownLoadBtnClickEvent(appInfo,position));
 
                         break;
 
@@ -346,12 +348,15 @@ public class DownloadButtonConntroller {
                     case DownloadFlag.PAUSED:
                     case DownloadFlag.SHOULD_UPDATE:
 
-                        startDownload2(btn, appInfo);
+                        startDownload2(btn, appInfo,position);
 
                         break;
 
                     case DownloadFlag.COMPLETED:
+
                         installApp(btn.getContext(), appInfo);
+
+                        RxBus.getDefault().post(new AppDetailPageDownLoadBtnClickEvent(appInfo,position));
 
                         break;
 
@@ -448,7 +453,6 @@ public class DownloadButtonConntroller {
      * @param url
      */
     private void pausedDownload(String url) {
-        Log.e("1111", "pausedDownload =" + url);
 
         mRxDownload.pauseServiceDownload(url).subscribe();
 
@@ -464,7 +468,6 @@ public class DownloadButtonConntroller {
 
         String path = ACache.get(context).getAsString(Constant.APK_DOWNLOAD_DIR) + "/" + appInfo.getReleaseKeyHash() + ".apk";
 
-        Log.e("ttttt", " installApp path=" + path);
         AppUtils.installApk(context, path);
 
     }
@@ -499,7 +502,6 @@ public class DownloadButtonConntroller {
      * @return
      */
     public AppInfo downloadRecord2AppInfo(DownloadRecord bean) {
-        Log.e("1111", "downloadRecord2AppInfo=" + bean.getUrl());
         AppInfo info = new AppInfo();
 
         info.setId(Integer.parseInt(bean.getExtra1()));
@@ -532,12 +534,14 @@ public class DownloadButtonConntroller {
 
     }
 
-    private void download2(DownloadButton btn, AppInfo info) {
+    private void download2(DownloadButton btn, AppInfo info ,int position) {
 
 
         mRxDownload.serviceDownload(appInfo2DownloadBean(info)).subscribe();
 
-        mRxDownload.receiveDownloadStatus(info.getAppDownloadInfo().getDownloadUrl()).subscribe(new AppDetailDownloadConsumer(btn, info));
+        mRxDownload.receiveDownloadStatus(info.getAppDownloadInfo().getDownloadUrl()).subscribe(new AppDetailDownloadConsumer(btn, info,position));
+
+        RxBus.getDefault().post(new AppDetailPageDownLoadBtnClickEvent(info,position));
 
     }
 
@@ -547,7 +551,6 @@ public class DownloadButtonConntroller {
                 .subscribe(new Consumer<Boolean>() {
                     @Override
                     public void accept(Boolean aBoolean) throws Exception {
-                        Log.e("testdown", "aBoolean=" + aBoolean);
 
                         if (aBoolean) {
                             final AppDownloadInfo downloadInfo = appInfo.getAppDownloadInfo();
@@ -555,8 +558,6 @@ public class DownloadButtonConntroller {
                                 getAppDownloadInfo(appInfo).subscribe(new Consumer<AppDownloadInfo>() {
                                     @Override
                                     public void accept(AppDownloadInfo appDownloadInfo) throws Exception {
-
-                                        Log.e("testdown", "appDownloadInfo=" + appDownloadInfo.getDownloadUrl());
 
                                         appInfo.setAppDownloadInfo(appDownloadInfo);
 
@@ -573,13 +574,12 @@ public class DownloadButtonConntroller {
 
     }
 
-    private void startDownload2(final DownloadButton btn, final AppInfo appInfo) {
+    private void startDownload2(final DownloadButton btn, final AppInfo appInfo,final int position) {
 
         PermissionUtil.requestPermisson(btn.getContext(), WRITE_EXTERNAL_STORAGE)
                 .subscribe(new Consumer<Boolean>() {
                     @Override
                     public void accept(Boolean aBoolean) throws Exception {
-                        Log.e("testdown", "aBoolean=" + aBoolean);
 
                         if (aBoolean) {
                             final AppDownloadInfo downloadInfo = appInfo.getAppDownloadInfo();
@@ -588,16 +588,14 @@ public class DownloadButtonConntroller {
                                     @Override
                                     public void accept(AppDownloadInfo appDownloadInfo) throws Exception {
 
-                                        Log.e("testdown", "appDownloadInfo=" + appDownloadInfo.getDownloadUrl());
-
                                         appInfo.setAppDownloadInfo(appDownloadInfo);
 
-                                        download2(btn, appInfo);
+                                        download2(btn, appInfo,position);
                                     }
                                 });
 
                             } else {
-                                download2(btn, appInfo);
+                                download2(btn, appInfo,position);
                             }
                         }
                     }
@@ -673,11 +671,15 @@ public class DownloadButtonConntroller {
 
         AppInfo mAppInfo;
 
-        public AppDetailDownloadConsumer(DownloadButton b, AppInfo appInfo) {
+        int position;
+
+        public AppDetailDownloadConsumer(DownloadButton b, AppInfo appInfo ,int position) {
 
             this.btn = b;
 
             this.mAppInfo = appInfo;
+
+            this.position = position;
 
         }
 
@@ -688,7 +690,7 @@ public class DownloadButtonConntroller {
 
             btn.setTag(R.id.tag_apk_flag, flag);
 
-            bindClick2(btn, mAppInfo);
+            bindClick2(btn, mAppInfo,position);
 
             switch (flag) {
 

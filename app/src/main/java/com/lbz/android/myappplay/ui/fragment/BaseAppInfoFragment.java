@@ -10,6 +10,8 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.lbz.android.myappplay.R;
 import com.lbz.android.myappplay.bean.AppInfo;
 import com.lbz.android.myappplay.bean.PageBean;
+import com.lbz.android.myappplay.bean.event.AppDetailPageDownLoadBtnClickEvent;
+import com.lbz.android.myappplay.commom.rx.RxBus;
 import com.lbz.android.myappplay.presenter.AppInfoPresenter;
 import com.lbz.android.myappplay.presenter.contract.AppInfoContract;
 import com.lbz.android.myappplay.ui.activity.AppDetailActivity;
@@ -17,6 +19,7 @@ import com.lbz.android.myappplay.ui.adapter.AppInfoAdapter;
 import com.lbz.android.myappplay.ui.widget.DividerItemDecoration;
 
 import butterknife.Bind;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by elitemc on 2017/9/4.
@@ -54,12 +57,20 @@ public abstract class BaseAppInfoFragment extends ProgressFragment<AppInfoPresen
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                 mMyApplication.setView(view);
-                Intent intent =new Intent(getActivity(), AppDetailActivity.class);
+                Intent intent = new Intent(getActivity(), AppDetailActivity.class);
                 AppInfo appInfo = mAppInfoAdapter.getItem(position);
-                intent.putExtra("appinfo",appInfo);
+                intent.putExtra("appinfo", appInfo);
+                intent.putExtra("position", position);
                 startActivity(intent);
             }
         });
+        RxBus.getDefault().toObservable(AppDetailPageDownLoadBtnClickEvent.class)
+                .subscribe(new Consumer<AppDetailPageDownLoadBtnClickEvent>() {
+                    @Override
+                    public void accept(AppDetailPageDownLoadBtnClickEvent event) throws Exception {
+                        mAppInfoAdapter.notifyItemChanged(event.getPosition());
+                    }
+                });
     }
 
     @Override
