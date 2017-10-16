@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lbz.android.myappplay.R;
@@ -25,6 +26,8 @@ import com.lbz.android.myappplay.commom.util.DensityUtil;
 import com.lbz.android.myappplay.di.component.AppComponent;
 import com.lbz.android.myappplay.presenter.AppDetailPresenter;
 import com.lbz.android.myappplay.ui.fragment.AppDetailFragment;
+import com.lbz.android.myappplay.ui.widget.DownloadButton;
+import com.lbz.android.myappplay.ui.widget.DownloadButtonConntroller;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 
@@ -47,12 +50,20 @@ public class AppDetailActivity extends BaseActivity<AppDetailPresenter> {
     @Bind(R.id.txt_name)
     TextView mTxtName;
 
+    @Bind(R.id.btn_layout)
+    LinearLayout btn_layout;
+
     @Bind(R.id.toolbar)
     Toolbar mToolBar;
+
+    @Bind(R.id.download_btn)
+    DownloadButton download_btn;
 
     private AppInfo mAppInfo;
     private boolean closeAnimation;
     public boolean isFromBanner;
+
+    DownloadButtonConntroller downloadButtonConntroller;
 
     @Override
     protected int setLayout() {
@@ -66,6 +77,10 @@ public class AppDetailActivity extends BaseActivity<AppDetailPresenter> {
 
     @Override
     protected void init() {
+
+        downloadButtonConntroller = new DownloadButtonConntroller(mMyApplication);
+        download_btn.setShowBorder(true);
+        download_btn.setButtonRadius(30);
 
         mAppInfo = (AppInfo) getIntent().getSerializableExtra("appinfo");
         closeAnimation = getIntent().getBooleanExtra("closeAnimation",false);
@@ -92,6 +107,7 @@ public class AppDetailActivity extends BaseActivity<AppDetailPresenter> {
         if (closeAnimation){
             mViewTemp.setVisibility(View.GONE);
             mCoordinatorLayout.setVisibility(View.VISIBLE);
+            btn_layout.setVisibility(View.VISIBLE);
             initFragment();
             return;
         }
@@ -162,6 +178,8 @@ public class AppDetailActivity extends BaseActivity<AppDetailPresenter> {
 
                     mCoordinatorLayout.setVisibility(View.VISIBLE);
 
+                    btn_layout.setVisibility(View.VISIBLE);
+
                     initFragment();
                 }
             }
@@ -183,6 +201,8 @@ public class AppDetailActivity extends BaseActivity<AppDetailPresenter> {
         transaction.add(R.id.view_content, fragment);
 
         transaction.commitAllowingStateLoss();
+
+        downloadButtonConntroller.handClick2(download_btn,mAppInfo);
 
     }
 

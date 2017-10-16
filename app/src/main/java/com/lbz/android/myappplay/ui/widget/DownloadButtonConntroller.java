@@ -191,6 +191,87 @@ public class DownloadButtonConntroller {
 
     }
 
+
+    public void handClick2(final DownloadButton btn, final AppInfo appInfo) {
+//        Log.e("1111", "mRxDownload =" + ((mRxDownload != null) ? "not null" + mRxDownload : "null")+"----"+appInfo.getDisplayName());
+//        Log.e("1111", "mApiService =" + ((mApiService != null) ? "not null" + mApiService : "null")+"----"+appInfo.getDisplayName());
+
+        if (mApiService == null || mRxDownload == null) {
+            return;
+        }
+
+        isAppInstalled(btn.getContext(), appInfo)
+                .flatMap(new Function<DownloadEvent, ObservableSource<DownloadEvent>>() {
+                    @Override
+                    public ObservableSource<DownloadEvent> apply(@NonNull DownloadEvent event) throws Exception {
+
+                        if (DownloadFlag.UN_INSTALL == event.getFlag()) {
+
+                            return isApkFileExsit(btn.getContext(), appInfo);
+
+                        }
+                        if (DownloadFlag.INSTALLED == event.getFlag()) {
+
+                            return isShouldUpdate(btn.getContext(), appInfo);
+
+                        }
+
+                        return Observable.just(event);
+                    }
+                })
+                .flatMap(new Function<DownloadEvent, ObservableSource<DownloadEvent>>() {
+                    @Override
+                    public ObservableSource<DownloadEvent> apply(@NonNull DownloadEvent event) throws Exception {
+
+                        if (DownloadFlag.FILE_EXIST == event.getFlag()) {
+
+                            return getAppDownloadInfo(appInfo)
+
+                                    .flatMap(new Function<AppDownloadInfo, ObservableSource<DownloadEvent>>() {
+                                        @Override
+                                        public ObservableSource<DownloadEvent> apply(@NonNull AppDownloadInfo appDownloadInfo) throws Exception {
+
+                                            appInfo.setAppDownloadInfo(appDownloadInfo);
+
+                                            return receiveDownloadStatus(appDownloadInfo.getDownloadUrl());
+                                        }
+                                    });
+
+                        }
+
+
+                        return Observable.just(event);
+                    }
+                })
+                .compose(RxHttpResponseCompose.composeSchedulers())
+
+                .subscribe(new AppDetailDownloadConsumer(btn, appInfo));
+
+        RxBus.getDefault().toObservable(AppInstallEvent.class)
+                .filter(new Predicate<AppInstallEvent>() {
+                    @Override
+                    public boolean test(@NonNull AppInstallEvent appInstallEvent) throws Exception {
+                        return appInstallEvent.getPgName().equals(appInfo.getPackageName());
+                    }
+                })
+                .flatMap(new Function<AppInstallEvent, ObservableSource<DownloadEvent>>() {
+                    @Override
+                    public ObservableSource<DownloadEvent> apply(@NonNull AppInstallEvent appInstallEvent) throws Exception {
+                        DownloadEvent event = new DownloadEvent();
+                        String flag = appInstallEvent.getFLAG();
+
+                        if (flag.equals(Intent.ACTION_PACKAGE_ADDED) || flag.equals(Intent.ACTION_PACKAGE_REPLACED)) {
+
+                            event.setFlag(DownloadFlag.INSTALLED);
+
+                        }
+                        return Observable.just(event);
+                    }
+                }).subscribe(new AppDetailDownloadConsumer(btn, appInfo));
+
+
+    }
+
     /**
      * 点击下载按钮处理
      *
@@ -225,6 +306,47 @@ public class DownloadButtonConntroller {
                     case DownloadFlag.SHOULD_UPDATE:
 
                         startDownload(btn, appInfo);
+
+                        break;
+
+                    case DownloadFlag.COMPLETED:
+                        installApp(btn.getContext(), appInfo);
+
+                        break;
+
+                }
+            }
+        });
+
+    }
+
+    private void bindClick2(final DownloadButton btn, final AppInfo appInfo) {
+
+        RxView.clicks(btn).subscribe(new Consumer<Object>() {
+            @Override
+            public void accept(Object o) throws Exception {
+
+                int flag = (int) btn.getTag(R.id.tag_apk_flag);
+                
+                switch (flag) {
+
+                    case DownloadFlag.INSTALLED:
+
+                        runApp(btn.getContext(), appInfo.getPackageName());
+
+                        break;
+
+                    case DownloadFlag.STARTED:
+
+                        pausedDownload(appInfo.getAppDownloadInfo().getDownloadUrl());
+
+                        break;
+
+                    case DownloadFlag.NORMAL:
+                    case DownloadFlag.PAUSED:
+                    case DownloadFlag.SHOULD_UPDATE:
+
+                        startDownload2(btn, appInfo);
 
                         break;
 
@@ -410,6 +532,15 @@ public class DownloadButtonConntroller {
 
     }
 
+    private void download2(DownloadButton btn, AppInfo info) {
+
+
+        mRxDownload.serviceDownload(appInfo2DownloadBean(info)).subscribe();
+
+        mRxDownload.receiveDownloadStatus(info.getAppDownloadInfo().getDownloadUrl()).subscribe(new AppDetailDownloadConsumer(btn, info));
+
+    }
+
     private void startDownload(final DownloadProgressButton btn, final AppInfo appInfo) {
 
         PermissionUtil.requestPermisson(btn.getContext(), WRITE_EXTERNAL_STORAGE)
@@ -435,6 +566,38 @@ public class DownloadButtonConntroller {
 
                             } else {
                                 download(btn, appInfo);
+                            }
+                        }
+                    }
+                });
+
+    }
+
+    private void startDownload2(final DownloadButton btn, final AppInfo appInfo) {
+
+        PermissionUtil.requestPermisson(btn.getContext(), WRITE_EXTERNAL_STORAGE)
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean aBoolean) throws Exception {
+                        Log.e("testdown", "aBoolean=" + aBoolean);
+
+                        if (aBoolean) {
+                            final AppDownloadInfo downloadInfo = appInfo.getAppDownloadInfo();
+                            if (downloadInfo == null) {
+                                getAppDownloadInfo(appInfo).subscribe(new Consumer<AppDownloadInfo>() {
+                                    @Override
+                                    public void accept(AppDownloadInfo appDownloadInfo) throws Exception {
+
+                                        Log.e("testdown", "appDownloadInfo=" + appDownloadInfo.getDownloadUrl());
+
+                                        appInfo.setAppDownloadInfo(appDownloadInfo);
+
+                                        download2(btn, appInfo);
+                                    }
+                                });
+
+                            } else {
+                                download2(btn, appInfo);
                             }
                         }
                     }
@@ -497,6 +660,72 @@ public class DownloadButtonConntroller {
                     break;
                 case DownloadFlag.SHOULD_UPDATE://可升级
                     btn.setText("升级");
+                    break;
+
+            }
+
+        }
+    }
+
+    class AppDetailDownloadConsumer implements Consumer<DownloadEvent> {
+
+        DownloadButton btn;
+
+        AppInfo mAppInfo;
+
+        public AppDetailDownloadConsumer(DownloadButton b, AppInfo appInfo) {
+
+            this.btn = b;
+
+            this.mAppInfo = appInfo;
+
+        }
+
+        @Override
+        public void accept(@NonNull DownloadEvent event) throws Exception {
+
+            int flag = event.getFlag();
+
+            btn.setTag(R.id.tag_apk_flag, flag);
+
+            bindClick2(btn, mAppInfo);
+
+            switch (flag) {
+
+                case DownloadFlag.INSTALLED:
+                    btn.setCurrentText("运行");
+                    break;
+
+                case DownloadFlag.NORMAL:
+                    btn.setCurrentText("下载");
+                    btn.setState(DownloadButton.STATE_DOWNLOADING);
+
+                    break;
+
+                case DownloadFlag.STARTED:
+                    btn.setState(DownloadButton.STATE_DOWNLOADING);
+                    btn.setCurrentText("下载中"+(((int)btn.getProgress()))+"%");
+                    btn.setProgress((int) event.getDownloadStatus().getPercentNumber());
+                    break;
+
+                case DownloadFlag.PAUSED:
+                    btn.setCurrentText("继续");
+                    btn.setProgress((int) event.getDownloadStatus().getPercentNumber());
+                    btn.setState(DownloadButton.STATE_PAUSE);
+                    break;
+
+                case DownloadFlag.COMPLETED: //已完成
+                    btn.setCurrentText("安装");
+                    //installApp(btn.getContext(),mAppInfo);
+                    break;
+                case DownloadFlag.FAILED://下载失败
+                    btn.setCurrentText("失败");
+                    break;
+                case DownloadFlag.DELETED: //已删除
+
+                    break;
+                case DownloadFlag.SHOULD_UPDATE://可升级
+                    btn.setCurrentText("升级");
                     break;
 
             }
