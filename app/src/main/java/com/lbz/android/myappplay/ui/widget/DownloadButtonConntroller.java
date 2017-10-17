@@ -14,6 +14,7 @@ import com.lbz.android.myappplay.bean.AppInfo;
 import com.lbz.android.myappplay.bean.DownloadFlag;
 import com.lbz.android.myappplay.bean.event.AppDetailPageDownLoadBtnClickEvent;
 import com.lbz.android.myappplay.bean.event.AppInstallEvent;
+import com.lbz.android.myappplay.bean.event.BtnIsClickEvent;
 import com.lbz.android.myappplay.bean.event.DownloadFinishEvent;
 import com.lbz.android.myappplay.commom.Constant;
 import com.lbz.android.myappplay.commom.rx.RxBus;
@@ -192,7 +193,7 @@ public class DownloadButtonConntroller {
     }
 
 
-    public void handClick2(final DownloadButton btn, final AppInfo appInfo,int position) {
+    public void handClick2(final DownloadButton btn, final AppInfo appInfo, int position) {
 //        Log.e("1111", "mRxDownload =" + ((mRxDownload != null) ? "not null" + mRxDownload : "null")+"----"+appInfo.getDisplayName());
 //        Log.e("1111", "mApiService =" + ((mApiService != null) ? "not null" + mApiService : "null")+"----"+appInfo.getDisplayName());
 
@@ -245,7 +246,7 @@ public class DownloadButtonConntroller {
                 })
                 .compose(RxHttpResponseCompose.composeSchedulers())
 
-                .subscribe(new AppDetailDownloadConsumer(btn, appInfo,position));
+                .subscribe(new AppDetailDownloadConsumer(btn, appInfo, position));
 
         RxBus.getDefault().toObservable(AppInstallEvent.class)
                 .filter(new Predicate<AppInstallEvent>() {
@@ -267,7 +268,7 @@ public class DownloadButtonConntroller {
                         }
                         return Observable.just(event);
                     }
-                }).subscribe(new AppDetailDownloadConsumer(btn, appInfo,position));
+                }).subscribe(new AppDetailDownloadConsumer(btn, appInfo, position));
 
 
     }
@@ -318,21 +319,19 @@ public class DownloadButtonConntroller {
 
     }
 
-    private void bindClick2(final DownloadButton btn, final AppInfo appInfo , final int position) {
+    private void bindClick2(final DownloadButton btn, final AppInfo appInfo, final int position) {
 
         RxView.clicks(btn).subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
 
                 int flag = (int) btn.getTag(R.id.tag_apk_flag);
-                
+
                 switch (flag) {
 
                     case DownloadFlag.INSTALLED:
 
                         runApp(btn.getContext(), appInfo.getPackageName());
-
-                        RxBus.getDefault().post(new AppDetailPageDownLoadBtnClickEvent(appInfo,position));
 
                         break;
 
@@ -340,15 +339,13 @@ public class DownloadButtonConntroller {
 
                         pausedDownload(appInfo.getAppDownloadInfo().getDownloadUrl());
 
-                        RxBus.getDefault().post(new AppDetailPageDownLoadBtnClickEvent(appInfo,position));
-
                         break;
 
                     case DownloadFlag.NORMAL:
                     case DownloadFlag.PAUSED:
                     case DownloadFlag.SHOULD_UPDATE:
 
-                        startDownload2(btn, appInfo,position);
+                        startDownload2(btn, appInfo, position);
 
                         break;
 
@@ -356,11 +353,10 @@ public class DownloadButtonConntroller {
 
                         installApp(btn.getContext(), appInfo);
 
-                        RxBus.getDefault().post(new AppDetailPageDownLoadBtnClickEvent(appInfo,position));
-
                         break;
 
                 }
+                RxBus.getDefault().post(new BtnIsClickEvent(true, position));
             }
         });
 
@@ -534,14 +530,12 @@ public class DownloadButtonConntroller {
 
     }
 
-    private void download2(DownloadButton btn, AppInfo info ,int position) {
+    private void download2(DownloadButton btn, AppInfo info, int position) {
 
 
         mRxDownload.serviceDownload(appInfo2DownloadBean(info)).subscribe();
 
-        mRxDownload.receiveDownloadStatus(info.getAppDownloadInfo().getDownloadUrl()).subscribe(new AppDetailDownloadConsumer(btn, info,position));
-
-        RxBus.getDefault().post(new AppDetailPageDownLoadBtnClickEvent(info,position));
+        mRxDownload.receiveDownloadStatus(info.getAppDownloadInfo().getDownloadUrl()).subscribe(new AppDetailDownloadConsumer(btn, info, position));
 
     }
 
@@ -574,7 +568,7 @@ public class DownloadButtonConntroller {
 
     }
 
-    private void startDownload2(final DownloadButton btn, final AppInfo appInfo,final int position) {
+    private void startDownload2(final DownloadButton btn, final AppInfo appInfo, final int position) {
 
         PermissionUtil.requestPermisson(btn.getContext(), WRITE_EXTERNAL_STORAGE)
                 .subscribe(new Consumer<Boolean>() {
@@ -590,12 +584,12 @@ public class DownloadButtonConntroller {
 
                                         appInfo.setAppDownloadInfo(appDownloadInfo);
 
-                                        download2(btn, appInfo,position);
+                                        download2(btn, appInfo, position);
                                     }
                                 });
 
                             } else {
-                                download2(btn, appInfo,position);
+                                download2(btn, appInfo, position);
                             }
                         }
                     }
@@ -673,7 +667,7 @@ public class DownloadButtonConntroller {
 
         int position;
 
-        public AppDetailDownloadConsumer(DownloadButton b, AppInfo appInfo ,int position) {
+        public AppDetailDownloadConsumer(DownloadButton b, AppInfo appInfo, int position) {
 
             this.btn = b;
 
@@ -690,7 +684,7 @@ public class DownloadButtonConntroller {
 
             btn.setTag(R.id.tag_apk_flag, flag);
 
-            bindClick2(btn, mAppInfo,position);
+            bindClick2(btn, mAppInfo, position);
 
             switch (flag) {
 
@@ -706,7 +700,7 @@ public class DownloadButtonConntroller {
 
                 case DownloadFlag.STARTED:
                     btn.setState(DownloadButton.STATE_DOWNLOADING);
-                    btn.setCurrentText("下载中"+(((int)btn.getProgress()))+"%");
+                    btn.setCurrentText("下载中" + (((int) btn.getProgress())) + "%");
                     btn.setProgress((int) event.getDownloadStatus().getPercentNumber());
                     break;
 

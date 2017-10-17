@@ -20,8 +20,11 @@ import android.widget.TextView;
 
 import com.lbz.android.myappplay.R;
 import com.lbz.android.myappplay.bean.AppInfo;
+import com.lbz.android.myappplay.bean.event.AppDetailPageDownLoadBtnClickEvent;
+import com.lbz.android.myappplay.bean.event.BtnIsClickEvent;
 import com.lbz.android.myappplay.commom.Constant;
 import com.lbz.android.myappplay.commom.imageloader.ImageLoader;
+import com.lbz.android.myappplay.commom.rx.RxBus;
 import com.lbz.android.myappplay.commom.util.DensityUtil;
 import com.lbz.android.myappplay.di.component.AppComponent;
 import com.lbz.android.myappplay.presenter.AppDetailPresenter;
@@ -32,6 +35,7 @@ import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 
 import butterknife.Bind;
+import io.reactivex.functions.Consumer;
 
 public class AppDetailActivity extends BaseActivity<AppDetailPresenter> {
 
@@ -62,6 +66,7 @@ public class AppDetailActivity extends BaseActivity<AppDetailPresenter> {
     private AppInfo mAppInfo;
     private boolean closeAnimation;
     public boolean isFromBanner;
+    private boolean onclick = false;
 
     DownloadButtonConntroller downloadButtonConntroller;
 
@@ -78,15 +83,17 @@ public class AppDetailActivity extends BaseActivity<AppDetailPresenter> {
     @Override
     protected void init() {
 
+        initIsClick();
+
         downloadButtonConntroller = new DownloadButtonConntroller(mMyApplication);
         download_btn.setShowBorder(true);
         download_btn.setButtonRadius(30);
 
         mAppInfo = (AppInfo) getIntent().getSerializableExtra("appinfo");
-        closeAnimation = getIntent().getBooleanExtra("closeAnimation",false);
-        isFromBanner = getIntent().getBooleanExtra("isFromBanner",false);
+        closeAnimation = getIntent().getBooleanExtra("closeAnimation", false);
+        isFromBanner = getIntent().getBooleanExtra("isFromBanner", false);
 
-        ImageLoader.load(Constant.BASE_IMG_URL+mAppInfo.getIcon(),mImgIcon);
+        ImageLoader.load(Constant.BASE_IMG_URL + mAppInfo.getIcon(), mImgIcon);
         mTxtName.setText(mAppInfo.getDisplayName());
 
         mToolBar.setNavigationIcon(
@@ -104,7 +111,7 @@ public class AppDetailActivity extends BaseActivity<AppDetailPresenter> {
             }
         });
 
-        if (closeAnimation){
+        if (closeAnimation) {
             mViewTemp.setVisibility(View.GONE);
             mCoordinatorLayout.setVisibility(View.VISIBLE);
             btn_layout.setVisibility(View.VISIBLE);
@@ -114,7 +121,7 @@ public class AppDetailActivity extends BaseActivity<AppDetailPresenter> {
         View view = mMyApplication.getView();
         Bitmap bitmap = getViewImageCache(view);
 
-        if(bitmap!=null){
+        if (bitmap != null) {
             mViewTemp.setBackgroundDrawable(new BitmapDrawable(bitmap));
         }
 
@@ -126,16 +133,26 @@ public class AppDetailActivity extends BaseActivity<AppDetailPresenter> {
 
         ViewGroup.MarginLayoutParams marginLayoutParams = new ViewGroup.MarginLayoutParams(mViewTemp.getLayoutParams());
 
-        marginLayoutParams.topMargin=top-DensityUtil.getStatusBarH(this);
+        marginLayoutParams.topMargin = top - DensityUtil.getStatusBarH(this);
         marginLayoutParams.leftMargin = left;
         marginLayoutParams.width = view.getWidth();
-        marginLayoutParams.height =view.getHeight();
+        marginLayoutParams.height = view.getHeight();
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(marginLayoutParams);
 
         mViewTemp.setLayoutParams(params);
 
         open();
+    }
+
+    private void initIsClick() {
+        RxBus.getDefault().toObservable(BtnIsClickEvent.class)
+                .subscribe(new Consumer<BtnIsClickEvent>() {
+                    @Override
+                    public void accept(BtnIsClickEvent event) throws Exception {
+                        onclick = event.isOnClick();
+                    }
+                });
     }
 
     private Bitmap getViewImageCache(View view) {
@@ -151,9 +168,9 @@ public class AppDetailActivity extends BaseActivity<AppDetailPresenter> {
     }
 
     private void open() {
-        int h = DensityUtil.getScreenH(this) ;
+        int h = DensityUtil.getScreenH(this);
 
-        ObjectAnimator animator = ObjectAnimator.ofFloat(mViewTemp,"scaleY",1f,(float) h);
+        ObjectAnimator animator = ObjectAnimator.ofFloat(mViewTemp, "scaleY", 1f, (float) h);
 
         animator.setStartDelay(500);
         animator.setDuration(100);
@@ -161,7 +178,7 @@ public class AppDetailActivity extends BaseActivity<AppDetailPresenter> {
             @Override
             public void onAnimationStart(Animator animation) {
 
-                if (!isFinishing()){
+                if (!isFinishing()) {
 
                     mViewTemp.setBackgroundColor(getResources().getColor(R.color.white));
 
@@ -202,8 +219,18 @@ public class AppDetailActivity extends BaseActivity<AppDetailPresenter> {
 
         transaction.commitAllowingStateLoss();
 
-        downloadButtonConntroller.handClick2(download_btn,mAppInfo,getIntent().getIntExtra("position",0));
+        downloadButtonConntroller.handClick2(download_btn, mAppInfo, getIntent().getIntExtra("position", 0));
 
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (onclick){
+            RxBus.getDefault().post(new AppDetailPageDownLoadBtnClickEvent(null, getIntent().getIntExtra("position", 0)));
+        }
+
+    }
 }
