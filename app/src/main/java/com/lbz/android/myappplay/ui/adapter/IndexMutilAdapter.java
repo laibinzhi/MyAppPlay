@@ -18,8 +18,10 @@ import com.lbz.android.myappplay.R;
 import com.lbz.android.myappplay.bean.AppInfo;
 import com.lbz.android.myappplay.bean.PageBean;
 import com.lbz.android.myappplay.bean.SubjectBean;
+import com.lbz.android.myappplay.bean.event.AppDetailPageDownLoadBtnClickEvent;
 import com.lbz.android.myappplay.commom.Constant;
 import com.lbz.android.myappplay.commom.imageloader.ImageLoader;
+import com.lbz.android.myappplay.commom.rx.RxBus;
 import com.lbz.android.myappplay.ui.activity.AppDetailActivity;
 import com.lbz.android.myappplay.ui.activity.HotAppActivity;
 import com.lbz.android.myappplay.ui.activity.HotSubjectActivity;
@@ -32,6 +34,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import io.reactivex.functions.Consumer;
 
 import static com.lbz.android.myappplay.data.http.ApiService.ICON_BASE_URL;
 
@@ -102,7 +105,7 @@ public class IndexMutilAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         AppInfo appInfo =new AppInfo();
                         appInfo.setId(subjectBean.getRelatedId());
                         appInfo.setDisplayName(subjectBean.getTitle());
-                        goToAppDetail(appInfo,true,true);
+                        goToAppDetail(appInfo,true,true,0);
                     }
                     //滚播的是主题
                     else if (subjectBean.getFeaturedType()==2){
@@ -141,9 +144,16 @@ public class IndexMutilAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 @Override
                 public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                     mMyApplication.setView(view);
-                    goToAppDetail(mAppInfoAdapter.getItem(position),false,false);
+                    goToAppDetail(mAppInfoAdapter.getItem(position),false,false,position);
                 }
             });
+            RxBus.getDefault().toObservable(AppDetailPageDownLoadBtnClickEvent.class)
+                    .subscribe(new Consumer<AppDetailPageDownLoadBtnClickEvent>() {
+                        @Override
+                        public void accept(AppDetailPageDownLoadBtnClickEvent event) throws Exception {
+                            mAppInfoAdapter.notifyItemChanged(event.getPosition());
+                        }
+                    });
         }
 
     }
@@ -255,8 +265,9 @@ public class IndexMutilAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    public void goToAppDetail(AppInfo appInfo,boolean closeAnimation,boolean isFromBanner){
+    public void goToAppDetail(AppInfo appInfo,boolean closeAnimation,boolean isFromBanner,int position){
         Intent intent =new Intent(mContext, AppDetailActivity.class);
+        intent.putExtra("position", position);
         intent.putExtra("appinfo",appInfo);
         intent.putExtra("closeAnimation",closeAnimation);
         intent.putExtra("isFromBanner",isFromBanner);

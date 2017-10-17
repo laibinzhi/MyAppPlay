@@ -12,6 +12,8 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.lbz.android.myappplay.R;
 import com.lbz.android.myappplay.bean.AppInfo;
 import com.lbz.android.myappplay.bean.PageBean;
+import com.lbz.android.myappplay.bean.event.AppDetailPageDownLoadBtnClickEvent;
+import com.lbz.android.myappplay.commom.rx.RxBus;
 import com.lbz.android.myappplay.commom.util.SoftKeyboardUtil;
 import com.lbz.android.myappplay.di.component.AppComponent;
 import com.lbz.android.myappplay.di.component.DaggerSearchAppComponent;
@@ -26,6 +28,7 @@ import com.lbz.android.myappplay.ui.widget.DividerItemDecoration;
 import java.util.List;
 
 import butterknife.Bind;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by elitemc on 2017/9/15.
@@ -76,9 +79,17 @@ public class KeyWordAppListFragment extends ProgressFragment<SearchAppPresenter>
                 Intent intent = new Intent(getActivity(), AppDetailActivity.class);
                 AppInfo appInfo = mAppInfoAdapter.getItem(position);
                 intent.putExtra("appinfo", appInfo);
+                intent.putExtra("position", position);
                 startActivity(intent);
             }
         });
+        RxBus.getDefault().toObservable(AppDetailPageDownLoadBtnClickEvent.class)
+                .subscribe(new Consumer<AppDetailPageDownLoadBtnClickEvent>() {
+                    @Override
+                    public void accept(AppDetailPageDownLoadBtnClickEvent event) throws Exception {
+                        mAppInfoAdapter.notifyItemChanged(event.getPosition());
+                    }
+                });
     }
 
     public String getKeyWord() {

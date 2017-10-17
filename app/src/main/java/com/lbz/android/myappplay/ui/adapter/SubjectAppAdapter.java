@@ -16,13 +16,16 @@ import com.lbz.android.myappplay.MyApplication;
 import com.lbz.android.myappplay.R;
 import com.lbz.android.myappplay.bean.AppInfo;
 import com.lbz.android.myappplay.bean.PageBean;
+import com.lbz.android.myappplay.bean.event.AppDetailPageDownLoadBtnClickEvent;
 import com.lbz.android.myappplay.commom.imageloader.ImageLoader;
+import com.lbz.android.myappplay.commom.rx.RxBus;
 import com.lbz.android.myappplay.ui.activity.AppDetailActivity;
 import com.lbz.android.myappplay.ui.widget.DividerItemDecoration;
 
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import io.reactivex.functions.Consumer;
 
 import static com.lbz.android.myappplay.data.http.ApiService.ICON_BASE_URL;
 
@@ -96,9 +99,17 @@ public class SubjectAppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     Intent intent =new Intent(mContext, AppDetailActivity.class);
                     AppInfo appInfo =mAppInfoAdapter.getItem(position);
                     intent.putExtra("appinfo",appInfo);
+                    intent.putExtra("position", position);
                     mContext.startActivity(intent);
                 }
             });
+            RxBus.getDefault().toObservable(AppDetailPageDownLoadBtnClickEvent.class)
+                    .subscribe(new Consumer<AppDetailPageDownLoadBtnClickEvent>() {
+                        @Override
+                        public void accept(AppDetailPageDownLoadBtnClickEvent event) throws Exception {
+                            mAppInfoAdapter.notifyItemChanged(event.getPosition());
+                        }
+                    });
         }
 
     }
