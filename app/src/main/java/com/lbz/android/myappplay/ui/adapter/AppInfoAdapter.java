@@ -1,6 +1,5 @@
 package com.lbz.android.myappplay.ui.adapter;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;

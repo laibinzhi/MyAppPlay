@@ -87,7 +87,7 @@ public class SubjectAppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         } else {
             AppViewHolder viewHolder = (AppViewHolder) holder;
-            final AppInfoAdapter mAppInfoAdapter = AppInfoAdapter.builder().showBrief(true).showCategoryName(false).showPosition(false).build();
+            final AppInfoAdapter mAppInfoAdapter = AppInfoAdapter.builder().showBrief(true).showCategoryName(false).showPosition(false).application(mMyApplication).build();
 
             mAppInfoAdapter.addData(mPageBean.getListApp());
 

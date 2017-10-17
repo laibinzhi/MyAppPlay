@@ -388,7 +388,7 @@ public class DownloadButtonConntroller {
      */
     public Observable<DownloadEvent> isApkFileExsit(Context context, AppInfo appInfo) {
 
-        String path = ACache.get(context).getAsString(Constant.APK_DOWNLOAD_DIR) + "/" + appInfo.getReleaseKeyHash() + ".apk";
+        String path = ACache.get(context).getAsString(Constant.APK_DOWNLOAD_DIR) + "/" + appInfo.getId() + ".apk";
 
         File file = new File(path);
 
@@ -462,7 +462,7 @@ public class DownloadButtonConntroller {
      */
     private void installApp(Context context, AppInfo appInfo) {
 
-        String path = ACache.get(context).getAsString(Constant.APK_DOWNLOAD_DIR) + "/" + appInfo.getReleaseKeyHash() + ".apk";
+        String path = ACache.get(context).getAsString(Constant.APK_DOWNLOAD_DIR) + "/" + appInfo.getId() + ".apk";
 
         AppUtils.installApk(context, path);
 
@@ -479,7 +479,7 @@ public class DownloadButtonConntroller {
         DownloadBean downloadBean = new DownloadBean();
 
         downloadBean.setUrl(info.getAppDownloadInfo().getDownloadUrl());
-        downloadBean.setSaveName(info.getReleaseKeyHash() + ".apk");
+        downloadBean.setSaveName(info.getId() + ".apk");
 
 
         downloadBean.setExtra1(info.getId() + "");

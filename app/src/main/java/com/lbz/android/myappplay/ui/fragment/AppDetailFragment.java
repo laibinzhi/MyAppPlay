@@ -3,7 +3,6 @@ package com.lbz.android.myappplay.ui.fragment;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,8 +14,10 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.lbz.android.myappplay.R;
 import com.lbz.android.myappplay.bean.AppDetailBean;
 import com.lbz.android.myappplay.bean.AppInfo;
+import com.lbz.android.myappplay.bean.event.AppDetailPageDownLoadBtnClickEvent;
 import com.lbz.android.myappplay.commom.Constant;
 import com.lbz.android.myappplay.commom.imageloader.ImageLoader;
+import com.lbz.android.myappplay.commom.rx.RxBus;
 import com.lbz.android.myappplay.commom.util.DateUtils;
 import com.lbz.android.myappplay.di.component.AppComponent;
 import com.lbz.android.myappplay.di.component.DaggerAppDetailComponent;
@@ -32,6 +33,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import butterknife.Bind;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by elitemc on 2017/9/12.
@@ -64,8 +66,6 @@ public class AppDetailFragment extends ProgressFragment<AppDetailPresenter> impl
 
     private LayoutInflater mInflater;
     private int mAppId;
-    private AppInfoAdapter mAdapter;
-
 
     public AppDetailFragment(int id) {
 
@@ -119,15 +119,15 @@ public class AppDetailFragment extends ProgressFragment<AppDetailPresenter> impl
             }
         });
 
-        mAdapter = AppInfoAdapter.builder().layout(R.layout.template_appinfo2)
+        final AppInfoAdapter mAdapterSameDev = AppInfoAdapter.builder().layout(R.layout.template_appinfo2).application(mMyApplication)
                 .build();
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         mRecyclerViewSameDev.setLayoutManager(layoutManager);
 
 
-        mAdapter.addData(detailBean.getSameDevAppInfoList());
-        mRecyclerViewSameDev.setAdapter(mAdapter);
+        mAdapterSameDev.addData(detailBean.getSameDevAppInfoList());
+        mRecyclerViewSameDev.setAdapter(mAdapterSameDev);
         mRecyclerViewSameDev.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -135,19 +135,27 @@ public class AppDetailFragment extends ProgressFragment<AppDetailPresenter> impl
                 Intent intent =new Intent(getActivity(), AppDetailActivity.class);
                 AppInfo appInfo = detailBean.getSameDevAppInfoList().get(position);
                 intent.putExtra("appinfo",appInfo);
+                intent.putExtra("position",position);
                 intent.putExtra("closeAnimation",true);
                 startActivity(intent);
             }
         });
+        RxBus.getDefault().toObservable(AppDetailPageDownLoadBtnClickEvent.class)
+                .subscribe(new Consumer<AppDetailPageDownLoadBtnClickEvent>() {
+                    @Override
+                    public void accept(AppDetailPageDownLoadBtnClickEvent event) throws Exception {
+                        mAdapterSameDev.notifyItemChanged(event.getPosition());
+                    }
+                });
 
         /////////////////////////////////////////////
 
-        mAdapter = AppInfoAdapter.builder().layout(R.layout.template_appinfo2)
+        final AppInfoAdapter mAdapterRelate = AppInfoAdapter.builder().layout(R.layout.template_appinfo2).application(mMyApplication)
                 .build();
 
         mRecyclerViewRelate.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        mAdapter.addData(detailBean.getRelateAppInfoList());
-        mRecyclerViewRelate.setAdapter(mAdapter);
+        mAdapterRelate.addData(detailBean.getRelateAppInfoList());
+        mRecyclerViewRelate.setAdapter(mAdapterRelate);
         mRecyclerViewRelate.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -155,10 +163,18 @@ public class AppDetailFragment extends ProgressFragment<AppDetailPresenter> impl
                 Intent intent =new Intent(getActivity(), AppDetailActivity.class);
                 AppInfo appInfo = detailBean.getRelateAppInfoList().get(position);
                 intent.putExtra("appinfo",appInfo);
+                intent.putExtra("position",position);
                 intent.putExtra("closeAnimation",true);
                 startActivity(intent);
             }
         });
+        RxBus.getDefault().toObservable(AppDetailPageDownLoadBtnClickEvent.class)
+                .subscribe(new Consumer<AppDetailPageDownLoadBtnClickEvent>() {
+                    @Override
+                    public void accept(AppDetailPageDownLoadBtnClickEvent event) throws Exception {
+                        mAdapterRelate.notifyItemChanged(event.getPosition());
+                    }
+                });
     }
 
     private void showScreenshot(String screentShot) {
