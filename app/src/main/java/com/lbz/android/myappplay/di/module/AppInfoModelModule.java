@@ -14,7 +14,7 @@ import dagger.Provides;
 public class AppInfoModelModule {
 
     @Provides
-    AppInfoModel provideRecommendModel(ApiService apiService) {
+    AppInfoModel provideAppInfoModel(ApiService apiService) {
         return new AppInfoModel(apiService);
     }
 

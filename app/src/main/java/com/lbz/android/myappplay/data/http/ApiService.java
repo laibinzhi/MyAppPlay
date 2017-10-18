@@ -43,6 +43,9 @@ public interface ApiService {
     @GET("apm/topfeatured/top")
     Observable<PageBean> getIndexTopTheme();
 
+    @GET("apm/topfeatured/top/{category_id}")
+    Observable<PageBean> getIndexTopTheme(@Path("category_id") int category_id);
+
     @GET("/apm/featured/{category_id}")
     Observable<PageBean> getFeaturedAppsByCategory(@Path("category_id") int category_id, @Query("page") int page);
 
@@ -65,13 +68,13 @@ public interface ApiService {
     Observable<PageBean> getAppDetailById(@Path("app_id") int app_id);
 
     @GET("/apm/samedev/")
-    Observable<PageBean> getSameDevAppList(@Query("appId") int appid,@Query("page") int page);
+    Observable<PageBean> getSameDevAppList(@Query("appId") int appid, @Query("page") int page);
 
     @GET("/apm/search/suggest/")
     Observable<Associational> getAssociationalList(@Query("keyword") String keyword);
 
     @GET("/apm/search/")
-    Observable<PageBean> getAppListByKeyword(@Query("keyword") String keyword,@Query("page") int page);
+    Observable<PageBean> getAppListByKeyword(@Query("keyword") String keyword, @Query("page") int page);
 
     @GET("/apm/download/{id}")
     Observable<AppDownloadInfo> getAppDownloadInfo(@Path("id") int id);

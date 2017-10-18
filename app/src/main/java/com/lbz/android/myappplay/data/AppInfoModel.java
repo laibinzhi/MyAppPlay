@@ -31,6 +31,12 @@ public class AppInfoModel {
 
     }
 
+    public Observable<PageBean> getIndexTopTheme(int category_id) {
+
+        return mApiService.getIndexTopTheme(category_id);
+
+    }
+
     public Observable<PageBean> getTopList(int page) {
 
         return mApiService.topList(page);
