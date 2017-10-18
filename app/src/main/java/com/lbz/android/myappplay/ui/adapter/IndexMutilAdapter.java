@@ -24,6 +24,7 @@ import com.lbz.android.myappplay.commom.imageloader.ImageLoader;
 import com.lbz.android.myappplay.commom.rx.RxBus;
 import com.lbz.android.myappplay.ui.activity.AppDetailActivity;
 import com.lbz.android.myappplay.ui.activity.HotAppActivity;
+import com.lbz.android.myappplay.ui.activity.HotRankGameActivity;
 import com.lbz.android.myappplay.ui.activity.HotSubjectActivity;
 import com.lbz.android.myappplay.ui.activity.SubjectAppActivity;
 import com.lbz.android.myappplay.ui.widget.BannerLayout;
@@ -182,6 +183,9 @@ public class IndexMutilAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         switch (v.getId()){
             case R.id.layout_hot_app:
                 mContext.startActivity(new Intent(mContext, HotAppActivity.class));
+                break;
+            case R.id.layout_hot_game:
+                mContext.startActivity(new Intent(mContext, HotRankGameActivity.class));
                 break;
             case R.id.layout_hot_subject:
                 mContext.startActivity(new Intent(mContext, HotSubjectActivity.class));

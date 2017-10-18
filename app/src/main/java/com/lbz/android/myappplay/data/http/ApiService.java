@@ -37,6 +37,9 @@ public interface ApiService {
     @GET("apm/category")
     Observable<PageBean> getCategory();
 
+    @GET("apm/category/{category_id}")
+    Observable<PageBean> getCategory(@Path("category_id") int category_id);
+
     @GET("apm/featured/")
     Observable<PageBean> getIndexAppData(@Query("page") int page);
 

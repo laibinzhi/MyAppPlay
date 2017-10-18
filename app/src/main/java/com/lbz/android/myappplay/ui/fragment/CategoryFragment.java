@@ -54,7 +54,7 @@ public class CategoryFragment extends ProgressFragment<CategoryPresenter> implem
         mPresenter.requestDatas();
     }
 
-    private void initRecycleView() {
+    protected void initRecycleView() {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 

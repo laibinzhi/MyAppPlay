@@ -24,4 +24,9 @@ public class CategoryModel implements CategoryContract.ICategoryModel {
     public Observable<PageBean> getCategory() {
         return mApiService.getCategory();
     }
+
+    @Override
+    public Observable<PageBean> getCategory(int category_id) {
+        return mApiService.getCategory(category_id);
+    }
 }

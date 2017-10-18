@@ -39,6 +39,10 @@
         <activity android:name=".ui.activity.SameDevAppActivity" />
         <activity android:name=".ui.activity.SearchAppActivity" />
         <activity android:name=".ui.activity.AppManagerActivity" />
+        <activity android:name=".ui.activity.HotRankGameActivity" />
+        <activity android:name=".ui.activity.NewestGameActivity" />
+        <activity android:name=".ui.activity.GameCategoryActivity" />
+
         <receiver android:name=".commom.util.AppInstallReceiver"
             android:label="@string/app_name">
             <intent-filter>

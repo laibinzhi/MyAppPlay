@@ -4,6 +4,8 @@ import com.lbz.android.myappplay.di.FragmentScope;
 import com.lbz.android.myappplay.di.module.AppInfoModule;
 import com.lbz.android.myappplay.ui.fragment.CategoryAppFragment;
 import com.lbz.android.myappplay.ui.fragment.HotAppFragment;
+import com.lbz.android.myappplay.ui.fragment.HotRankGameFragment;
+import com.lbz.android.myappplay.ui.fragment.NewestGameFragment;
 import com.lbz.android.myappplay.ui.fragment.SameDevAppFragment;
 import com.lbz.android.myappplay.ui.fragment.SubjectAppFragment;
 import com.lbz.android.myappplay.ui.fragment.TopListFragment;
@@ -27,5 +29,9 @@ public interface AppInfoComponent {
     void injectSubjectAppFragment(SubjectAppFragment fragment);
 
     void injectSameDevAppFragment(SameDevAppFragment fragment);
+
+    void injectHotRankGameFragment(HotRankGameFragment fragment);
+
+    void injectNewestGameFragment(NewestGameFragment fragment);
 
 }

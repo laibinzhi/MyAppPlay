@@ -33,4 +33,16 @@ public class CategoryPresenter extends BasePresenter<CategoryContract.ICategoryM
                 });
     }
 
+    public void requestDatas(int category_id) {
+        mModel.getCategory(category_id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new ProgressSubcriber<PageBean>(mContext,mView) {
+                    @Override
+                    public void onNext(PageBean categoryBean) {
+                        mView.showData(categoryBean.getCategories());
+                    }
+                });
+    }
+
 }

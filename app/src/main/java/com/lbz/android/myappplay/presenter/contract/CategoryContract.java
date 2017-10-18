@@ -17,6 +17,7 @@ public interface CategoryContract {
 
     interface ICategoryModel {
         Observable<PageBean> getCategory();
+        Observable<PageBean> getCategory(int category_id);
     }
 
     interface CategoryView extends BaseView {

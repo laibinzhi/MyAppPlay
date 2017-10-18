@@ -21,6 +21,9 @@ import com.lbz.android.myappplay.bean.event.AppDetailPageDownLoadBtnClickEvent;
 import com.lbz.android.myappplay.commom.Constant;
 import com.lbz.android.myappplay.commom.rx.RxBus;
 import com.lbz.android.myappplay.ui.activity.AppDetailActivity;
+import com.lbz.android.myappplay.ui.activity.GameCategoryActivity;
+import com.lbz.android.myappplay.ui.activity.HotRankGameActivity;
+import com.lbz.android.myappplay.ui.activity.NewestGameActivity;
 import com.lbz.android.myappplay.ui.activity.SubjectAppActivity;
 import com.lbz.android.myappplay.ui.widget.DividerItemDecoration;
 import com.lbz.android.myappplay.ui.widget.WrapHeightPaddingGridView;
@@ -163,6 +166,16 @@ public class GamesIndexAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void onClick(View v) {
 
         switch (v.getId()){
+
+            case R.id.layout_rank_game:
+                mContext.startActivity(new Intent(mContext, HotRankGameActivity.class));
+                break;
+            case R.id.layout_new_game:
+                mContext.startActivity(new Intent(mContext, NewestGameActivity.class));
+                break;
+            case R.id.layout_game_subject:
+                mContext.startActivity(new Intent(mContext, GameCategoryActivity.class));
+                break;
 
         }
 
