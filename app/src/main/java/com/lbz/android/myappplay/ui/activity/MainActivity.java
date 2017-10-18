@@ -2,11 +2,9 @@ package com.lbz.android.myappplay.ui.activity;
 
 import android.Manifest;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -18,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.hwangjr.rxbus.annotation.Subscribe;
 import com.lbz.android.myappplay.R;
 import com.lbz.android.myappplay.bean.FragmentInfo;
 import com.lbz.android.myappplay.bean.User;
@@ -89,13 +86,13 @@ public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClic
                     @Override
                     public void accept(Boolean aBoolean) {
 
-                        if(aBoolean){
+                        if (aBoolean) {
                             initDrawerLayout();
 
                             initTabLayout();
 
                             initUser();
-                        }else {
+                        } else {
                             //------
                         }
                     }
@@ -111,7 +108,7 @@ public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClic
         mTabLayout.setupWithViewPager(mViewPager);
     }
 
-    private  List<FragmentInfo> initFragment() {
+    private List<FragmentInfo> initFragment() {
         List<FragmentInfo> mFragments = new ArrayList<>(4);
 
         mFragments.add(new FragmentInfo(getString(R.string.recomend), RecomendFragment.class));
@@ -161,10 +158,10 @@ public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClic
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search:
-                startActivity(new Intent(this,SearchAppActivity.class));
+                startActivity(new Intent(this, SearchAppActivity.class));
                 break;
             case R.id.action_download:
-                appManager();
+                openAppManager(0);
                 break;
         }
         return false;
@@ -173,35 +170,48 @@ public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClic
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+
+            case R.id.menu_app_update:
+
+                openAppManager(2);
+
+                break;
+
+            case R.id.menu_download_manager:
+
+                openAppManager(0);
+
+                break;
+
+            case R.id.menu_app_uninstall:
+
+                openAppManager(3);
+
+                break;
+
             case R.id.menu_logout:
 
                 logout();
-
-                break;
-            case R.id.menu_download_manager:
-
-                appManager();
 
                 break;
         }
         return false;
     }
 
-    private void initUser(){
+    private void initUser() {
 
-        Object objUser= ACache.get(this).getAsObject(Constant.USER);
+        Object objUser = ACache.get(this).getAsObject(Constant.USER);
 
-        if(objUser ==null){
+        if (objUser == null) {
 
             headerView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 }
             });
 
-        }
-        else{
+        } else {
 
             User user = (User) objUser;
             initUserHeadView(user);
@@ -209,7 +219,7 @@ public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClic
     }
 
 
-    private void initUserHeadView(User user){
+    private void initUserHeadView(User user) {
 
         Glide.with(this).load(user.getLogo_url()).transform(new GlideCircleTransform(this)).into(mUserHeadView);
 
@@ -220,8 +230,8 @@ public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClic
 
         ACache aCache = ACache.get(this);
 
-        aCache.put(Constant.TOKEN,"");
-        aCache.put(Constant.USER,"");
+        aCache.put(Constant.TOKEN, "");
+        aCache.put(Constant.USER, "");
 
         mUserHeadView.setImageDrawable(new IconicsDrawable(this, LbzFont.Icon.cniao_head).colorRes(R.color.white));
         mTextUserName.setText("未登录");
@@ -229,14 +239,16 @@ public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClic
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
             }
         });
 
-        Toast.makeText(MainActivity.this,"您已退出登录",Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this, "您已退出登录", Toast.LENGTH_LONG).show();
     }
 
-    public void appManager(){
-        startActivity(new Intent(MainActivity.this,AppManagerActivity.class));
+    public void openAppManager(int page) {
+        Intent intent = new Intent(MainActivity.this, AppManagerActivity.class);
+        intent.putExtra("page", page);
+        startActivity(intent);
     }
 }

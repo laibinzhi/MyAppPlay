@@ -37,6 +37,8 @@ public class AppManagerActivity extends BaseActivity {
     @Bind(R.id.viewpager)
     ViewPager mViewPager;
 
+    public int page = 0;
+
     @Override
     protected int setLayout() {
         return R.layout.activity_app_manager;
@@ -49,8 +51,13 @@ public class AppManagerActivity extends BaseActivity {
 
     @Override
     protected void init() {
+        initData();
         initToolbar();
         initTablayout();
+    }
+
+    private void initData() {
+        page = getIntent().getIntExtra("page", 0);
     }
 
     private void initToolbar() {
@@ -76,24 +83,30 @@ public class AppManagerActivity extends BaseActivity {
 
     private void initTablayout() {
 
-        PagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(),initFragments());
+        PagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), initFragments());
         mViewPager.setOffscreenPageLimit(adapter.getCount());
         mViewPager.setAdapter(adapter);
 
         mTabLayout.setupWithViewPager(mViewPager);
 
+        setPage();
+
     }
 
-    private List<FragmentInfo> initFragments(){
+    private List<FragmentInfo> initFragments() {
 
         List<FragmentInfo> mFragments = new ArrayList<>(4);
 
-        mFragments.add(new FragmentInfo("下载",DownloadingFragment.class));
-        mFragments.add(new FragmentInfo("已完成",DownloadedFragment.class));
-        mFragments.add(new FragmentInfo("可升级",UpdateAppFragment.class));
-        mFragments.add(new FragmentInfo("已安装",InstalledAppFragment.class));
+        mFragments.add(new FragmentInfo("下载", DownloadingFragment.class));
+        mFragments.add(new FragmentInfo("已完成", DownloadedFragment.class));
+        mFragments.add(new FragmentInfo("可升级", UpdateAppFragment.class));
+        mFragments.add(new FragmentInfo("已安装", InstalledAppFragment.class));
 
-        return  mFragments;
+        return mFragments;
 
+    }
+
+    public void setPage() {
+        mViewPager.setCurrentItem(page);
     }
 }
