@@ -44,4 +44,11 @@
     <string name="download">下载</string>
     <string name="error_token">登录失效，请重新登录</string>
     <string name="mobile">手机号</string>
+    <string name="key_root_install">key_root_install</string>
+    <string name="key_auto_delete_apk">key_auto_delete_apk</string>
+    <string name="key_smart_install">key_smart_install</string>
+    <string name="key_auto_check_apk_update">key_auto_check_apk_update</string>
+    <string name="key_clear_cache">key_clear_cache</string>
+    <string name="key_apk_download_dir">key_apk_download_dir</string>
+    <string name="key_version">key_version</string>
 </resources>

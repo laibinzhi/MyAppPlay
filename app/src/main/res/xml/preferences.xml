@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:layout="@layout/preference_category"
+        android:title="安装与升级">
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/key_smart_install"
+            android:layout="@layout/preference_item"
+            android:summary="支持Android 4.1以上，无需root权限"
+            android:title="智能安装" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/key_root_install"
+            android:summary="仅限root 用户"
+            android:title="自动安装" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="@string/key_auto_delete_apk"
+            android:title="下载安装成功后删除安装包" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/key_auto_check_apk_update"
+            android:summary="此功能会把你安装的应用列表发送到菜鸟窝服务器，用来查找最新版本的应用"
+            android:title="自动检测可升级的应用" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:layout="@layout/preference_category"
+        android:title="基本设置">
+        <Preference
+            android:key="@string/key_clear_cache"
+            android:layout="@layout/preference_item"
+            android:summary="安装包，图片等缓存"
+            android:title="缓存清理" />
+        <Preference
+            android:key="@string/key_apk_download_dir"
+            android:summary="默认目录"
+            android:title="安装包下载目录" />
+    </PreferenceCategory>
+    <Preference
+        android:key="@string/key_version"
+        android:summary="版本：1.0.21"
+        android:title="关于我的手机助手" />
+</PreferenceScreen>

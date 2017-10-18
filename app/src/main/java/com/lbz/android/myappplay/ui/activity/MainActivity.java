@@ -29,6 +29,7 @@ import com.lbz.android.myappplay.ui.adapter.ViewPagerAdapter;
 import com.lbz.android.myappplay.ui.fragment.CategoryFragment;
 import com.lbz.android.myappplay.ui.fragment.GamesFragment;
 import com.lbz.android.myappplay.ui.fragment.RecomendFragment;
+import com.lbz.android.myappplay.ui.fragment.SettingFragment;
 import com.lbz.android.myappplay.ui.fragment.TopListFragment;
 import com.lbz.android.myappplay.ui.typeface.LbzFont;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -186,6 +187,12 @@ public class MainActivity extends BaseActivity implements Toolbar.OnMenuItemClic
             case R.id.menu_app_uninstall:
 
                 openAppManager(3);
+
+                break;
+
+            case R.id.menu_setting:
+
+                startActivity(new Intent(this, SettingActivity.class));
 
                 break;
 
