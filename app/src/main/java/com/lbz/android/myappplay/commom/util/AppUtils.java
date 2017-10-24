@@ -25,11 +25,13 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.lbz.android.myappplay.bean.AppInfo;
 import com.lbz.android.myappplay.commom.apkparset.AndroidApk;
+import com.lbz.android.myappplay.service.MyAccessibilityService;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -45,6 +47,8 @@ import java.util.regex.Pattern;
  * Create by h4de5ing 2016/5/18 018
  */
 public class AppUtils {
+
+    private static final String TAG = "AppUtils";
 
     public static String getAppName(Context context, String packageName) {
         PackageManager pm = context.getPackageManager();
@@ -242,7 +246,7 @@ public class AppUtils {
         return isShouldUpdate;
     }
 
-    public static boolean installApk(Context context, String filePath) {
+    public static boolean installApkNormal(Context context, String filePath) {
         File file = new File(filePath);
         if (!file.exists() || !file.isFile() || file.length() <= 0) {
             return false;
@@ -251,6 +255,38 @@ public class AppUtils {
         i.setDataAndType(Uri.parse("file://" + filePath), "application/vnd.android.package-archive");
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(i);
+        return true;
+    }
+
+    public static boolean installApk(Context context, String filePath) {
+
+        boolean isInstallSmart = context.getSharedPreferences(context.getPackageName() + "_preferences", Context.MODE_PRIVATE).getBoolean("key_smart_install", false);
+        boolean isInstallSilent = context.getSharedPreferences(context.getPackageName() + "_preferences", Context.MODE_PRIVATE).getBoolean("key_root_install", false);
+
+        if (isInstallSilent) {
+            if (isAppRoot()) {
+                InstallUtils.installSilent(filePath);
+            } else {
+                getRootPermission(context);
+            }
+        } else {
+
+            if (isInstallSmart) {
+                if (!isAccessibilitySettingsOn(context)) {
+                    Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+                    context.startActivity(intent);
+                } else {
+                    MyAccessibilityService.addInstalledWhitelList(InstallUtils.getAppNameByReflection(context,filePath));
+                    installApkNormal(context, filePath);
+                }
+
+            } else {
+                installApkNormal(context, filePath);
+            }
+
+        }
+
+
         return true;
     }
 
@@ -411,14 +447,14 @@ public class AppUtils {
         FileUtils.deleteFileByDirectory(new File(filepath));
     }
 
-    public static AppInfo getNewAppInfoWithLoaclVersionName(Context context,AppInfo appInfo){
+    public static AppInfo getNewAppInfoWithLoaclVersionName(Context context, AppInfo appInfo) {
 
         PackageManager pm = context.getPackageManager();
         List<PackageInfo> packages = pm.getInstalledPackages(0);
 
         for (PackageInfo packageInfo : packages) {
 
-            if (appInfo.getPackageName().equals(packageInfo.packageName)){
+            if (appInfo.getPackageName().equals(packageInfo.packageName)) {
                 appInfo.setLocalVersionName(packageInfo.versionName);
             }
 
@@ -426,4 +462,70 @@ public class AppUtils {
         return appInfo;
 
     }
+
+    /**
+     * 判断App是否有root权限
+     *
+     * @return {@code true}: 是<br>{@code false}: 否
+     */
+    public static boolean isAppRoot() {
+        ShellUtils.CommandResult result = ShellUtils.execCommand("echo root", true);
+        if (result.result == 0) {
+            return true;
+        }
+        if (result.errorMsg != null) {
+            Log.d("InstallUtils", result.errorMsg);
+        }
+        return false;
+    }
+
+    /**
+     * 判断AccessibilityService服务是否开启
+     *
+     * @param mContext
+     * @return
+     */
+    public static boolean isAccessibilitySettingsOn(Context mContext) {
+        Log.e(TAG, "isAccessibilitySettingsOn");
+        int accessibilityEnabled = 0;
+        final String service = "com.lbz.android.myappplay/com.lbz.android.myappplay.service.MyAccessibilityService";
+        boolean accessibilityFound = false;
+        try {
+            accessibilityEnabled = Settings.Secure.getInt(
+                    mContext.getApplicationContext().getContentResolver(),
+                    android.provider.Settings.Secure.ACCESSIBILITY_ENABLED);
+            Log.i(TAG, "accessibilityEnabled = " + accessibilityEnabled);
+        } catch (Settings.SettingNotFoundException e) {
+            Log.i(TAG, "Error finding setting, default accessibility to not found: "
+                    + e);
+        }
+        TextUtils.SimpleStringSplitter mStringColonSplitter = new TextUtils.SimpleStringSplitter(':');
+
+        if (accessibilityEnabled == 1) {
+            Log.i(TAG, "***ACCESSIBILIY IS ENABLED*** -----------------");
+            String settingValue = Settings.Secure.getString(
+                    mContext.getApplicationContext().getContentResolver(),
+                    Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
+            if (settingValue != null) {
+                TextUtils.SimpleStringSplitter splitter = mStringColonSplitter;
+                splitter.setString(settingValue);
+                while (splitter.hasNext()) {
+                    String accessabilityService = splitter.next();
+
+                    Log.i(TAG, "-------------- > accessabilityService :: " + accessabilityService);
+                    if (accessabilityService.equalsIgnoreCase(service)) {
+                        Log.i(TAG, "We've found the correct setting - accessibility is switched on!");
+                        accessibilityFound = true;
+                    }
+                }
+            }
+        } else {
+            Log.i(TAG, "***ACCESSIBILIY IS DISABLED***");
+        }
+        Log.e(TAG, "isAccessibilitySettingsOn accessibilityFound=" + accessibilityFound);
+
+        return accessibilityFound;
+    }
+
+
 }

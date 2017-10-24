@@ -51,4 +51,6 @@
     <string name="key_clear_cache">key_clear_cache</string>
     <string name="key_apk_download_dir">key_apk_download_dir</string>
     <string name="key_version">key_version</string>
+    <string name="title">我的手机助手智能安装</string>
+    <string name="description">装应用时候我帮你点</string>
 </resources>

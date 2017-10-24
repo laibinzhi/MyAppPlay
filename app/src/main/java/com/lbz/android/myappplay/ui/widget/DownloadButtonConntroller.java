@@ -30,11 +30,15 @@ import java.io.File;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.functions.Predicate;
+import io.reactivex.schedulers.Schedulers;
 import zlc.season.rxdownload2.RxDownload;
 import zlc.season.rxdownload2.entity.DownloadBean;
 import zlc.season.rxdownload2.entity.DownloadEvent;
@@ -279,7 +283,7 @@ public class DownloadButtonConntroller {
      * @param btn
      * @param appInfo
      */
-    private void bindClick(final DownloadProgressButton btn, final AppInfo appInfo) {
+    private void bindClick(final DownloadProgressButton btn, final AppInfo appInfo, final int type, final BaseViewHolder helper) {
 
         RxView.clicks(btn).subscribe(new Consumer<Object>() {
             @Override
@@ -309,8 +313,21 @@ public class DownloadButtonConntroller {
                         break;
 
                     case DownloadFlag.COMPLETED:
-                        installApp(btn.getContext(), appInfo);
+                        boolean isInstallSilent = btn.getContext().getSharedPreferences(btn.getContext().getPackageName() + "_preferences", Context.MODE_PRIVATE).getBoolean("key_root_install", false);
+                        if (type == 1 && isInstallSilent&&AppUtils.isAppRoot()) {
+                            btn.setText("安装中");
+                        } else if (type == 2 && isInstallSilent&&AppUtils.isAppRoot()) {
+                            TextView tv = helper.getView(R.id.status);
+                            tv.setText("安装中");
+                        }
 
+                        installApp(btn.getContext(), appInfo).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<Object>() {
+
+                            @Override
+                            public void accept(Object o) throws Exception {
+
+                            }
+                        });
                         break;
 
                 }
@@ -350,9 +367,18 @@ public class DownloadButtonConntroller {
                         break;
 
                     case DownloadFlag.COMPLETED:
+                        boolean isInstallSilent = btn.getContext().getSharedPreferences(btn.getContext().getPackageName() + "_preferences", Context.MODE_PRIVATE).getBoolean("key_root_install", false);
 
-                        installApp(btn.getContext(), appInfo);
+                        if (isInstallSilent&&AppUtils.isAppRoot()) {
+                            btn.setCurrentText("安装中");
+                        }
+                        installApp(btn.getContext(), appInfo).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<Object>() {
 
+                            @Override
+                            public void accept(Object o) throws Exception {
+
+                            }
+                        });
                         break;
 
                 }
@@ -460,11 +486,18 @@ public class DownloadButtonConntroller {
      * @param context
      * @param appInfo
      */
-    private void installApp(Context context, AppInfo appInfo) {
+    private Observable<?> installApp(final Context context, final AppInfo appInfo) {
 
-        String path = ACache.get(context).getAsString(Constant.APK_DOWNLOAD_DIR) + "/" + appInfo.getId() + ".apk";
+        return Observable.create(new ObservableOnSubscribe<Object>() {
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<Object> e) throws Exception {
 
-        AppUtils.installApk(context, path);
+                String path = ACache.get(context).getAsString(Constant.APK_DOWNLOAD_DIR) + "/" + appInfo.getId() + ".apk";
+
+                AppUtils.installApk(context, path);
+
+            }
+        });
 
     }
 
@@ -619,7 +652,7 @@ public class DownloadButtonConntroller {
 
             btn.setTag(R.id.tag_apk_flag, flag);
 
-            bindClick(btn, mAppInfo);
+            bindClick(btn, mAppInfo, 1, null);
 
             switch (flag) {
 
@@ -761,7 +794,7 @@ public class DownloadButtonConntroller {
 
             btn.setTag(R.id.tag_apk_flag, flag);
 
-            bindClick(btn, mAppInfo);
+            bindClick(btn, mAppInfo, 2, helper);
 
             switch (flag) {
 
