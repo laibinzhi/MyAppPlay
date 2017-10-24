@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jakewharton.rxbinding2.view.RxView;
@@ -314,9 +315,9 @@ public class DownloadButtonConntroller {
 
                     case DownloadFlag.COMPLETED:
                         boolean isInstallSilent = btn.getContext().getSharedPreferences(btn.getContext().getPackageName() + "_preferences", Context.MODE_PRIVATE).getBoolean("key_root_install", false);
-                        if (type == 1 && isInstallSilent&&AppUtils.isAppRoot()) {
+                        if (type == 1 && isInstallSilent && AppUtils.isAppRoot()) {
                             btn.setText("安装中");
-                        } else if (type == 2 && isInstallSilent&&AppUtils.isAppRoot()) {
+                        } else if (type == 2 && isInstallSilent && AppUtils.isAppRoot()) {
                             TextView tv = helper.getView(R.id.status);
                             tv.setText("安装中");
                         }
@@ -369,7 +370,7 @@ public class DownloadButtonConntroller {
                     case DownloadFlag.COMPLETED:
                         boolean isInstallSilent = btn.getContext().getSharedPreferences(btn.getContext().getPackageName() + "_preferences", Context.MODE_PRIVATE).getBoolean("key_root_install", false);
 
-                        if (isInstallSilent&&AppUtils.isAppRoot()) {
+                        if (isInstallSilent && AppUtils.isAppRoot()) {
                             btn.setCurrentText("安装中");
                         }
                         installApp(btn.getContext(), appInfo).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<Object>() {
@@ -658,6 +659,7 @@ public class DownloadButtonConntroller {
 
                 case DownloadFlag.INSTALLED:
                     btn.setText("运行");
+                    deleteInstallApkFile(btn.getContext(), mAppInfo);
                     break;
 
                 case DownloadFlag.NORMAL:
@@ -692,6 +694,22 @@ public class DownloadButtonConntroller {
         }
     }
 
+    private void deleteInstallApkFile(Context context, AppInfo appInfo) {
+
+        boolean isDeleteInstallApkFile = context.getSharedPreferences(context.getPackageName() + "_preferences", Context.MODE_PRIVATE).getBoolean("key_auto_delete_apk", false);
+
+        if (isDeleteInstallApkFile) {
+            String path = ACache.get(context).getAsString(Constant.APK_DOWNLOAD_DIR) + "/" + appInfo.getId() + ".apk";
+            File file = new File(path);
+            if (file.exists()) {
+                boolean deleteSuccess = file.delete();
+                if (deleteSuccess){
+                    Toast.makeText(context,appInfo.getDisplayName()+"安装包删除成功",Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
     class AppDetailDownloadConsumer implements Consumer<DownloadEvent> {
 
         DownloadButton btn;
@@ -723,6 +741,7 @@ public class DownloadButtonConntroller {
 
                 case DownloadFlag.INSTALLED:
                     btn.setCurrentText("运行");
+                    deleteInstallApkFile(btn.getContext(), mAppInfo);
                     break;
 
                 case DownloadFlag.NORMAL:

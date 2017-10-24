@@ -24,8 +24,6 @@ public class AppInstallReceiver extends BroadcastReceiver {
         if (intent.getAction().equals(Intent.ACTION_PACKAGE_REMOVED)) {
             String packageName = intent.getData().getSchemeSpecificPart();
             RxBus.getDefault().post(new AppInstallEvent(Intent.ACTION_PACKAGE_REMOVED, packageName));
-            Toast.makeText(context, packageName + "卸载成功", Toast.LENGTH_SHORT).show();
-
         }
         if (intent.getAction().equals(Intent.ACTION_PACKAGE_REPLACED)) {
             String packageName = intent.getData().getSchemeSpecificPart();
