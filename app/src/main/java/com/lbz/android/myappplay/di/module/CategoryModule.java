@@ -3,7 +3,7 @@ package com.lbz.android.myappplay.di.module;
 
 
 import com.lbz.android.myappplay.data.CategoryModel;
-import com.lbz.android.myappplay.data.http.ApiService;
+import com.lbz.android.myappplay.data.http.Repository;
 import com.lbz.android.myappplay.presenter.contract.CategoryContract;
 
 
@@ -33,9 +33,9 @@ public class CategoryModule {
 
 
     @Provides
-    public CategoryContract.ICategoryModel privodeModel(ApiService apiService) {
+    public CategoryContract.ICategoryModel privodeModel(Repository repository) {
 
-        return new CategoryModel(apiService);
+        return new CategoryModel(repository);
     }
 
 

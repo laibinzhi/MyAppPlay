@@ -4,6 +4,7 @@ package com.lbz.android.myappplay.di.module;
 import com.lbz.android.myappplay.bean.SearchHistory.SearchHistoryDao;
 import com.lbz.android.myappplay.data.SearchAppModel;
 import com.lbz.android.myappplay.data.http.ApiService;
+import com.lbz.android.myappplay.data.http.Repository;
 import com.lbz.android.myappplay.presenter.contract.SearchAppContract;
 
 import dagger.Module;
@@ -30,9 +31,9 @@ public class SearchAppModule {
 
 
     @Provides
-    public  SearchAppContract.ISearchAppModel privodeModel(ApiService apiService, SearchHistoryDao searchHistoryDao) {
+    public  SearchAppContract.ISearchAppModel privodeModel(Repository repository, SearchHistoryDao searchHistoryDao) {
 
-        return new SearchAppModel(apiService,searchHistoryDao);
+        return new SearchAppModel(repository,searchHistoryDao);
     }
 
 

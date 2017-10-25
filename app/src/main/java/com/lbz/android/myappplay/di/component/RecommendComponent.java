@@ -1,6 +1,5 @@
 package com.lbz.android.myappplay.di.component;
 
-import com.lbz.android.myappplay.data.http.ApiService;
 import com.lbz.android.myappplay.di.FragmentScope;
 import com.lbz.android.myappplay.di.module.RecommendModule;
 import com.lbz.android.myappplay.ui.fragment.RecomendFragment;

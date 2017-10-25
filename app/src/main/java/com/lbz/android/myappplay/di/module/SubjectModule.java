@@ -2,7 +2,7 @@ package com.lbz.android.myappplay.di.module;
 
 
 import com.lbz.android.myappplay.data.SubjectModel;
-import com.lbz.android.myappplay.data.http.ApiService;
+import com.lbz.android.myappplay.data.http.Repository;
 import com.lbz.android.myappplay.presenter.contract.SubjectContract;
 
 import dagger.Module;
@@ -28,9 +28,9 @@ public class SubjectModule {
 
 
     @Provides
-    public SubjectContract.ISubjectModel privodeModel(ApiService apiService) {
+    public SubjectContract.ISubjectModel privodeModel(Repository repository) {
 
-        return new SubjectModel(apiService);
+        return new SubjectModel(repository);
     }
 
 }

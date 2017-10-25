@@ -4,7 +4,7 @@ import com.lbz.android.myappplay.bean.Associational;
 import com.lbz.android.myappplay.bean.PageBean;
 import com.lbz.android.myappplay.bean.SearchHistory.SearchHistory;
 import com.lbz.android.myappplay.bean.SearchHistory.SearchHistoryDao;
-import com.lbz.android.myappplay.data.http.ApiService;
+import com.lbz.android.myappplay.data.http.Repository;
 import com.lbz.android.myappplay.presenter.contract.SearchAppContract;
 
 import java.util.ArrayList;
@@ -20,22 +20,22 @@ import io.reactivex.Observable;
 
 public class SearchAppModel implements SearchAppContract.ISearchAppModel {
 
-    private ApiService mApiService;
+    private Repository mRepository;
     private SearchHistoryDao mSearchHistoryDao;
 
-    public SearchAppModel(ApiService apiService, SearchHistoryDao searchHistoryDao) {
-        this.mApiService = apiService;
+    public SearchAppModel(Repository repository, SearchHistoryDao searchHistoryDao) {
+        this.mRepository = repository;
         this.mSearchHistoryDao = searchHistoryDao;
     }
 
     @Override
-    public Observable<Associational> getAssociational(String keyword) {
-        return mApiService.getAssociationalList(keyword);
+    public Observable<Associational> getAssociational(String keyword,boolean update) {
+        return mRepository.getAssociationalList(keyword,update);
     }
 
     @Override
-    public Observable<PageBean> getAppListByKeyword(String keyword, int page) {
-        return mApiService.getAppListByKeyword(keyword, page);
+    public Observable<PageBean> getAppListByKeyword(String keyword, int page,boolean update) {
+        return mRepository.getAppListByKeyword(keyword, page,update);
     }
 
     @Override

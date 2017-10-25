@@ -21,8 +21,8 @@ public class CategoryPresenter extends BasePresenter<CategoryContract.ICategoryM
         super(mModel, mView);
     }
 
-    public void requestDatas() {
-        mModel.getCategory()
+    public void requestDatas(boolean update) {
+        mModel.getCategory(update)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ProgressSubcriber<PageBean>(mContext,mView) {
@@ -33,8 +33,8 @@ public class CategoryPresenter extends BasePresenter<CategoryContract.ICategoryM
                 });
     }
 
-    public void requestDatas(int category_id) {
-        mModel.getCategory(category_id)
+    public void requestDatas(int category_id,boolean update) {
+        mModel.getCategory(category_id,update)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ProgressSubcriber<PageBean>(mContext,mView) {

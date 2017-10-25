@@ -30,7 +30,7 @@ public class SameDevAppFragment extends BaseAppInfoFragment{
     @Override
     protected void init() {
         initRecyclerView();
-        mPresenter.requestSameDevApps(appId,0);
+        mPresenter.requestSameDevApps(appId,0,false);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class SameDevAppFragment extends BaseAppInfoFragment{
 
     @Override
     public void onLoadMoreRequested() {
-        mPresenter.requestSameDevApps(appId, page);
+        mPresenter.requestSameDevApps(appId, page,false);
     }
 
     @Override

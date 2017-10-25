@@ -21,8 +21,8 @@ public class AppDetailPresenter extends BasePresenter<AppInfoModel, AppInfoContr
         super(mModel, mView);
     }
 
-    public void getAppDetail(int app_id) {
-        mModel.getAppDetailById(app_id)
+    public void getAppDetail(int app_id,boolean update) {
+        mModel.getAppDetailById(app_id,update)
                 .compose(RxHttpResponseCompose.composeSchedulers())
                 .subscribe(new ProgressSubcriber<PageBean>(mContext, mView) {
                     @Override

@@ -50,7 +50,7 @@ public class KeyWordAppListFragment extends ProgressFragment<SearchAppPresenter>
     @Override
     protected void init() {
         initRecyclerView();
-        mPresenter.AppListByKeyword(getKeyWord(), page);
+        mPresenter.AppListByKeyword(getKeyWord(), page,false);
     }
 
     @Override
@@ -102,7 +102,7 @@ public class KeyWordAppListFragment extends ProgressFragment<SearchAppPresenter>
 
     @Override
     public void onLoadMoreRequested() {
-        mPresenter.AppListByKeyword(getKeyWord(), page);
+        mPresenter.AppListByKeyword(getKeyWord(), page,false);
     }
 
 

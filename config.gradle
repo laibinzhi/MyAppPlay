@@ -16,12 +16,14 @@ ext{
             rxpermissionsVersion    : "0.9.4@aar",
             rxbusVersion            : "1.0.5",
             rxdownloadVersion       : "2.0.4",
+            rxcache                 : "1.8.1-2.x",
+            rxcache_jolyglot        : "0.0.3",
 
             retrofitVersion         : "2.2.0",
 
             okhttpVersion           : "3.8.1",
 
-            dagger2Version          : "2.0.2",
+            dagger2Version          : "2.12",
 
             butterknifeVersion      : "7.0.1",
     ]
@@ -37,6 +39,8 @@ ext{
             "rxpermissions"                      : "com.tbruyelle.rxpermissions2:rxpermissions:${android["rxpermissionsVersion"]}",
             "rxbus"                              : "com.hwangjr.rxbus:rxbus:${android["rxbusVersion"]}",
             "rxdownload"                         : "zlc.season:rxdownload2:${android["rxdownloadVersion"]}",
+            "rxcache"                            : "com.github.VictorAlbertos.RxCache:runtime:${android["rxcache"]}",
+            "rxcache_jolyglotGson"              : "com.github.VictorAlbertos.Jolyglot:gson:${android["rxcache_jolyglot"]}",
 
             "retrofit"                           : "com.squareup.retrofit2:retrofit:${android["retrofitVersion"]}",
             "retrofit-adapter-rxjava"            : "com.squareup.retrofit2:adapter-rxjava2:${android["retrofitVersion"]}",

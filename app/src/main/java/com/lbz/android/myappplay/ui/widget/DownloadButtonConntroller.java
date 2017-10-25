@@ -24,6 +24,7 @@ import com.lbz.android.myappplay.commom.util.ACache;
 import com.lbz.android.myappplay.commom.util.AppUtils;
 import com.lbz.android.myappplay.commom.util.PermissionUtil;
 import com.lbz.android.myappplay.data.http.ApiService;
+import com.lbz.android.myappplay.data.http.Repository;
 import com.lbz.android.myappplay.di.component.DaggerDownloadComponent;
 
 import java.io.File;
@@ -59,7 +60,7 @@ public class DownloadButtonConntroller {
     RxDownload mRxDownload;
 
     @Inject
-    ApiService mApiService;
+    Repository mRepository;
 
     public DownloadButtonConntroller(MyApplication myApplication) {
 
@@ -121,7 +122,7 @@ public class DownloadButtonConntroller {
 //        Log.e("1111", "mRxDownload =" + ((mRxDownload != null) ? "not null" + mRxDownload : "null")+"----"+appInfo.getDisplayName());
 //        Log.e("1111", "mApiService =" + ((mApiService != null) ? "not null" + mApiService : "null")+"----"+appInfo.getDisplayName());
 
-        if (mApiService == null || mRxDownload == null) {
+        if (mRepository == null || mRxDownload == null) {
             return;
         }
 
@@ -150,7 +151,7 @@ public class DownloadButtonConntroller {
 
                         if (DownloadFlag.FILE_EXIST == event.getFlag()) {
 
-                            return getAppDownloadInfo(appInfo)
+                            return getAppDownloadInfo(appInfo,false)
 
                                     .flatMap(new Function<AppDownloadInfo, ObservableSource<DownloadEvent>>() {
                                         @Override
@@ -202,7 +203,7 @@ public class DownloadButtonConntroller {
 //        Log.e("1111", "mRxDownload =" + ((mRxDownload != null) ? "not null" + mRxDownload : "null")+"----"+appInfo.getDisplayName());
 //        Log.e("1111", "mApiService =" + ((mApiService != null) ? "not null" + mApiService : "null")+"----"+appInfo.getDisplayName());
 
-        if (mApiService == null || mRxDownload == null) {
+        if (mRepository == null || mRxDownload == null) {
             return;
         }
 
@@ -231,7 +232,7 @@ public class DownloadButtonConntroller {
 
                         if (DownloadFlag.FILE_EXIST == event.getFlag()) {
 
-                            return getAppDownloadInfo(appInfo)
+                            return getAppDownloadInfo(appInfo,false)
 
                                     .flatMap(new Function<AppDownloadInfo, ObservableSource<DownloadEvent>>() {
                                         @Override
@@ -446,9 +447,9 @@ public class DownloadButtonConntroller {
      * @param appInfo
      * @return
      */
-    public Observable<AppDownloadInfo> getAppDownloadInfo(AppInfo appInfo) {
+    public Observable<AppDownloadInfo> getAppDownloadInfo(AppInfo appInfo,boolean update) {
 
-        return mApiService.getAppDownloadInfo(appInfo.getId()).compose(RxHttpResponseCompose.composeSchedulers());
+        return mRepository.getAppDownloadInfo(appInfo.getId(),update).compose(RxHttpResponseCompose.composeSchedulers());
 
     }
 
@@ -583,7 +584,7 @@ public class DownloadButtonConntroller {
                         if (aBoolean) {
                             final AppDownloadInfo downloadInfo = appInfo.getAppDownloadInfo();
                             if (downloadInfo == null) {
-                                getAppDownloadInfo(appInfo).subscribe(new Consumer<AppDownloadInfo>() {
+                                getAppDownloadInfo(appInfo,false).subscribe(new Consumer<AppDownloadInfo>() {
                                     @Override
                                     public void accept(AppDownloadInfo appDownloadInfo) throws Exception {
 
@@ -612,7 +613,7 @@ public class DownloadButtonConntroller {
                         if (aBoolean) {
                             final AppDownloadInfo downloadInfo = appInfo.getAppDownloadInfo();
                             if (downloadInfo == null) {
-                                getAppDownloadInfo(appInfo).subscribe(new Consumer<AppDownloadInfo>() {
+                                getAppDownloadInfo(appInfo,false).subscribe(new Consumer<AppDownloadInfo>() {
                                     @Override
                                     public void accept(AppDownloadInfo appDownloadInfo) throws Exception {
 

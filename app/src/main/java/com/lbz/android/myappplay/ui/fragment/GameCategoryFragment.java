@@ -11,6 +11,6 @@ public class GameCategoryFragment extends CategoryFragment {
     @Override
     protected void init() {
         initRecycleView();
-        mPresenter.requestDatas(GAME_CATEGORY);
+        mPresenter.requestDatas(GAME_CATEGORY,false);
     }
 }

@@ -17,7 +17,7 @@ public interface SubjectContract {
 
     interface ISubjectModel {
 
-        Observable<PageBean> getSubject();
+        Observable<PageBean> getSubject(boolean update);
 
     }
 

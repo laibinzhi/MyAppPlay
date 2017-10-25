@@ -17,9 +17,9 @@ public interface SearchAppContract {
 
     interface ISearchAppModel {
 
-        Observable<Associational> getAssociational(String keyword);
+        Observable<Associational> getAssociational(String keyword,boolean update);
 
-        Observable<PageBean> getAppListByKeyword(String keyword,int page);
+        Observable<PageBean> getAppListByKeyword(String keyword,int page,boolean update);
 
         Observable<List<String>> getHistoryWordList();
 

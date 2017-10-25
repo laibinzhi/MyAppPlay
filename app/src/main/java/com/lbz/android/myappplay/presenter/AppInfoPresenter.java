@@ -35,7 +35,7 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
         super(mModel, mView);
     }
 
-    public void request(int type, int page, int categoryId, int flagType, int subject_id,int appId) {
+    public void request(int type, int page, int categoryId, int flagType, int subject_id,int appId,boolean update) {
 
         Observer subscriber = null;
 
@@ -60,20 +60,20 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
             };
         }
 
-        Observable observable = getObservable(type, page, categoryId, flagType, subject_id,appId);
+        Observable observable = getObservable(type, page, categoryId, flagType, subject_id,appId,update);
 
 
         observable.compose(RxHttpResponseCompose.composeSchedulers())
                 .subscribe(subscriber);
     }
 
-    private Observable<PageBean> getObservable(int type, int page, int categoryId, int flagType, int subject_id,int appId) {
+    private Observable<PageBean> getObservable(int type, int page, int categoryId, int flagType, int subject_id,int appId,boolean update) {
 
         switch (type) {
 
             case TOP_LIST:
 
-                return mModel.getTopList(page);
+                return mModel.getTopList(page,update);
 
             case GAME:
 
@@ -81,29 +81,29 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
 
                 if (flagType == FEATURED) {
 
-                    return mModel.getFeaturedAppsByCategory(categoryId, page);
+                    return mModel.getFeaturedAppsByCategory(categoryId, page,update);
 
                 } else if (flagType == TOPLIST) {
 
-                    return mModel.getTopListAppsByCategory(categoryId, page);
+                    return mModel.getTopListAppsByCategory(categoryId, page,update);
 
                 } else if (flagType == NEWLIST) {
 
-                    return mModel.getNewListAppsByCategory(categoryId, page);
+                    return mModel.getNewListAppsByCategory(categoryId, page,update);
 
                 }
 
             case HOT_APP_LIST:
 
-                return mModel.getHotAppList(page);
+                return mModel.getHotAppList(page,update);
 
             case SUBJECT_APP:
 
-                return mModel.getAppListBySubject(subject_id, page);
+                return mModel.getAppListBySubject(subject_id, page,update);
 
             case SAME_DEV_APP_LIST:
 
-                return mModel.getSameDevAppList(appId,page);
+                return mModel.getSameDevAppList(appId,page,update);
 
             default:
 
@@ -113,27 +113,27 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
 
     }
 
-    public void requestCategoryApps(int categoryId, int page, int flagType) {
+    public void requestCategoryApps(int categoryId, int page, int flagType,boolean update) {
 
-        request(CATEGORY, page, categoryId, flagType, 0,0);
-
-    }
-
-    public void requestSubjectApps(int subject_id, int page) {
-
-        request(SUBJECT_APP, page, 0, 0, subject_id,0);
+        request(CATEGORY, page, categoryId, flagType, 0,0,update);
 
     }
 
-    public void requestSameDevApps(int appId, int page) {
+    public void requestSubjectApps(int subject_id, int page,boolean update) {
 
-        request(SAME_DEV_APP_LIST, page, 0, 0,0, appId);
+        request(SUBJECT_APP, page, 0, 0, subject_id,0,update);
 
     }
 
-    public void requestData(int type, int page) {
+    public void requestSameDevApps(int appId, int page,boolean update) {
 
-        request(type, page, 0, 0, 0,0);
+        request(SAME_DEV_APP_LIST, page, 0, 0,0, appId,update);
+
+    }
+
+    public void requestData(int type, int page,boolean update) {
+
+        request(type, page, 0, 0, 0,0,update);
 
     }
 

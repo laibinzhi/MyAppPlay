@@ -9,7 +9,6 @@ import com.lbz.android.myappplay.ui.BaseView;
 import java.util.List;
 
 import io.reactivex.Observable;
-import zlc.season.rxdownload2.RxDownload;
 import zlc.season.rxdownload2.entity.DownloadRecord;
 
 /**
@@ -26,7 +25,7 @@ public interface AppManagerContract {
 
         Observable<List<AndroidApk>> getInstallApps();
 
-        Observable<PageBean> getCanUpdateApps();
+        Observable<PageBean> getCanUpdateApps(boolean update);
 
     }
 

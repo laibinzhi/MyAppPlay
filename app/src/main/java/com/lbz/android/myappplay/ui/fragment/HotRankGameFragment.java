@@ -17,13 +17,13 @@ public class HotRankGameFragment extends BaseAppInfoFragment {
 
     @Override
     protected void init() {
-        mPresenter.requestCategoryApps(GAME_CATEGORY, page, GAME_CATEGORY_TOPLIST);
+        mPresenter.requestCategoryApps(GAME_CATEGORY, page, GAME_CATEGORY_TOPLIST,false);
         initRecyclerView();
     }
 
     @Override
     public void onLoadMoreRequested() {
-        mPresenter.requestCategoryApps(GAME_CATEGORY, page, GAME_CATEGORY_TOPLIST);
+        mPresenter.requestCategoryApps(GAME_CATEGORY, page, GAME_CATEGORY_TOPLIST,false);
     }
 
     @Override

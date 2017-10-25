@@ -1,7 +1,7 @@
 package com.lbz.android.myappplay.di.module;
 
 import com.lbz.android.myappplay.data.AppInfoModel;
-import com.lbz.android.myappplay.data.http.ApiService;
+import com.lbz.android.myappplay.data.http.Repository;
 
 import dagger.Module;
 import dagger.Provides;
@@ -14,8 +14,8 @@ import dagger.Provides;
 public class AppInfoModelModule {
 
     @Provides
-    AppInfoModel provideAppInfoModel(ApiService apiService) {
-        return new AppInfoModel(apiService);
+    AppInfoModel provideAppInfoModel(Repository repository) {
+        return new AppInfoModel(repository);
     }
 
 }

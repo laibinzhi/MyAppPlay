@@ -39,7 +39,7 @@ public class SearchAppPresenter extends BasePresenter<SearchAppContract.ISearchA
         super(mModel, mView);
     }
 
-    public void requestAssociational(TextView textView) {
+    public void requestAssociational(TextView textView, final boolean update) {
 
         RxTextView.textChanges(textView)
                 .skip(1)
@@ -77,7 +77,7 @@ public class SearchAppPresenter extends BasePresenter<SearchAppContract.ISearchA
                 .switchMap(new Function<String, ObservableSource<Associational>>() {
                     @Override
                     public ObservableSource<Associational> apply(@NonNull String s) throws Exception {
-                        return mModel.getAssociational(s);
+                        return mModel.getAssociational(s,update);
                     }
                 })
                 .compose(RxHttpResponseCompose.composeSchedulers())
@@ -103,7 +103,7 @@ public class SearchAppPresenter extends BasePresenter<SearchAppContract.ISearchA
 
     }
 
-    public void AppListByKeyword(String keyword, final int page) {
+    public void AppListByKeyword(String keyword, final int page,boolean update) {
 
         Observer subscriber = null;
 
@@ -133,7 +133,7 @@ public class SearchAppPresenter extends BasePresenter<SearchAppContract.ISearchA
             };
         }
 
-        mModel.getAppListByKeyword(keyword, page)
+        mModel.getAppListByKeyword(keyword, page,update)
                 .compose(RxHttpResponseCompose.composeSchedulers())
                 .subscribe(subscriber);
     }

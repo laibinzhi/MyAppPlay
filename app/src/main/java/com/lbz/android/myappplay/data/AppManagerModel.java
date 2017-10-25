@@ -14,7 +14,7 @@ import com.lbz.android.myappplay.commom.rx.RxHttpResponseCompose;
 import com.lbz.android.myappplay.commom.util.ACache;
 import com.lbz.android.myappplay.commom.util.AppUtils;
 import com.lbz.android.myappplay.commom.util.HttpPostRequestMap;
-import com.lbz.android.myappplay.data.http.ApiService;
+import com.lbz.android.myappplay.data.http.Repository;
 import com.lbz.android.myappplay.presenter.contract.AppManagerContract;
 
 import java.io.File;
@@ -43,15 +43,15 @@ public class AppManagerModel implements AppManagerContract.IAppManagerModel {
 
     private Context mContext;
 
-    private ApiService mApiService;
+    private Repository mRepository;
 
-    public AppManagerModel(Context context, RxDownload rxDownload ,ApiService apiService) {
+    public AppManagerModel(Context context, RxDownload rxDownload ,Repository repository) {
 
         this.mContext = context;
 
         mRxDownload = rxDownload;
 
-        mApiService = apiService;
+        mRepository = repository;
 
     }
 
@@ -90,7 +90,7 @@ public class AppManagerModel implements AppManagerContract.IAppManagerModel {
     }
 
     @Override
-    public Observable<PageBean> getCanUpdateApps() {
+    public Observable<PageBean> getCanUpdateApps(final boolean update) {
 
        return getInstallApps()
                .compose(RxHttpResponseCompose.composeSchedulers())
@@ -117,7 +117,7 @@ public class AppManagerModel implements AppManagerContract.IAppManagerModel {
                 .flatMap(new Function<HashMap<String, String>, ObservableSource<PageBean>>() {
                     @Override
                     public ObservableSource<PageBean> apply(@NonNull HashMap<String, String> requestMap) throws Exception {
-                        return mApiService.getCanUpdateAppList(requestMap).compose(RxHttpResponseCompose.composeSchedulers());
+                        return mRepository.getCanUpdateAppList(requestMap,update).compose(RxHttpResponseCompose.composeSchedulers());
                     }
                 }).doOnNext(new Consumer<PageBean>() {
                    @Override

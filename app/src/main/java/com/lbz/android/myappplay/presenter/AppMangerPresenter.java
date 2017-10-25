@@ -63,9 +63,9 @@ public class AppMangerPresenter extends BasePresenter<AppManagerContract.IAppMan
                 });
     }
 
-    public void getUpdateApps(){
+    public void getUpdateApps(boolean update){
 
-        mModel.getCanUpdateApps()
+        mModel.getCanUpdateApps(update)
                 .subscribe(new ProgressSubcriber<PageBean>(mContext, mView) {
                     @Override
                     public void onNext(@NonNull PageBean pageBean) {

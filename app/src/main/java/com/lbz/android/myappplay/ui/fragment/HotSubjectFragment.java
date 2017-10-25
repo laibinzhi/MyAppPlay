@@ -47,7 +47,7 @@ public class HotSubjectFragment extends ProgressFragment<SubjectPresenter> imple
     @Override
     protected void init() {
         initGridView();
-        mPresenter.requestDatas();
+        mPresenter.requestDatas(false);
     }
 
     private void initGridView() {

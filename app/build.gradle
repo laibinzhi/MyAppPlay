@@ -41,6 +41,10 @@ dependencies {
         exclude group: 'io.reactivex', module: 'rxandroid'
     }
     compile rootProject.ext.dependencies["rxdownload"]
+    compile (rootProject.ext.dependencies["rxcache"]){
+        exclude group: 'com.google.dagger'
+    }
+    compile rootProject.ext.dependencies["rxcache_jolyglotGson"]
 
     //Retrofit
     compile rootProject.ext.dependencies["retrofit"]
@@ -95,6 +99,7 @@ dependencies {
     compile('cn.qqtheme.framework:FilePicker:1.4.4') {
         exclude group: 'com.android.support'
     }
+
 }
 
 greendao {

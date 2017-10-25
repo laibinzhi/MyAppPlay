@@ -5,6 +5,8 @@ import android.app.Application;
 import com.lbz.android.myappplay.bean.SearchHistory.SearchHistoryDao;
 import com.lbz.android.myappplay.commom.rx.RxErrorHandle;
 import com.lbz.android.myappplay.data.http.ApiService;
+import com.lbz.android.myappplay.data.http.CacheProviders;
+import com.lbz.android.myappplay.data.http.Repository;
 import com.lbz.android.myappplay.di.module.AppModule;
 import com.lbz.android.myappplay.di.module.DBModule;
 import com.lbz.android.myappplay.di.module.DownloadModule;
@@ -34,5 +36,9 @@ public interface AppComponent {
     RxDownload getRxDownload();
 
     Application getApplication();
+
+    CacheProviders getCacheProviders();
+
+    Repository getRepository();
 
 }

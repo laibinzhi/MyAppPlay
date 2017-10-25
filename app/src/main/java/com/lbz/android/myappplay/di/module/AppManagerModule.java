@@ -3,9 +3,8 @@ package com.lbz.android.myappplay.di.module;
 
 import android.app.Application;
 
-import com.lbz.android.myappplay.MyApplication;
 import com.lbz.android.myappplay.data.AppManagerModel;
-import com.lbz.android.myappplay.data.http.ApiService;
+import com.lbz.android.myappplay.data.http.Repository;
 import com.lbz.android.myappplay.presenter.contract.AppManagerContract;
 
 import dagger.Module;
@@ -33,9 +32,9 @@ public class AppManagerModule {
 
 
     @Provides
-    public AppManagerContract.IAppManagerModel privodeModel(Application application , RxDownload rxDownload, ApiService apiService) {
+    public AppManagerContract.IAppManagerModel privodeModel(Application application , RxDownload rxDownload, Repository repository) {
 
-        return new AppManagerModel(application,rxDownload,apiService);
+        return new AppManagerModel(application,rxDownload,repository);
 
     }
 

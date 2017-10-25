@@ -21,8 +21,8 @@ public class SubjectPresenter extends BasePresenter<SubjectContract.ISubjectMode
         super(mModel, mView);
     }
 
-    public void requestDatas() {
-        mModel.getSubject()
+    public void requestDatas(boolean update) {
+        mModel.getSubject(update)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ProgressSubcriber<PageBean>(mContext,mView) {

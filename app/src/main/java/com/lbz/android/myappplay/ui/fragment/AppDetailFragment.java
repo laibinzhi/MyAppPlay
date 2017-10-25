@@ -89,7 +89,7 @@ public class AppDetailFragment extends ProgressFragment<AppDetailPresenter> impl
     @Override
     protected void init() {
         mInflater = LayoutInflater.from(getActivity());
-        mPresenter.getAppDetail(mAppId);
+        mPresenter.getAppDetail(mAppId,false);
     }
 
     @Override

@@ -22,11 +22,11 @@ public class GamePresenter extends BasePresenter<AppInfoModel, AppInfoContract.V
         super(mModel, mView);
     }
 
-    public void requestDatas() {
+    public void requestDatas(boolean update) {
 
 
-        Observable<PageBean> faturedGames = mModel.getFeaturedAppsByCategory(15, 0);
-        Observable<PageBean> topTheme = mModel.getIndexTopTheme(15);
+        Observable<PageBean> faturedGames = mModel.getFeaturedAppsByCategory(15, 0,update);
+        Observable<PageBean> topTheme = mModel.getIndexTopTheme(15,update);
 
         Observable.zip(faturedGames, topTheme, new BiFunction<PageBean, PageBean, PageBean>() {
             @Override

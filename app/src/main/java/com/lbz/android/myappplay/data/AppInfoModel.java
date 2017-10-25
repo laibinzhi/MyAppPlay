@@ -2,7 +2,7 @@ package com.lbz.android.myappplay.data;
 
 
 import com.lbz.android.myappplay.bean.PageBean;
-import com.lbz.android.myappplay.data.http.ApiService;
+import com.lbz.android.myappplay.data.http.Repository;
 
 import io.reactivex.Observable;
 
@@ -13,76 +13,76 @@ import io.reactivex.Observable;
 public class AppInfoModel {
 
 
-    private ApiService mApiService;
+    private Repository mRepository;
 
-    public AppInfoModel(ApiService apiService) {
-        this.mApiService = apiService;
+    public AppInfoModel(Repository repository) {
+        this.mRepository = repository;
     }
 
-    public Observable<PageBean> getIndexAppData() {
+    public Observable<PageBean> getIndexAppData(boolean update) {
 
-        return mApiService.getIndexAppData(0);
-
-    }
-
-    public Observable<PageBean> getIndexTopTheme() {
-
-        return mApiService.getIndexTopTheme();
+        return mRepository.getIndexAppData(0, update);
 
     }
 
-    public Observable<PageBean> getIndexTopTheme(int category_id) {
+    public Observable<PageBean> getIndexTopTheme(boolean update) {
 
-        return mApiService.getIndexTopTheme(category_id);
-
-    }
-
-    public Observable<PageBean> getTopList(int page) {
-
-        return mApiService.topList(page);
+        return mRepository.getIndexTopTheme(update);
 
     }
 
+    public Observable<PageBean> getIndexTopTheme(int category_id,boolean update) {
 
-    public Observable<PageBean> getFeaturedAppsByCategory(int category_id, int page) {
-
-        return mApiService.getFeaturedAppsByCategory(category_id, page);
-
-    }
-
-    public Observable<PageBean> getTopListAppsByCategory(int category_id, int page) {
-
-        return mApiService.getTopListAppsByCategory(category_id, page);
+        return mRepository.getIndexTopTheme(category_id,update);
 
     }
 
-    public Observable<PageBean> getNewListAppsByCategory(int category_id, int page) {
+    public Observable<PageBean> getTopList(int page,boolean update) {
 
-        return mApiService.getNewListAppsByCategory(category_id, page);
-
-    }
-
-    public Observable<PageBean> getHotAppList(int page) {
-
-        return mApiService.getHotAppList(page);
+        return mRepository.topList(page,update);
 
     }
 
-    public Observable<PageBean> getAppListBySubject(int subject_id, int page) {
 
-        return mApiService.getAppListBySubject(subject_id, page);
+    public Observable<PageBean> getFeaturedAppsByCategory(int category_id, int page,boolean update) {
 
-    }
-
-    public Observable<PageBean> getAppDetailById(int app_id) {
-
-        return mApiService.getAppDetailById(app_id);
+        return mRepository.getFeaturedAppsByCategory(category_id, page,update);
 
     }
 
-    public Observable<PageBean> getSameDevAppList(int appId,int page) {
+    public Observable<PageBean> getTopListAppsByCategory(int category_id, int page,boolean update) {
 
-        return mApiService.getSameDevAppList(appId,page);
+        return mRepository.getTopListAppsByCategory(category_id, page,update);
+
+    }
+
+    public Observable<PageBean> getNewListAppsByCategory(int category_id, int page,boolean update) {
+
+        return mRepository.getNewListAppsByCategory(category_id, page,update);
+
+    }
+
+    public Observable<PageBean> getHotAppList(int page,boolean update) {
+
+        return mRepository.getHotAppList(page,update);
+
+    }
+
+    public Observable<PageBean> getAppListBySubject(int subject_id, int page,boolean update) {
+
+        return mRepository.getAppListBySubject(subject_id, page,update);
+
+    }
+
+    public Observable<PageBean> getAppDetailById(int app_id,boolean update) {
+
+        return mRepository.getAppDetailById(app_id,update);
+
+    }
+
+    public Observable<PageBean> getSameDevAppList(int appId, int page,boolean update) {
+
+        return mRepository.getSameDevAppList(appId, page,update);
 
     }
 

@@ -53,7 +53,7 @@ public class SubjectAppFragment extends ProgressFragment<AppInfoPresenter> imple
     protected void init() {
         //请求数据
         initRecyclerView();
-        mPresenter.requestSubjectApps(subject_id, 0);
+        mPresenter.requestSubjectApps(subject_id, 0,false);
     }
 
     private void initRecyclerView() {

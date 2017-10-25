@@ -43,7 +43,7 @@ public abstract class BaseAppInfoFragment extends ProgressFragment<AppInfoPresen
     @Override
     protected void init() {
         initRecyclerView();
-        mPresenter.requestData(type(), page);
+        mPresenter.requestData(type(), page,false);
     }
 
     protected void initRecyclerView() {
@@ -90,7 +90,7 @@ public abstract class BaseAppInfoFragment extends ProgressFragment<AppInfoPresen
 
     @Override
     public void onLoadMoreRequested() {
-        mPresenter.requestData(type(), page);
+        mPresenter.requestData(type(), page,false);
     }
 
     abstract int type();

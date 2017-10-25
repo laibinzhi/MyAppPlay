@@ -133,7 +133,7 @@ public class SearchAppActivity extends BaseActivity<SearchAppPresenter> implemen
             e.printStackTrace();
         }
         mSearchView.setOnQueryTextListener(this);
-        presenter.requestAssociational(mSearchTextView);
+        presenter.requestAssociational(mSearchTextView,false);
     }
 
     private void initToolbar() {

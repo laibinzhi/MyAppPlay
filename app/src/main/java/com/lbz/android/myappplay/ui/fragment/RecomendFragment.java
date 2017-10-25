@@ -40,7 +40,7 @@ public class RecomendFragment extends ProgressFragment<RecomendPresenter> implem
     @Override
     protected void init() {
         initRecyclerView();
-        mPresenter.requestDatas();
+        mPresenter.requestDatas(false);
     }
 
     private void initRecyclerView() {
@@ -53,7 +53,7 @@ public class RecomendFragment extends ProgressFragment<RecomendPresenter> implem
 
     @Override
     public void onEmptyViewClick() {
-        mPresenter.requestDatas();
+        mPresenter.requestDatas(false);
     }
 
     @Override

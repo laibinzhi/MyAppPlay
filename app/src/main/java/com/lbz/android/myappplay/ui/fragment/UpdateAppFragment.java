@@ -34,7 +34,7 @@ public class UpdateAppFragment extends  AppManangerFragment {
 
     @Override
     protected void loadData() {
-        mPresenter.getUpdateApps();
+        mPresenter.getUpdateApps(false);
     }
 
     @Override

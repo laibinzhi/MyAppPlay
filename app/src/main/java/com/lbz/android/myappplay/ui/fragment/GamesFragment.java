@@ -40,7 +40,7 @@ public class GamesFragment extends ProgressFragment<GamePresenter> implements Ap
     @Override
     protected void init() {
         initRecyclerView();
-        mPresenter.requestDatas();
+        mPresenter.requestDatas(false);
     }
 
     private void initRecyclerView() {
@@ -50,7 +50,7 @@ public class GamesFragment extends ProgressFragment<GamePresenter> implements Ap
 
     @Override
     public void onEmptyViewClick() {
-        mPresenter.requestDatas();
+        mPresenter.requestDatas(false);
     }
 
     @Override

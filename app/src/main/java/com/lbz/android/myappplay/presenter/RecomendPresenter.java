@@ -22,11 +22,11 @@ public class RecomendPresenter extends BasePresenter<AppInfoModel, AppInfoContra
         super(mModel, mView);
     }
 
-    public void requestDatas() {
+    public void requestDatas(boolean update) {
 
 
-        Observable<PageBean> app = mModel.getIndexAppData();
-        Observable<PageBean> topTheme = mModel.getIndexTopTheme();
+        Observable<PageBean> app = mModel.getIndexAppData(update);
+        Observable<PageBean> topTheme = mModel.getIndexTopTheme(update);
 
         Observable.zip(app, topTheme, new BiFunction<PageBean, PageBean, PageBean>() {
             @Override

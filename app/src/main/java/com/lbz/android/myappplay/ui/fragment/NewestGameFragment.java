@@ -17,13 +17,13 @@ public class NewestGameFragment extends BaseAppInfoFragment {
 
     @Override
     protected void init() {
-        mPresenter.requestCategoryApps(GAME_CATEGORY, page, GAME_CATEGORY_NEW);
+        mPresenter.requestCategoryApps(GAME_CATEGORY, page, GAME_CATEGORY_NEW,false);
         initRecyclerView();
     }
 
     @Override
     public void onLoadMoreRequested() {
-        mPresenter.requestCategoryApps(GAME_CATEGORY, page, GAME_CATEGORY_NEW);
+        mPresenter.requestCategoryApps(GAME_CATEGORY, page, GAME_CATEGORY_NEW,false);
     }
 
     @Override

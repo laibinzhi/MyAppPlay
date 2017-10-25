@@ -28,7 +28,7 @@ public class CategoryAppFragment extends BaseAppInfoFragment {
     public void init() {
 
 
-        mPresenter.requestCategoryApps(categoryId, page, mFlagType);
+        mPresenter.requestCategoryApps(categoryId, page, mFlagType,false);
         initRecyclerView();
 
     }
@@ -45,6 +45,6 @@ public class CategoryAppFragment extends BaseAppInfoFragment {
 
     @Override
     public void onLoadMoreRequested() {
-        mPresenter.requestCategoryApps(categoryId, page, mFlagType);
+        mPresenter.requestCategoryApps(categoryId, page, mFlagType,false);
     }
 }

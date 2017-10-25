@@ -16,8 +16,8 @@ import io.reactivex.Observable;
 public interface CategoryContract {
 
     interface ICategoryModel {
-        Observable<PageBean> getCategory();
-        Observable<PageBean> getCategory(int category_id);
+        Observable<PageBean> getCategory(boolean update);
+        Observable<PageBean> getCategory(int category_id,boolean update);
     }
 
     interface CategoryView extends BaseView {

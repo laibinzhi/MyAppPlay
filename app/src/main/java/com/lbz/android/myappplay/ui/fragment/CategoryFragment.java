@@ -51,7 +51,7 @@ public class CategoryFragment extends ProgressFragment<CategoryPresenter> implem
     @Override
     protected void init() {
         initRecycleView();
-        mPresenter.requestDatas();
+        mPresenter.requestDatas(false);
     }
 
     protected void initRecycleView() {

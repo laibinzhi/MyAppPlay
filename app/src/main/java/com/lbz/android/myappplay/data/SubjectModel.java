@@ -1,7 +1,7 @@
 package com.lbz.android.myappplay.data;
 
 import com.lbz.android.myappplay.bean.PageBean;
-import com.lbz.android.myappplay.data.http.ApiService;
+import com.lbz.android.myappplay.data.http.Repository;
 import com.lbz.android.myappplay.presenter.contract.SubjectContract;
 
 import io.reactivex.Observable;
@@ -13,14 +13,14 @@ import io.reactivex.Observable;
 
 public class SubjectModel implements SubjectContract.ISubjectModel {
 
-    private ApiService mApiService;
+    private Repository mRepository;
 
-    public SubjectModel(ApiService apiService) {
-        this.mApiService = apiService;
+    public SubjectModel(Repository repository) {
+        this.mRepository = repository;
     }
 
     @Override
-    public Observable<PageBean> getSubject() {
-        return mApiService.getSubjectList(0);
+    public Observable<PageBean> getSubject(boolean update) {
+        return mRepository.getSubjectList(0,update);
     }
 }

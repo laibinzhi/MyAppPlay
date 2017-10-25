@@ -2,7 +2,7 @@ package com.lbz.android.myappplay.data;
 
 
 import com.lbz.android.myappplay.bean.PageBean;
-import com.lbz.android.myappplay.data.http.ApiService;
+import com.lbz.android.myappplay.data.http.Repository;
 import com.lbz.android.myappplay.presenter.contract.CategoryContract;
 
 import io.reactivex.Observable;
@@ -14,19 +14,19 @@ import io.reactivex.Observable;
 public class CategoryModel implements CategoryContract.ICategoryModel {
 
 
-    private ApiService mApiService;
+    private Repository mRepository;
 
-    public CategoryModel(ApiService apiService) {
-        this.mApiService = apiService;
+    public CategoryModel(Repository repository) {
+        this.mRepository = repository;
     }
 
     @Override
-    public Observable<PageBean> getCategory() {
-        return mApiService.getCategory();
+    public Observable<PageBean> getCategory(boolean update) {
+        return mRepository.getCategory(update);
     }
 
     @Override
-    public Observable<PageBean> getCategory(int category_id) {
-        return mApiService.getCategory(category_id);
+    public Observable<PageBean> getCategory(int category_id,boolean update) {
+        return mRepository.getCategory(category_id,update);
     }
 }
