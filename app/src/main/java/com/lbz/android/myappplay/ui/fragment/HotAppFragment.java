@@ -8,7 +8,7 @@ import com.lbz.android.myappplay.ui.adapter.AppInfoAdapter;
 import static com.lbz.android.myappplay.presenter.AppInfoPresenter.HOT_APP_LIST;
 
 /**
- * Created by elitemc on 2017/9/8.
+ * Created by lbz on 2017/9/8.
  */
 
 public class HotAppFragment extends BaseAppInfoFragment {

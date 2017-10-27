@@ -18,7 +18,7 @@ import io.reactivex.functions.Action;
 import zlc.season.rxdownload2.entity.DownloadRecord;
 
 /**
- * Created by elitemc on 2017/9/21.
+ * Created by lbz on 2017/9/21.
  */
 
 public class DownloadingAdapter extends BaseQuickAdapter<DownloadRecord, BaseViewHolder> {

@@ -79,6 +79,11 @@ public class ErrorMessageFactory {
                 errorMsg = context.getResources().getString(R.string.error_token);
 
                 break;
+            case BaseException.UNKOWNHOST_ERROR:
+
+                errorMsg = context.getResources().getString(R.string.error_socket_unreachable);
+
+                break;
 
             default:
 

@@ -17,7 +17,7 @@ import io.reactivex.disposables.Disposable;
 
 
 /**
- * Created by elitemc on 2017/9/5.
+ * Created by lbz on 2017/9/5.
  */
 
 public class LoginPresenter extends BasePresenter<LoginContract.ILoginModel, LoginContract.LoginView> {

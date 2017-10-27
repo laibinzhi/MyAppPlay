@@ -16,7 +16,7 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 
 /**
- * Created by elitemc on 2017/7/13.
+ * Created by lbz on 2017/7/13.
  */
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity {
 

@@ -6,7 +6,7 @@ import com.lbz.android.myappplay.di.module.AppInfoModule;
 import com.lbz.android.myappplay.ui.adapter.AppInfoAdapter;
 
 /**
- * Created by elitemc on 2017/9/8.
+ * Created by lbz on 2017/9/8.
  */
 
 public class HotRankGameFragment extends BaseAppInfoFragment {

@@ -16,7 +16,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * Created by elitemc on 2017/7/25.
+ * Created by lbz on 2017/7/25.
  */
 public class CommonParamsInterceptor implements Interceptor {
 

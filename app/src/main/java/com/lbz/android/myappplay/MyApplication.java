@@ -14,7 +14,7 @@ import com.mikepenz.iconics.Iconics;
 import zlc.season.rxdownload2.function.Utils;
 
 /**
- * Created by elitemc on 2017/7/11.
+ * Created by lbz on 2017/7/11.
  */
 public class MyApplication extends MultiDexApplication {
 

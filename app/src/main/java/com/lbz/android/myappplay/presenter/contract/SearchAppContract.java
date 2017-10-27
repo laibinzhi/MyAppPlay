@@ -10,7 +10,7 @@ import io.reactivex.Observable;
 
 
 /**
- * Created by elitemc on 2017/9/14.
+ * Created by lbz on 2017/9/14.
  */
 
 public interface SearchAppContract {

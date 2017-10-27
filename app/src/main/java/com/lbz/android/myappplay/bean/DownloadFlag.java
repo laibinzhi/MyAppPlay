@@ -1,7 +1,7 @@
 package com.lbz.android.myappplay.bean;
 
 /**
- * Created by elitemc on 2017/9/21.
+ * Created by lbz on 2017/9/21.
  */
 
 public class DownloadFlag extends zlc.season.rxdownload2.entity.DownloadFlag {

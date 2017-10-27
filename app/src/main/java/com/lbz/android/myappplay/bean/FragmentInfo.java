@@ -4,7 +4,7 @@ package com.lbz.android.myappplay.bean;
 import java.io.Serializable;
 
 /**
- * Created by elitemc on 2017/7/11.
+ * Created by lbz on 2017/7/11.
  */
 public class FragmentInfo implements Serializable{
 

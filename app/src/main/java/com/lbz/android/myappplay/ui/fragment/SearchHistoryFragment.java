@@ -22,7 +22,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 /**
- * Created by elitemc on 2017/9/14.
+ * Created by lbz on 2017/9/14.
  */
 
 public class SearchHistoryFragment extends BaseFragment<SearchAppPresenter> implements SearchAppContract.SearchAppView,AdapterView.OnItemClickListener {

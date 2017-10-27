@@ -27,7 +27,7 @@ import java.util.List;
 import butterknife.Bind;
 
 /**
- * Created by elitemc on 2017/9/14.
+ * Created by lbz on 2017/9/14.
  */
 
 public class SearchAppActivity extends BaseActivity<SearchAppPresenter> implements SearchView.OnQueryTextListener, SearchAppContract.SearchAppView {

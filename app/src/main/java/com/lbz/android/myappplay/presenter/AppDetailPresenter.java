@@ -11,7 +11,7 @@ import javax.inject.Inject;
 import io.reactivex.disposables.Disposable;
 
 /**
- * Created by elitemc on 2017/9/12.
+ * Created by lbz on 2017/9/12.
  */
 
 public class AppDetailPresenter extends BasePresenter<AppInfoModel, AppInfoContract.AppDetailView> {

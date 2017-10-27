@@ -13,7 +13,7 @@ import com.lbz.android.myappplay.ui.fragment.TopListFragment;
 import dagger.Component;
 
 /**
- * Created by elitemc on 2017/7/13.
+ * Created by lbz on 2017/7/13.
  */
 
 @FragmentScope

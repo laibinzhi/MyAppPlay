@@ -4,7 +4,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.lbz.android.myappplay.bean.AppInfo;
 
 /**
- * Created by elitemc on 2017/9/22.
+ * Created by lbz on 2017/9/22.
  */
 
 public class DownloadFinishEvent {
@@ -32,4 +32,5 @@ public class DownloadFinishEvent {
     public void setAppInfo(AppInfo appInfo) {
         this.appInfo = appInfo;
     }
+
 }

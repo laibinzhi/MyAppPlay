@@ -14,7 +14,7 @@ import com.lbz.android.myappplay.ui.widget.DownloadButtonConntroller;
 import com.lbz.android.myappplay.ui.widget.DownloadProgressButton;
 
 /**
- * Created by elitemc on 2017/9/21.
+ * Created by lbz on 2017/9/21.
  */
 
 public class UpdateAppAdapter extends BaseQuickAdapter<AppInfo, BaseViewHolder> {

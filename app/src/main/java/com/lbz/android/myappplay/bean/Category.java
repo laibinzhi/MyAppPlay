@@ -4,7 +4,7 @@ package com.lbz.android.myappplay.bean;
 import java.io.Serializable;
 
 /**
- * Created by elitemc on 2017/9/6.
+ * Created by lbz on 2017/9/6.
  */
 
 public class Category implements Serializable {

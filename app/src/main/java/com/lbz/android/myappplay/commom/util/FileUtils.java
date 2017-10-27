@@ -44,7 +44,7 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 /**
- * Create by h4de5ing 2016/5/7 007
+ * Create by lbz 2016/5/7 007
  */
 public class FileUtils {
 

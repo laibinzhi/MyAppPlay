@@ -13,7 +13,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 /**
- * Created by elitemc on 2017/7/12.
+ * Created by lbz on 2017/7/12.
  */
 public class BasePresenter<M, V extends BaseView> {
 

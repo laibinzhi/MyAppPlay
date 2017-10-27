@@ -36,7 +36,7 @@ import io.reactivex.functions.Consumer;
 
 
 /**
- * Created by elitemc on 2017/7/25.
+ * Created by lbz on 2017/7/25.
  */
 public class GamesIndexAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
 

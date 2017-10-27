@@ -1,7 +1,7 @@
 package com.lbz.android.myappplay.commom.rx;
 
 import android.content.Context;
-import android.widget.Toast;
+import android.util.Log;
 
 import com.google.gson.JsonParseException;
 import com.lbz.android.myappplay.commom.exception.ApiException;
@@ -10,11 +10,13 @@ import com.lbz.android.myappplay.commom.exception.ErrorMessageFactory;
 
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 
+import io.reactivex.exceptions.CompositeException;
 import retrofit2.HttpException;
 
 /**
- * Created by elitemc on 2017/7/14.
+ * Created by lbz on 2017/7/14.
  */
 public class RxErrorHandle {
 
@@ -27,6 +29,8 @@ public class RxErrorHandle {
     public BaseException handleError(Throwable e) {
 
         e.printStackTrace();
+
+        Log.e("errortag","e="+e.toString());
 
         BaseException exception = new BaseException();
 
@@ -50,7 +54,17 @@ public class RxErrorHandle {
 
             exception.setCode(BaseException.SOCKET_ERROR);
 
-        } else {
+        }else if (e instanceof UnknownHostException){
+
+            exception.setCode(BaseException.UNKOWNHOST_ERROR);
+
+        }
+        else if (e instanceof CompositeException){
+
+            exception.setCode(BaseException.UNKOWNHOST_ERROR);
+
+        }
+        else {
 
             exception.setCode(BaseException.UNKNOWN_ERROR);
 

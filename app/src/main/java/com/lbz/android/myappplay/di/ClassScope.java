@@ -8,7 +8,7 @@ import javax.inject.Scope;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Created by elitemc on 2017/7/13.
+ * Created by lbz on 2017/7/13.
  */
 @Scope
 @Documented

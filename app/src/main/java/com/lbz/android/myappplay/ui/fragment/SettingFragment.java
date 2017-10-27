@@ -20,7 +20,7 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
 
 /**
- * Created by elitemc on 2017/10/18.
+ * Created by lbz on 2017/10/18.
  */
 
 public class SettingFragment extends PreferenceFragment {

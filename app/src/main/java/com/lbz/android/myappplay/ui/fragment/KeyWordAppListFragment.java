@@ -31,7 +31,7 @@ import butterknife.Bind;
 import io.reactivex.functions.Consumer;
 
 /**
- * Created by elitemc on 2017/9/15.
+ * Created by lbz on 2017/9/15.
  */
 
 public class KeyWordAppListFragment extends ProgressFragment<SearchAppPresenter> implements BaseQuickAdapter.RequestLoadMoreListener, SearchAppContract.SearchAppView {

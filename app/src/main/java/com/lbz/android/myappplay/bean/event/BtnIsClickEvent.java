@@ -1,7 +1,7 @@
 package com.lbz.android.myappplay.bean.event;
 
 /**
- * Created by elitemc on 2017/10/17.
+ * Created by lbz on 2017/10/17.
  */
 
 public class BtnIsClickEvent {
@@ -30,4 +30,5 @@ public class BtnIsClickEvent {
     public void setPosition(int position) {
         this.position = position;
     }
+
 }

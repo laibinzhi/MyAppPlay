@@ -21,7 +21,7 @@ import java.util.List;
 import butterknife.Bind;
 
 /**
- * Created by elitemc on 2017/9/14.
+ * Created by lbz on 2017/9/14.
  */
 
 public class AssociationalFragment extends BaseFragment<SearchAppPresenter> implements SearchAppContract.SearchAppView {

@@ -22,7 +22,7 @@ import java.util.List;
 import butterknife.Bind;
 
 /**
- * Created by elitemc on 2017/9/8.
+ * Created by lbz on 2017/9/8.
  */
 
 public class HotSubjectFragment extends ProgressFragment<SubjectPresenter> implements SubjectContract.SubjectView {

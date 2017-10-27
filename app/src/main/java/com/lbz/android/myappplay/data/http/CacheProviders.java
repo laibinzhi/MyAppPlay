@@ -13,7 +13,7 @@ import io.rx_cache2.EvictProvider;
 import io.rx_cache2.LifeCache;
 
 /**
- * Created by elitemc on 2017/10/25.
+ * Created by lbz on 2017/10/25.
  */
 
 public interface CacheProviders {

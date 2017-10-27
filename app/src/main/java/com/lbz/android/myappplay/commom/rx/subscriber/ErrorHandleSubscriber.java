@@ -12,7 +12,7 @@ import io.reactivex.disposables.Disposable;
 
 
 /**
- * Created by elitemc on 2017/7/14.
+ * Created by lbz on 2017/7/14.
  */
 public abstract class ErrorHandleSubscriber<T> extends DefaultSubscriber<T> {
 

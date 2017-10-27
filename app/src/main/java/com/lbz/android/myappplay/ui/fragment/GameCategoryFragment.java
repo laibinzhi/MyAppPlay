@@ -1,7 +1,7 @@
 package com.lbz.android.myappplay.ui.fragment;
 
 /**
- * Created by elitemc on 2017/10/18.
+ * Created by lbz on 2017/10/18.
  */
 
 public class GameCategoryFragment extends CategoryFragment {

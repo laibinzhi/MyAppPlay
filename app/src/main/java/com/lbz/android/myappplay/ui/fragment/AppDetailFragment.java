@@ -36,7 +36,7 @@ import butterknife.Bind;
 import io.reactivex.functions.Consumer;
 
 /**
- * Created by elitemc on 2017/9/12.
+ * Created by lbz on 2017/9/12.
  */
 
 public class AppDetailFragment extends ProgressFragment<AppDetailPresenter> implements AppInfoContract.AppDetailView {

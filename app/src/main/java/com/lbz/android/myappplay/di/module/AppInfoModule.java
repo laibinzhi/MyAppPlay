@@ -7,7 +7,7 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * Created by elitemc on 2017/7/13.
+ * Created by lbz on 2017/7/13.
  */
 @Module(includes = AppInfoModelModule.class)
 public class AppInfoModule {

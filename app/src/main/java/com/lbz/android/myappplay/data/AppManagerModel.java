@@ -34,7 +34,7 @@ import zlc.season.rxdownload2.RxDownload;
 import zlc.season.rxdownload2.entity.DownloadRecord;
 
 /**
- * Created by elitemc on 2017/9/21.
+ * Created by lbz on 2017/9/21.
  */
 
 public class AppManagerModel implements AppManagerContract.IAppManagerModel {

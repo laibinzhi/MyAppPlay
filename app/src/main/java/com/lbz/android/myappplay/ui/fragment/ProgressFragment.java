@@ -20,7 +20,7 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 
 /**
- * Created by elitemc on 2017/7/18.
+ * Created by lbz on 2017/7/18.
  */
 public abstract class ProgressFragment<T extends BasePresenter> extends Fragment implements BaseView {
     private FrameLayout mRootView;

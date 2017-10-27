@@ -1,7 +1,7 @@
 package com.lbz.android.myappplay.commom;
 
 /**
- * Created by elitemc on 2017/7/13.
+ * Created by lbz on 2017/7/13.
  */
 public class Constant {
 

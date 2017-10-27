@@ -30,7 +30,7 @@ import io.reactivex.functions.Consumer;
 import static com.lbz.android.myappplay.data.http.ApiService.ICON_BASE_URL;
 
 /**
- * Created by elitemc on 2017/7/25.
+ * Created by lbz on 2017/7/25.
  */
 public class SubjectAppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
 

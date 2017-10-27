@@ -9,7 +9,7 @@ import com.lbz.android.myappplay.ui.activity.SameDevAppActivity;
 import com.lbz.android.myappplay.ui.adapter.AppInfoAdapter;
 
 /**
- * Created by elitemc on 2017/9/13.
+ * Created by lbz on 2017/9/13.
  */
 
 public class SameDevAppFragment extends BaseAppInfoFragment{

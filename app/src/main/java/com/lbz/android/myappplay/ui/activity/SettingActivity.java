@@ -17,7 +17,7 @@ import com.mikepenz.ionicons_typeface_library.Ionicons;
 import butterknife.Bind;
 
 /**
- * Created by elitemc on 2017/10/18.
+ * Created by lbz on 2017/10/18.
  */
 
 public class SettingActivity extends BaseActivity {

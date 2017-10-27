@@ -8,7 +8,7 @@ import com.lbz.android.myappplay.presenter.AppInfoPresenter;
 import com.lbz.android.myappplay.ui.adapter.AppInfoAdapter;
 
 /**
- * Created by elitemc on 2017/7/11.
+ * Created by lbz on 2017/7/11.
  */
 public class TopListFragment extends BaseAppInfoFragment{
 
@@ -21,6 +21,12 @@ public class TopListFragment extends BaseAppInfoFragment{
     @Override
     AppInfoAdapter buildAdapter() {
         return AppInfoAdapter.builder().showPosition(true).showBrief(false).showCategoryName(true).application(mMyApplication).build();
+    }
+
+    @Override
+    public void onEmptyViewClick() {
+        mPresenter.requestData(AppInfoPresenter.TOP_LIST, page,false);
+
     }
 
     @Override

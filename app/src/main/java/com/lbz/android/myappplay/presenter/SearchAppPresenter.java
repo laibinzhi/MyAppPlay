@@ -29,7 +29,7 @@ import io.reactivex.functions.Predicate;
 
 
 /**
- * Created by elitemc on 2017/9/14.
+ * Created by lbz on 2017/9/14.
  */
 
 public class SearchAppPresenter extends BasePresenter<SearchAppContract.ISearchAppModel, SearchAppContract.SearchAppView> {

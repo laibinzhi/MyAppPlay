@@ -23,7 +23,7 @@ import java.util.List;
 import butterknife.Bind;
 
 /**
- * Created by elitemc on 2017/9/21.
+ * Created by lbz on 2017/9/21.
  */
 
 public class AppManagerActivity extends BaseActivity {

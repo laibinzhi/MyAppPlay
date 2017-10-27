@@ -7,7 +7,7 @@ import com.lbz.android.myappplay.ui.fragment.HotAppFragment;
 import com.lbz.android.myappplay.ui.fragment.NewestGameFragment;
 
 /**
- * Created by elitemc on 2017/9/7.
+ * Created by lbz on 2017/9/7.
  */
 
 public class NewestGameActivity extends BaseFragmentActivity {

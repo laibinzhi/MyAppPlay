@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Ivan on 2016/12/8.
+ * Created by lbz on 2016/12/8.
  */
 
 public class CategoryAppViewPagerAdapter extends FragmentStatePagerAdapter {

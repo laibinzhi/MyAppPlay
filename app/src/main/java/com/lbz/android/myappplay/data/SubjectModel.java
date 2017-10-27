@@ -8,7 +8,7 @@ import io.reactivex.Observable;
 
 
 /**
- * Created by elitemc on 2017/9/8.
+ * Created by lbz on 2017/9/8.
  */
 
 public class SubjectModel implements SubjectContract.ISubjectModel {

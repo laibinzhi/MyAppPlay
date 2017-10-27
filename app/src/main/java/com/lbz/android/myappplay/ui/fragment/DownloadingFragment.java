@@ -20,7 +20,7 @@ import io.reactivex.functions.Consumer;
 import zlc.season.rxdownload2.entity.DownloadRecord;
 
 /**
- * Created by elitemc on 2017/9/21.
+ * Created by lbz on 2017/9/21.
  */
 
 public class DownloadingFragment extends AppManangerFragment{

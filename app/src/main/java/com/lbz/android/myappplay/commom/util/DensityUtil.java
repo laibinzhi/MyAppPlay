@@ -12,16 +12,6 @@ import android.view.WindowManager;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-/**
- * 菜鸟窝http://www.cniao5.com 一个高端的互联网技能学习平台
- *
- * @author Ivan
- * @version V1.0
- * @Package com.cniao5.cniao5play.common.util
- * @Description: ${TODO}(用一句话描述该文件做什么)
- * @date
- */
-
 public class DensityUtil {
 
     public static int dip2px(Context c, float dpValue) {

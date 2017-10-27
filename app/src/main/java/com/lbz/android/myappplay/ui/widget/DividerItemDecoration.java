@@ -1,7 +1,7 @@
 package com.lbz.android.myappplay.ui.widget;
 
 /**
- * Created by elitemc on 2017/7/12.
+ * Created by lbz on 2017/7/12.
  */
 /*
  * Copyright (C) 2014 The Android Open Source Project

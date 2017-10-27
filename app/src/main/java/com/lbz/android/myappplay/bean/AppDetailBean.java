@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by elitemc on 2017/9/12.
+ * Created by lbz on 2017/9/12.
  */
 
 public class AppDetailBean implements Serializable {

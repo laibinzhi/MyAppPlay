@@ -9,7 +9,7 @@ import io.reactivex.Observable;
 
 
 /**
- * Created by elitemc on 2017/7/12.
+ * Created by lbz on 2017/7/12.
  */
 public class CategoryModel implements CategoryContract.ICategoryModel {
 

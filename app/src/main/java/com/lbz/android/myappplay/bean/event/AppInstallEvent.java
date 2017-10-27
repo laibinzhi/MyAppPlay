@@ -1,7 +1,7 @@
 package com.lbz.android.myappplay.bean.event;
 
 /**
- * Created by elitemc on 2017/9/27.
+ * Created by lbz on 2017/9/27.
  */
 
 public class AppInstallEvent {
@@ -29,4 +29,5 @@ public class AppInstallEvent {
     public void setFLAG(String FLAG) {
         this.FLAG = FLAG;
     }
+
 }

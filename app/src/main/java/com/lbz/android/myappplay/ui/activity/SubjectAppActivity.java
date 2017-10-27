@@ -8,7 +8,7 @@ import com.lbz.android.myappplay.commom.Constant;
 import com.lbz.android.myappplay.ui.fragment.SubjectAppFragment;
 
 /**
- * Created by elitemc on 2017/9/7.
+ * Created by lbz on 2017/9/7.
  */
 
 public class SubjectAppActivity extends BaseFragmentActivity {

@@ -10,7 +10,7 @@ import com.lbz.android.myappplay.commom.Constant;
 import com.lbz.android.myappplay.commom.imageloader.ImageLoader;
 
 /**
- * Created by elitemc on 2017/9/6.
+ * Created by lbz on 2017/9/6.
  */
 
 public class CategoryAdapter extends BaseQuickAdapter<Category, BaseViewHolder> {

@@ -12,7 +12,7 @@ import io.reactivex.Observable;
 import zlc.season.rxdownload2.entity.DownloadRecord;
 
 /**
- * Created by Ivan on 2017/1/3.
+ * Created by lbz on 2017/1/3.
  */
 
 public interface AppManagerContract {

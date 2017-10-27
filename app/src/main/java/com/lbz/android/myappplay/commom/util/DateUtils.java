@@ -22,7 +22,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Create by h4de5ing 2016/5/7 007
+ * Create by lbz 2016/5/7 007
  */
 public class DateUtils {
     private static final SimpleDateFormat DATE_FORMAT_DATETIME = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

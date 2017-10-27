@@ -7,7 +7,7 @@ import com.lbz.android.myappplay.commom.util.ProgressDialogHandler;
 import io.reactivex.disposables.Disposable;
 
 /**
- * Created by elitemc on 2017/7/14.
+ * Created by lbz on 2017/7/14.
  */
 public abstract class ProgressDialogSubcriber<T> extends ErrorHandleSubscriber<T> implements ProgressDialogHandler.OnProgressCancelListener {
 

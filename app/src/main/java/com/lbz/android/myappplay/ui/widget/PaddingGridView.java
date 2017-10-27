@@ -10,7 +10,7 @@ import android.widget.GridView;
 import com.lbz.android.myappplay.R;
 
 /**
- * Created by elitemc on 2017/9/8.
+ * Created by lbz on 2017/9/8.
  */
 
 public class PaddingGridView extends GridView {

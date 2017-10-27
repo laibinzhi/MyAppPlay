@@ -12,7 +12,7 @@ import com.lbz.android.myappplay.ui.adapter.UpdateAppAdapter;
 import java.util.List;
 
 /**
- * Created by elitemc on 2017/9/25.
+ * Created by lbz on 2017/9/25.
  */
 
 public class UpdateAppFragment extends  AppManangerFragment {

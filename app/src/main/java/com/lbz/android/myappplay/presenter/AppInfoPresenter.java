@@ -13,7 +13,7 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 
 /**
- * Created by elitemc on 2017/9/4.
+ * Created by lbz on 2017/9/4.
  */
 
 public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContract.AppInfoView> {

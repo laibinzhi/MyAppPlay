@@ -13,7 +13,7 @@ import io.reactivex.functions.BiFunction;
 
 
 /**
- * Created by elitemc on 2017/7/12.
+ * Created by lbz on 2017/7/12.
  */
 public class GamePresenter extends BasePresenter<AppInfoModel, AppInfoContract.View> {
 

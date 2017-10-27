@@ -7,7 +7,7 @@ import com.lbz.android.myappplay.commom.Constant;
 import java.util.HashMap;
 
 /**
- * Created by elitemc on 2017/9/29.
+ * Created by lbz on 2017/9/29.
  */
 
 public class HttpPostRequestMap {

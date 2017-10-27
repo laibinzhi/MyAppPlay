@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by elitemc on 2017/9/7.
+ * Created by lbz on 2017/9/7.
  */
 
 public class SubjectBean implements Serializable {

@@ -16,7 +16,7 @@ import com.mikepenz.ionicons_typeface_library.Ionicons;
 import butterknife.Bind;
 
 /**
- * Created by elitemc on 2017/9/8.
+ * Created by lbz on 2017/9/8.
  */
 
 public abstract class BaseFragmentActivity extends BaseActivity {

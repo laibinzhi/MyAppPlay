@@ -19,7 +19,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
- * Created by elitemc on 2017/7/12.
+ * Created by lbz on 2017/7/12.
  */
 public interface ApiService {
 

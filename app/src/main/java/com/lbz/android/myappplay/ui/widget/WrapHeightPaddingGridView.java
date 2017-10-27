@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 /**
- * Created by elitemc on 2017/10/18.
+ * Created by lbz on 2017/10/18.
  */
 
 public class WrapHeightPaddingGridView extends PaddingGridView {

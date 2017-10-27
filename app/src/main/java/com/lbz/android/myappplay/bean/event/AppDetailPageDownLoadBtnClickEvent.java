@@ -3,7 +3,7 @@ package com.lbz.android.myappplay.bean.event;
 import com.lbz.android.myappplay.bean.AppInfo;
 
 /**
- * Created by elitemc on 2017/9/27.
+ * Created by lbz on 2017/9/27.
  */
 
 public class AppDetailPageDownLoadBtnClickEvent {

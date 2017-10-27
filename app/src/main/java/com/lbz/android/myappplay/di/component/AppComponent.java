@@ -19,7 +19,7 @@ import okhttp3.OkHttpClient;
 import zlc.season.rxdownload2.RxDownload;
 
 /**
- * Created by elitemc on 2017/7/13.
+ * Created by lbz on 2017/7/13.
  */
 @Component(modules = {AppModule.class, HttpModule.class, DBModule.class,DownloadModule.class})
 @Singleton

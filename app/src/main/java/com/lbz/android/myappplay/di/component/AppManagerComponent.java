@@ -10,7 +10,7 @@ import com.lbz.android.myappplay.ui.fragment.UpdateAppFragment;
 import dagger.Component;
 
 /**
- * Created by elitemc on 2017/9/21.
+ * Created by lbz on 2017/9/21.
  */
 
 @FragmentScope

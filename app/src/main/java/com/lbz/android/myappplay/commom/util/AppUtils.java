@@ -44,7 +44,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 /**
- * Create by h4de5ing 2016/5/18 018
+ * Create by lbz 2016/5/18 018
  */
 public class AppUtils {
 

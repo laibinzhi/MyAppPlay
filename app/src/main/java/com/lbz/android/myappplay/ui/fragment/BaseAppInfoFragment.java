@@ -22,7 +22,7 @@ import butterknife.Bind;
 import io.reactivex.functions.Consumer;
 
 /**
- * Created by elitemc on 2017/9/4.
+ * Created by lbz on 2017/9/4.
  */
 
 public abstract class BaseAppInfoFragment extends ProgressFragment<AppInfoPresenter> implements AppInfoContract.AppInfoView, BaseQuickAdapter.RequestLoadMoreListener {

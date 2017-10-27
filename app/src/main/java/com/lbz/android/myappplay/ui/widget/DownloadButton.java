@@ -24,7 +24,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
- * Created by hiwhitley on 17-2-20.
+ * Created by lbz on 17-2-20.
  */
 
 public class DownloadButton extends TextView {

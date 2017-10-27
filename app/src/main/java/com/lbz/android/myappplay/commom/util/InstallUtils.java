@@ -19,7 +19,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/5/9.
+ * Created by lbz on 2016/5/9.
  */
 public class InstallUtils {
 

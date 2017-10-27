@@ -16,7 +16,7 @@ import com.lbz.android.myappplay.ui.adapter.IndexMutilAdapter;
 import butterknife.Bind;
 
 /**
- * Created by elitemc on 2017/7/11.
+ * Created by lbz on 2017/7/11.
  */
 public class RecomendFragment extends ProgressFragment<RecomendPresenter> implements AppInfoContract.View {
 

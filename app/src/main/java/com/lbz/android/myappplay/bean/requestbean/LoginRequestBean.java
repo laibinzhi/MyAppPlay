@@ -1,7 +1,7 @@
 package com.lbz.android.myappplay.bean.requestbean;
 
 /**
- * Created by elitemc on 2017/7/25.
+ * Created by lbz on 2017/7/25.
  */
 public class LoginRequestBean {
 
@@ -23,4 +23,5 @@ public class LoginRequestBean {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

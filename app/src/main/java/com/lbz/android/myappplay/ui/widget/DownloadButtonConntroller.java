@@ -51,7 +51,7 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static com.lbz.android.myappplay.commom.Constant.BASE_DOWNLOAD_URL;
 
 /**
- * Created by elitemc on 2017/9/21.
+ * Created by lbz on 2017/9/21.
  */
 
 public class DownloadButtonConntroller {

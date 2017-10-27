@@ -24,7 +24,7 @@ import java.util.List;
 import butterknife.Bind;
 
 /**
- * Created by elitemc on 2017/7/11.
+ * Created by lbz on 2017/7/11.
  */
 public class CategoryFragment extends ProgressFragment<CategoryPresenter> implements CategoryContract.CategoryView {
 
@@ -81,6 +81,11 @@ public class CategoryFragment extends ProgressFragment<CategoryPresenter> implem
     @Override
     public void showData(List<Category> categories) {
         mAdapter.addData(categories);
+    }
+
+    @Override
+    public void onEmptyViewClick() {
+        mPresenter.requestDatas(false);
     }
 
 }

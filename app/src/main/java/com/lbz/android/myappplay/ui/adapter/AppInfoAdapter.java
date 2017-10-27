@@ -16,7 +16,7 @@ import com.lbz.android.myappplay.ui.widget.DownloadProgressButton;
 
 
 /**
- * Created by elitemc on 2017/9/4.
+ * Created by lbz on 2017/9/4.
  */
 
 public class AppInfoAdapter extends BaseQuickAdapter<AppInfo, BaseViewHolder> {

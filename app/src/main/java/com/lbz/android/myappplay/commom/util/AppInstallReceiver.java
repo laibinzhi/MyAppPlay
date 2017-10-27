@@ -9,7 +9,7 @@ import com.lbz.android.myappplay.bean.event.AppInstallEvent;
 import com.lbz.android.myappplay.commom.rx.RxBus;
 
 /**
- * Created by elitemc on 2017/9/27.
+ * Created by lbz on 2017/9/27.
  */
 
 public class AppInstallReceiver extends BroadcastReceiver {
