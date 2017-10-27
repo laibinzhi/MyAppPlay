@@ -7,6 +7,7 @@
     tools:context="com.lbz.android.myappplay.ui.activity.HotSubjectActivity">
 
     <com.lbz.android.myappplay.ui.widget.PaddingGridView
+        android:layout_columnWeight="1"
         android:id="@+id/subject_gridview"
         style="@style/GridView"
         android:layout_width="fill_parent"
