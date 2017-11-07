@@ -21,4 +21,5 @@ https://fir.im/g27t
 - ButterKnife取代findviewbyid实现view的注入，简化代码
 - GreenDao轻量级数据库实现数据缓存。
 # 截图
-![image](https://laibinzhi.github.io/Image/app1.gif)    ![image](https://raw.githubusercontent.com/laibinzhi/laibinzhi.github.io/master/Image/app2.gif)    ![image](https://raw.githubusercontent.com/laibinzhi/laibinzhi.github.io/master/Image/app3.gif)    ![image](https://raw.githubusercontent.com/laibinzhi/laibinzhi.github.io/master/Image/app4.gif)    ![image](https://raw.githubusercontent.com/laibinzhi/laibinzhi.github.io/master/Image/app5.gif)
+![image](https://raw.githubusercontent.com/laibinzhi/laibinzhi.github.io/master/Image/app1.gif) 
+    ![image](https://raw.githubusercontent.com/laibinzhi/laibinzhi.github.io/master/Image/app2.gif)    ![image](https://raw.githubusercontent.com/laibinzhi/laibinzhi.github.io/master/Image/app3.gif)    ![image](https://raw.githubusercontent.com/laibinzhi/laibinzhi.github.io/master/Image/app4.gif)    ![image](https://raw.githubusercontent.com/laibinzhi/laibinzhi.github.io/master/Image/app5.gif)
