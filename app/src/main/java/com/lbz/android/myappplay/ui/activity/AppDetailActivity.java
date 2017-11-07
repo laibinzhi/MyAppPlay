@@ -4,8 +4,11 @@ package com.lbz.android.myappplay.ui.activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.content.ComponentName;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -15,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lbz.android.myappplay.R;
@@ -26,6 +28,8 @@ import com.lbz.android.myappplay.commom.Constant;
 import com.lbz.android.myappplay.commom.imageloader.ImageLoader;
 import com.lbz.android.myappplay.commom.rx.RxBus;
 import com.lbz.android.myappplay.commom.util.DensityUtil;
+import com.lbz.android.myappplay.commom.util.ResourceUtil;
+import com.lbz.android.myappplay.commom.util.ShareUtils;
 import com.lbz.android.myappplay.di.component.AppComponent;
 import com.lbz.android.myappplay.presenter.AppDetailPresenter;
 import com.lbz.android.myappplay.ui.fragment.AppDetailFragment;
@@ -35,6 +39,7 @@ import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
 
 public class AppDetailActivity extends BaseActivity<AppDetailPresenter> {
@@ -62,6 +67,12 @@ public class AppDetailActivity extends BaseActivity<AppDetailPresenter> {
 
     @Bind(R.id.download_btn)
     DownloadButton download_btn;
+
+    @Bind(R.id.ic_share)
+    ImageView mShareBtn;
+
+    @Bind(R.id.ic_dolike)
+    ImageView mDoLike;
 
     private AppInfo mAppInfo;
     private boolean closeAnimation;
@@ -228,9 +239,51 @@ public class AppDetailActivity extends BaseActivity<AppDetailPresenter> {
     protected void onDestroy() {
         super.onDestroy();
 
-        if (onclick){
+        if (onclick) {
             RxBus.getDefault().post(new AppDetailPageDownLoadBtnClickEvent(null, getIntent().getIntExtra("position", 0)));
         }
 
+    }
+
+
+    @OnClick({R.id.ic_dolike, R.id.ic_share})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.ic_dolike:
+                break;
+            case R.id.ic_share:
+                openShareMenu();
+                break;
+        }
+    }
+
+    private void openShareMenu() {
+        final String shareTextWithPlatformName = ResourceUtil.getFormattedString(
+                getResources(),
+                R.string.share_appino_message,
+                "app_name",
+                mAppInfo.getDisplayName()) + "\n" + "http://app.xiaomi.com/detail/"+mAppInfo.getId();
+        ShareUtils.showShareMenu(
+                ShareUtils.newShareIntent(shareTextWithPlatformName),
+                mShareBtn,
+                new ShareUtils.ShareMenuItemListener() {
+                    @Override
+                    public void onMenuItemClick(@NonNull ComponentName componentName, @NonNull ShareUtils.ShareType shareType) {
+                        final String shareText;
+                        if (shareType == ShareUtils.ShareType.UNKNOWN) {
+                            shareText = shareTextWithPlatformName;
+                        } else {
+                            shareText = getSharingText(shareType);
+                        }
+                        final Intent intent = ShareUtils.newShareIntent(shareText);
+                        intent.setComponent(componentName);
+                        startActivity(intent);
+                    }
+
+                    @NonNull
+                    private String getSharingText(@NonNull ShareUtils.ShareType shareType) {
+                        return "";
+                    }
+                });
     }
 }

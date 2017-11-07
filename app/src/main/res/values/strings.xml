@@ -53,4 +53,5 @@
     <string name="key_version">key_version</string>
     <string name="title">我的手机助手智能安装</string>
     <string name="description">装应用时候我帮你点</string>
+    <string name="share_appino_message">在我的手机助手商店发现一个很有趣的App:{app_name},分享一下！传送门:</string>
 </resources>

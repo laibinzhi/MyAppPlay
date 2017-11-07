@@ -104,6 +104,7 @@ dependencies {
     compile('cn.qqtheme.framework:FilePicker:1.4.4') {
         exclude group: 'com.android.support'
     }
+    compile 'com.squareup.phrase:phrase:1.1.0'
 
 }
 
