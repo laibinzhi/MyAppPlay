@@ -1,5 +1,7 @@
+# 概况
+一个AppStore，基于 Material Design + MVP + Retrofit +Dagger2+Rx全家桶，基本涵盖了当前 Android 端开发最常用的主流框架，基于此框架可以快速开发一个app。
 # 分包情况
-![image](http://i2.bvimg.com/656323/0a2d5df0d5952dff.png)
+![image](http://pd4brty72.bkt.clouddn.com/PackageDirectory.png)
 # 项目描述
 《我的手机助手》是一个App应用商店，主要包括应用列表（推荐、排行、游戏、分类），下载（断点续传、下载管理），安装（静默安装、自动安装），搜索（历时搜索，关键字配对搜索），管理（下载记录，app升级、本地app、卸载），系统设置等。
 # 项目地址
@@ -7,7 +9,7 @@ https://github.com/laibinzhi/MyAppPlay
 # 安装地址
 https://fir.im/g27t
 
-![image](http://i2.bvimg.com/656323/9a0d7070163407fe.png)
+![image](http://pd4brty72.bkt.clouddn.com/app_erweima.png)
 # 应用技术
 - 基于Google官方出品的Mvp架构,实现解耦，基类Activity,Fragment,Presenter高度封装。
 - 使用Dagger2依赖注入，通过Apt编译时生成代码，解耦并且更好避免对象的重复实例化。
@@ -20,6 +22,8 @@ https://fir.im/g27t
 - 图片加载框架Glide和Picasso以及封装图片加载类 ImageLoader, 使用建造者模式,轻松切换图片加载框架,方便功能扩展。
 - ButterKnife取代findviewbyid实现view的注入，简化代码
 - GreenDao轻量级数据库实现数据缓存。
+
 # 截图
-![image](http://i2.bvimg.com/656323/c3853841bda557d4.gif) 
-    ![image](http://i2.bvimg.com/656323/1015710ed2ee2033.gif)    ![image](http://i2.bvimg.com/656323/ff7bd14697f9440d.gif)    ![image](http://i2.bvimg.com/656323/3f70a3e6ac330f25.gif)    ![image](http://i2.bvimg.com/656323/f0ee370099af5cf6.gif)
+
+![image](http://pd4brty72.bkt.clouddn.com/app1.gif) 
+    ![image](http://pd4brty72.bkt.clouddn.com/app2.gif)    ![image](http://pd4brty72.bkt.clouddn.com/app3.gif)    ![image](http://pd4brty72.bkt.clouddn.com/app4.gif)    ![image](http://pd4brty72.bkt.clouddn.com/app5.gif)
