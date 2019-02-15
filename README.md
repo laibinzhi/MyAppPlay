@@ -1,6 +1,5 @@
 # 概况
 一个AppStore，基于 Material Design + MVP + Retrofit +Dagger2+Rx全家桶，基本涵盖了当前 Android 端开发最常用的主流框架，基于此框架可以快速开发一个app。
-<!--more-->
 # 分包情况
 ![image](http://lbz-blog.test.upcdn.net/post/PackageDirectory.png)
 # 项目描述
@@ -27,4 +26,11 @@ https://fir.im/g27t
 # 截图
 
 ![image](http://lbz-blog.test.upcdn.net/post/app1.gif) 
-    ![image](http://lbz-blog.test.upcdn.net/post/app2.gif)    ![image](http://lbz-blog.test.upcdn.net/post/app3.gif)    ![image](http://lbz-blog.test.upcdn.net/post/app4.gif)    ![image](http://lbz-blog.test.upcdn.net/post/app5.gif)
+
+![image](http://lbz-blog.test.upcdn.net/post/app2.gif)
+
+![image](http://lbz-blog.test.upcdn.net/post/app3.gif)
+
+![image](http://lbz-blog.test.upcdn.net/post/app4.gif)
+
+![image](http://lbz-blog.test.upcdn.net/post/app5.gif)
