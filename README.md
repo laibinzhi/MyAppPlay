@@ -1,7 +1,8 @@
 # 概况
 一个AppStore，基于 Material Design + MVP + Retrofit +Dagger2+Rx全家桶，基本涵盖了当前 Android 端开发最常用的主流框架，基于此框架可以快速开发一个app。
+<!--more-->
 # 分包情况
-![image](http://pd4brty72.bkt.clouddn.com/PackageDirectory.png)
+![image](http://lbz-blog.test.upcdn.net/post/PackageDirectory.png)
 # 项目描述
 《我的手机助手》是一个App应用商店，主要包括应用列表（推荐、排行、游戏、分类），下载（断点续传、下载管理），安装（静默安装、自动安装），搜索（历时搜索，关键字配对搜索），管理（下载记录，app升级、本地app、卸载），系统设置等。
 # 项目地址
@@ -9,7 +10,7 @@ https://github.com/laibinzhi/MyAppPlay
 # 安装地址
 https://fir.im/g27t
 
-![image](http://pd4brty72.bkt.clouddn.com/app_erweima.png)
+![image](http://lbz-blog.test.upcdn.net/post/app_erweima.png)
 # 应用技术
 - 基于Google官方出品的Mvp架构,实现解耦，基类Activity,Fragment,Presenter高度封装。
 - 使用Dagger2依赖注入，通过Apt编译时生成代码，解耦并且更好避免对象的重复实例化。
@@ -25,5 +26,5 @@ https://fir.im/g27t
 
 # 截图
 
-![image](http://pd4brty72.bkt.clouddn.com/app1.gif) 
-    ![image](http://pd4brty72.bkt.clouddn.com/app2.gif)    ![image](http://pd4brty72.bkt.clouddn.com/app3.gif)    ![image](http://pd4brty72.bkt.clouddn.com/app4.gif)    ![image](http://pd4brty72.bkt.clouddn.com/app5.gif)
+![image](http://lbz-blog.test.upcdn.net/post/app1.gif) 
+    ![image](http://lbz-blog.test.upcdn.net/post/app2.gif)    ![image](http://lbz-blog.test.upcdn.net/post/app3.gif)    ![image](http://lbz-blog.test.upcdn.net/post/app4.gif)    ![image](http://lbz-blog.test.upcdn.net/post/app5.gif)
